@@ -6,24 +6,13 @@ import { Router } from '@angular/router';
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit, AfterViewInit {
+export class LoginComponent implements OnInit {
 
     constructor(public router: Router) {}
 
     ngOnInit() {}
 
-    ngAfterViewInit() {
-        $(function() {
-            $(".preloader").fadeOut();
-        });
-        $(function() {
-            (<any>$('[data-toggle="tooltip"]')).tooltip()
-        });
-        $('#to-recover').on("click", function() {
-            $("#loginform").slideUp();
-            $("#recoverform").fadeIn();
-        });
-    }
+    
 
     onLoggedin() {
         localStorage.setItem('isLoggedin', 'true');

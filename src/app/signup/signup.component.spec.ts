@@ -1,27 +1,32 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-
 import { SignupComponent } from './signup.component';
+import { TestBed, async } from '@angular/core/testing'; 
+import { RouterTestingModule } from '@angular/router/testing';
+ 
+describe('Login', () => {
+    beforeEach(async(() => {
+      TestBed.configureTestingModule({
 
-describe('SignupComponent', () => {
-  let component: SignupComponent;
-  let fixture: ComponentFixture<SignupComponent>;
+        providers:[  ],
+        imports: [  RouterTestingModule ],
+        declarations: [ SignupComponent ]
+      }).compileComponents();
+    }));
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
-      declarations: [ SignupComponent ]
-    })
-    .compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SignupComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    /**
+     * Handles create new user success
+     */
+    it('create new user success',  () => {
+      const fixture = TestBed.createComponent(SignupComponent);
+      const app = fixture.debugElement.componentInstance;
+      expect(app.createUser('a','b','c','c')).toBe('true');
+    });
+   
+    /**
+     * Handles create new user fail
+     */
+    it('create new user fail',  () => {
+      const fixture = TestBed.createComponent(SignupComponent);
+      const app = fixture.debugElement.componentInstance;
+      expect(app.createUser('a','b','c','d')).toBe('false');
+    });
 });
