@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {environment } from '../../environments/environment';
+import { Http ,Headers,RequestOptions} from '@angular/http';
+import 'rxjs/add/operator/map';
 @Component({
     selector: 'app-signup',
     templateUrl: './signup.component.html',
     styleUrls: ['./signup.component.css']
 })
+ 
 export class SignupComponent implements OnInit {
-
-    constructor(private router :Router) { }
+    result:any;
+    constructor(private http: Http,private router :Router) { }
 
     ngOnInit() { }
 
@@ -16,14 +20,30 @@ export class SignupComponent implements OnInit {
      */
     createUser(name,email,password,passwordverification) {
         if(password===passwordverification){ 
-            console.log(name,email,password,passwordverification);
-            console.log('password  correct');
-            return 'true'; 
-         } 
-         else{  
-            console.log(name,email,password,passwordverification);
-            console.log('password incorrect');
-             return'false';
-            } 
+            
+            let url = environment.baseApiUrl+'/'+environment.baseApiPrefix+'/'+environment.baseApiVersion+'/users';
+            let postData = {
+              client_id : environment.baseApiClientId ,
+              client_secret :environment.baseApiClientSecret,
+              grant_type : environment.baseApiGrantType,
+              name : name,
+              email:email,
+              password :password,
+              provider : "system",
+              provider_id : 1
+            };
+        
+            const headers = new Headers(); 
+            headers.append('Content-Type', 'application/json; charset=utf-8'); 
+            headers.append('Access-Control-Allow-Origin', '*');  
+            let options = new RequestOptions({ headers: headers }); 
+             this.http.post( url, { data : postData },options).map(( response ) => response.json());
+           
+             
+         
+        }
+        else{
+            return 'false';
+        }
      }
 }

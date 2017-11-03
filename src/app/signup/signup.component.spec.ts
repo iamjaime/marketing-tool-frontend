@@ -1,14 +1,30 @@
 import { SignupComponent } from './signup.component';
-import { TestBed, async } from '@angular/core/testing'; 
+import { TestBed, async ,inject} from '@angular/core/testing'; 
 import { RouterTestingModule } from '@angular/router/testing';
- 
-describe('Login', () => {
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
+import { Http,ConnectionBackend ,Headers,RequestOptions} from '@angular/http';
+import {environment } from '../../environments/environment';
+import {NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-        providers:[  ],
-        imports: [  RouterTestingModule ],
-        declarations: [ SignupComponent ]
+   
+const headers = new Headers(); 
+headers.append('Content-Type', 'application/json; charset=utf-8'); 
+headers.append('Access-Control-Allow-Origin', '*');  
+let options = new RequestOptions({ headers: headers }); 
+
+export function provideConfig() {
+  return options;
+}
+
+describe('Sign Up', () => {
+  var response;
+    beforeEach(async(() => {
+  
+      TestBed.configureTestingModule({
+ 
+        providers:[ Http,NgbModule,ConnectionBackend,{  provide: RequestOptions, useFactory: provideConfig } ],
+        imports: [ RouterTestingModule,NgbModule.forRoot () ], 
+        declarations: [ SignupComponent ],
+       
       }).compileComponents();
     }));
 
@@ -16,17 +32,19 @@ describe('Login', () => {
      * Handles create new user success
      */
     it('create new user success',  () => {
+      
       const fixture = TestBed.createComponent(SignupComponent);
-      const app = fixture.debugElement.componentInstance;
-      expect(app.createUser('a','b','c','c')).toBe('true');
+      const app = fixture.componentInstance;
+      expect(app.createUser('bart','bart@simpson','12345','12345')).toBeDefined();
     });
-   
-    /**
-     * Handles create new user fail
-     */
-    it('create new user fail',  () => {
+    
+
+    it('create new user Faile',  () => {
+      
       const fixture = TestBed.createComponent(SignupComponent);
-      const app = fixture.debugElement.componentInstance;
-      expect(app.createUser('a','b','c','d')).toBe('false');
+      const app = fixture.componentInstance;
+      expect(app.createUser('bart','bart@simpson','12345','12345s')).toBeDefined(response);
     });
+
+ 
 });
