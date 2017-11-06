@@ -12,7 +12,7 @@ import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-logi
 import { FacebookModule } from 'ngx-facebook';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 import { ServicesService } from './services/services.service';
-import {  SignupService } from './services/signup.service/signup.service';
+import {  UserService } from './services/User.service/user.service';
 import {  LoginService } from './services/Login.service/login.service';
 
 const config2: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
@@ -46,7 +46,7 @@ export function provideConfig() {
     FacebookModule.forRoot(),
     SocketIoModule.forRoot(config2),
   ],
-  providers: [ServicesService,SignupService,LoginService,
+  providers: [ServicesService,UserService,LoginService,
     {
     provide: AuthServiceConfig,
     useFactory: provideConfig,

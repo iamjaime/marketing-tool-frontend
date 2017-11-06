@@ -4,7 +4,7 @@ import {environment } from '../../../environments/environment';
 import { Http ,Headers,RequestOptions,Response} from '@angular/http';
  
 @Injectable()
-export class SignupService {
+export class UserService {
 
   constructor(private http: Http,private router :Router) { }
   url = environment.baseApiUrl+'/'+environment.baseApiPrefix+'/'+environment.baseApiVersion;
