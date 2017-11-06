@@ -16,7 +16,7 @@ describe('LoginService', () => {
       ]
     });
   }); 
-  
+
   /**
    * Handles Autentication process
    */
@@ -34,14 +34,14 @@ describe('LoginService', () => {
 
       mockBackend.connections.subscribe((connection) => {
         connection.mockRespond(new Response(new ResponseOptions({
-          body: JSON.stringify(mockResponse)
+          body: mockResponse
         })));
       });
         
         service.Auth('jaime@iamjaime.com','Test123').subscribe(data => {
-          var datas= data.json() ;
-          console.log(data );
-          expect(data).toBeDefined();
+          var datas = data.json() ;
+          console.log(datas);
+          expect(datas.data[0].access_token).toBeDefined('eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImY5OWUwZWU4MzNkYTA0YWMzNmQyYWJmNGI5NDEzNTdlMTlhZWJmN2MyYzc5MTM2YTY5MjAwMDE0Mzg1YWViYzFiZjNmYzlmYjlmMDE5ODIxIn0.eyJhdWQiOiIxIiwianRpIjoiZjk5ZTBlZTgzM2RhMDRhYzM2ZDJhYmY0Yjk0MTM1N2UxOWFlYmY3YzJjNzkxMzZhNjkyMDAwMTQzODVhZWJjMWJmM2ZjOWZiOWYwMTk4MjEiLCJpYXQiOjE1MDk5ODYyNTEsIm5iZiI6MTUwOTk4NjI1MSwiZXhwIjoxNTQxNTIyMjUxLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.WmfmJrsUYf5Lk37ihnBgqIs74-jdPAwhmafggI9__rGP4-3TTbGw0x6nraYasjh-lovhd1-qqLqYFqXXX5UKYcJKd6sFPtXaqP3xK_bsWZOYXmOG4tgXjDctNzdrWiJEouFu_dG_g59mnLKK8HnEuwWhOex2rtpmx-ZdQWWDsp7dialYU2SlnV7TZOqtmPJYaQyRynN2VO5MXDAUz_C6DD_R-iiRqQMdJohLyCZZXFywKuRGQ1xbgeTIUyLmc2nRNCJJ7udk2BSMvzB3c-PVlBX5Kb4eypLQgtxrdpijYa614F98Tzt1Qb9c4kDHr0V5rs9F2lvawiN7JN75Q-nUzVMykb3xwbFxVBc1L0W4MJIF-8FknevSsIdNh90Tktu7Zl0vY0MWnbAPb3obCxHTZWXdyXeZa8gCi0NVJOTMxuFxBsJ6TEsVGgMAWD7VmSyUZkEqwnOzejbYgNxT_ROLmmHXCl1gsaMl5rMPekryHF1cX7OlG8b28QZ5XEybpqiO3C_-AL2TPtjaqAyokLl9JoP-KTOVKXu9RLB1rpxFdZ-XGEDw0ljutImRMSciCRsc0fGLBWT9CNROAMZsMKYwG8opaclUL1vJS0wKxfEXNghC2Ox2j883oTKk_aMsXMpKV01ZupZlkP4q6grMvqxWIOKSkjpPMHr_eBngsSf6ESs');
           done();
         });
       })();

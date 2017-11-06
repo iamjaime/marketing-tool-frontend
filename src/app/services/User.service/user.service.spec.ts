@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router'; 
 import {   MockConnection } from '@angular/http/testing';
 import { UserService } from './user.service';
-
+let resul:any;
 describe('User', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -26,7 +26,8 @@ describe('User', () => {
     inject([XHRBackend, UserService], (mockBackend: MockBackend, service: UserService) => {
       const mockResponse = {
         data: [
-          {    
+          {
+            "success":true,
             "name": "jaime",
             "email": "jaime1@iamjaime.com",
             "provider": "system",
@@ -40,13 +41,14 @@ describe('User', () => {
 
       mockBackend.connections.subscribe((connection) => {
           connection.mockRespond(new Response(new ResponseOptions({
-          body: JSON.stringify(mockResponse)
+          body:  mockResponse
         })));
       });
         
         service.Add('jonathan','jaime@iamjaime.com','Test123','Test123').subscribe(data => {
-          console.log(data);
-          expect(data).toBeDefined();
+          resul = data.json();
+          console.log(resul.data[0].success);
+          expect(resul.data[0].success).toEqual(true);;
           done();
         });
       })();
