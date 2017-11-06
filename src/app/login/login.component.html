@@ -5,11 +5,11 @@
                 <h3 class="box-title m-b-20">Sign In</h3>
                 <div class="form-group ">
                     <div class="col-xs-12">
-                        <input class="form-control" type="text" placeholder="Username" required=""> </div>
+                        <input class="form-control" type="text"  #email ng-model="email"   id="email" placeholder="Email" required=""> </div>
                 </div>
                 <div class="form-group">
                     <div class="col-xs-12">
-                        <input class="form-control" type="password" placeholder="Password" required=""> </div>
+                        <input class="form-control" type="password" #password ng-model="password"   id="password" placeholder="Password" required=""> </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-md-12">
@@ -20,7 +20,7 @@
                 </div>
                 <div class="form-group text-center">
                     <div class="col-xs-12 p-b-20">
-                        <a class="btn btn-block btn-lg btn-info btn-rounded" [routerLink]="['/starter']" (click)="onLoggedin()">Log In</a>
+                        <a class="btn btn-block btn-lg btn-info btn-rounded"   (click)="onLoggedin(email.value,password.value)">Log In</a>
                     </div>
                 </div>
                 <div class="row">

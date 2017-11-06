@@ -13,6 +13,7 @@ import { FacebookModule } from 'ngx-facebook';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 import { ServicesService } from './services/services.service';
 import {  SignupService } from './services/signup.service/signup.service';
+import {  LoginService } from './services/Login.service/login.service';
 
 const config2: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
 let config = new AuthServiceConfig([
@@ -45,7 +46,8 @@ export function provideConfig() {
     FacebookModule.forRoot(),
     SocketIoModule.forRoot(config2),
   ],
-  providers: [ServicesService,SignupService,{
+  providers: [ServicesService,SignupService,LoginService,
+    {
     provide: AuthServiceConfig,
     useFactory: provideConfig,
   }, AuthGuard],

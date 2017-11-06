@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from '../services/Login.service/login.service';
 
 @Component({
     selector: 'app-login',
@@ -7,15 +8,27 @@ import { Router } from '@angular/router';
     styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-    constructor(public router: Router) {}
+    result:any;
+    constructor(public router: Router, private _loginService:LoginService) {}
 
     ngOnInit() {}
 
     
+    /**
+     * Handles authentication process
+     */
+    onLoggedin(Email,Password) {
+        //localStorage.setItem('isLoggedin', 'true');
+    this._loginService.Auth(Email,Password).subscribe((response  )=> {
+        this.result = response.json();
+        console.log(this.result);
+        return this.result ;   
+    },
+    err => {
+        this.result =err.json();
+        return this.result  ; 
+    });  
 
-    onLoggedin() {
-        localStorage.setItem('isLoggedin', 'true');
     }
 
 }

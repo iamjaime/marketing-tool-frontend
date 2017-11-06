@@ -30,14 +30,6 @@ export class SignupService {
      headers.append('Content-Type', 'application/json; charset=utf-8'); 
      headers.append('Access-Control-Allow-Origin', '*');  
      let options = new RequestOptions({ headers: headers }); 
-     this.http.post( this.url+'/users', { data : postData },options).subscribe((response: Response)=> {
-               this.result = response.json();
-               console.log(this.result );
-               return this.result ;  
-           },
-           err => {
-               this.result =err.json();
-               return this.result  ; 
-           });  
+     return this.http.post( this.url+'/users', { data : postData },options);
     }
 }
