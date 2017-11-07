@@ -13,7 +13,7 @@ export class UserService {
   }
 
    /**
-    * Handles create new user process
+    * should create new user process
     */
    create( name, email, password) {
      let postData = {

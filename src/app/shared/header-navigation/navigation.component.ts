@@ -1,5 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
+import { AuthService } from "angular4-social-login";
 
 @Component({
   selector: 'ap-navigation',
@@ -7,12 +9,16 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 })
 export class NavigationComponent implements AfterViewInit {
 	name:string;
-  	showHide:boolean;
-  
-  	constructor() {
-    	this.showHide = true;
+    showHide:boolean;
+    userName= sessionStorage.getItem('name');
+    userEmail= sessionStorage.getItem('email');
+    photo= sessionStorage.getItem('photo');
+
+  	constructor(private authService: AuthService,private router:Router) {
+        this.showHide = true;
+        
   	}
-  
+       
   	changeShowStatus(){
     	this.showHide = !this.showHide;
   	}
@@ -57,5 +63,11 @@ export class NavigationComponent implements AfterViewInit {
         (<any>$('.scroll-sidebar, .right-sidebar, .message-center')).perfectScrollbar();
 
         $("body").trigger("resize");
+    }
+    logou(){
+   
+        sessionStorage.clear();
+        sessionStorage.removeItem('token');
+        this.router.navigate(['/login']);
     }
 }

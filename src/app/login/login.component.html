@@ -3,6 +3,15 @@
         <div class="card-body">
             <form class="form-horizontal form-material" id="loginform">
                 <h3 class="box-title m-b-20">Sign In</h3>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center">
+                        <div class="social">
+                             <i (click)="loginFacebook()"  class="fa fa-facebook-official" style="font-size:60px;color:#29487d"></i>
+                            <i (click)="loginGoogle()" class="fa fa-google-plus-square" style="font-size:60px;color:#d14836"></i>
+                        </div>
+                    </div>
+                </div>
+              
                 <div class="form-group ">
                     <div class="col-xs-12">
                         <input class="form-control" type="text"  #email ng-model="email"   id="email" placeholder="Email" required=""> </div>
@@ -20,17 +29,17 @@
                 </div>
                 <div class="form-group text-center">
                     <div class="col-xs-12 p-b-20">
-                        <a class="btn btn-block btn-lg btn-info btn-rounded"   (click)="onLoggedin(email.value,password.value)">Log In</a>
+                        <a class="btn btn-block btn-lg btn-info btn-rounded"   (click)="login(email.value,password.value)">Log In</a>
                     </div>
                 </div>
-                <div class="row">
+               <!-- <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center">
                         <div class="social">
-                            <a href="javascript:void(0)" class="btn  btn-facebook" data-toggle="tooltip" title="Login with Facebook"> <i aria-hidden="true" class="fa fa-facebook"></i> </a>
-                            <a href="javascript:void(0)" class="btn btn-googleplus" data-toggle="tooltip" title="Login with Google"> <i aria-hidden="true" class="fa fa-google-plus"></i> </a>
+                             <i (click)="loginFacebook()"  class="fa fa-facebook-official" style="font-size:60px;color:#29487d"></i>
+                            <i (click)="loginGoogle()" class="fa fa-google-plus-square" style="font-size:60px;color:red"></i>
                         </div>
                     </div>
-                </div>
+                </div>-->
                 <div class="form-group m-b-0">
                     <div class="col-sm-12 text-center">
                         Don't have an account? <a class="text-info m-l-5" [routerLink]="['/signup']"><b>Sign Up</b></a>

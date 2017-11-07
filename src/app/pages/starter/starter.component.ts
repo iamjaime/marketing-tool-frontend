@@ -1,12 +1,15 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component,OnInit  } from '@angular/core';
 @Component({
 	templateUrl: './starter.component.html'
 })
-export class StarterComponent implements AfterViewInit {
+export class StarterComponent  {
 	subtitle:string;	
 	constructor() {
 		this.subtitle = "This is some text within a card block."
 	}
-
-	ngAfterViewInit(){}
+	ngOnInit(){
+ 
+	}
+ 
+	
 }

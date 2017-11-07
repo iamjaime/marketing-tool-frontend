@@ -5,7 +5,9 @@ import { Component, AfterViewInit } from '@angular/core';
   templateUrl: './sidebar.component.html'
 })
 export class SidebarComponent implements AfterViewInit {
-	
+    userName= sessionStorage.getItem('name');
+    userEmail= sessionStorage.getItem('email');
+    photo= sessionStorage.getItem('photo');
     ngAfterViewInit() {
         $(function () {
             var url = window.location.toString();
