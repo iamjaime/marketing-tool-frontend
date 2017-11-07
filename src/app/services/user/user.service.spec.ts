@@ -1,19 +1,19 @@
- 
+
 import { TestBed, async, inject } from '@angular/core/testing';
 import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
-import { MockBackend } from '@angular/http/testing'; 
-import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router'; 
-import {   MockConnection } from '@angular/http/testing';
+import { MockBackend } from '@angular/http/testing';
+import { Router } from '@angular/router';
 import { UserService } from './user.service';
-let resul:any;
+
+let result : any;
+
 describe('User', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ HttpModule ],
       providers: [{ provide: Router,  useClass: class { navigate = jasmine.createSpy("navigate"); } },
       UserService,
-        {provide: XHRBackend, useClass: MockBackend}
+        { provide: XHRBackend, useClass: MockBackend }
       ]
     });
   });
@@ -22,7 +22,7 @@ describe('User', () => {
   /**
   * Handles create new user process
     */
-  it('User Add', (done) => {
+  it('Should Create A New User', (done) => {
     inject([XHRBackend, UserService], (mockBackend: MockBackend, service: UserService) => {
       const mockResponse = {
         data: [
@@ -41,14 +41,17 @@ describe('User', () => {
 
       mockBackend.connections.subscribe((connection) => {
           connection.mockRespond(new Response(new ResponseOptions({
+          status: 200,
           body:  mockResponse
         })));
       });
-        
-        service.Add('jonathan','jaime@iamjaime.com','Test123','Test123').subscribe(data => {
-          resul = data.json();
-          console.log(resul.data[0].success);
-          expect(resul.data[0].success).toEqual(true);;
+
+        service.create('jonathan','jaime@iamjaime.com','Test123').subscribe(data => {
+          result = data.json();
+
+          expect(result.data.length).toBeGreaterThan(0);
+          expect(result.data[0].success).toEqual(true);
+
           done();
         });
       })();

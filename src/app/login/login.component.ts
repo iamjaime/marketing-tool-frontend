@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService } from '../services/Login.service/login.service';
+import { LoginService } from '../services/login/login.service';
 
 @Component({
     selector: 'app-login',
@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {}
 
-    
+
     /**
      * Handles authentication process
      */
@@ -22,12 +22,12 @@ export class LoginComponent implements OnInit {
     this._loginService.Auth(Email,Password).subscribe((response  )=> {
         this.result = response.json();
         console.log(this.result);
-        return this.result ;   
+        return this.result ;
     },
     err => {
         this.result =err.json();
-        return this.result  ; 
-    });  
+        return this.result  ;
+    });
 
     }
 
