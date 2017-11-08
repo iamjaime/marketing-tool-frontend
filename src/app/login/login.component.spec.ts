@@ -20,7 +20,7 @@ export function provideConfig() {
   return config;
 }
 
-describe('Login', () => {
+describe('Login Componen', () => {
     beforeEach(async(() => {
       TestBed.configureTestingModule({
 
@@ -36,16 +36,33 @@ describe('Login', () => {
     it('should should enter with Email and Password',  () => {
         const fixture = TestBed.createComponent(LoginComponent);
         const app = fixture.debugElement.componentInstance;
-        expect(app.login('jaime@iamjaime.com','Test123')).toBeUndefined();
+        expect(app.login('jaime@iamjaimef.com','Test123')).toBeUndefined();
       });
-
+    
+    /**
+    * should should enter with Email=null and Password
+    */
+    it('should should enter with Email=null and Password',  () => {
+        const fixture = TestBed.createComponent(LoginComponent);
+        const app = fixture.debugElement.componentInstance;
+        expect(app.login( '','Test123')).toBeUndefined();
+      });
+    
+    /**
+    * should should enter with Email=null and Password=null
+    */
+    it('should should enter with Email=null and Password=null',  () => {
+        const fixture = TestBed.createComponent(LoginComponent);
+        const app = fixture.debugElement.componentInstance;
+        expect(app.login( '','')).toBeUndefined();
+      });
     /**
     * should should enter with Google
     */
     it('should should enter with Google',  () => {
       const fixture = TestBed.createComponent(LoginComponent);
       const app = fixture.componentInstance;
-      expect(app.loginGoogle()).toBeUndefined();
+      expect(app.loginGoogle).toBeDefined();
     });
 
     /**
@@ -54,7 +71,7 @@ describe('Login', () => {
     it('should should enter with Facebbok',  () => {
       const fixture = TestBed.createComponent(LoginComponent);
       const app = fixture.componentInstance;
-      expect(app.loginFacebook()).toBeUndefined();
+      expect(app.loginFacebook).toBeDefined();
     });
     
 });

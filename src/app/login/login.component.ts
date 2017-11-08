@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
     private loggedIn: boolean;
     
     constructor(private authService: AuthService,public router: Router, private _loginService:LoginService) {
-        
+
     }
 
     ngOnInit() {
@@ -28,10 +28,9 @@ export class LoginComponent implements OnInit {
     login(Email,Password) {
         
         this._loginService.Auth(Email,Password).subscribe((response  )=> {
-            this.result = response.json();
-            console.log(this.result.access_token);
+            this.result = response.json(); 
             this.assignSession(this.result.access_token,Email);
-            return this.result ;
+            return this.result.access_token ;
         },
         err => {
             this.result =err.json();
