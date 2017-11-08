@@ -18,7 +18,7 @@ describe('Login Service ', () => {
   }); 
 
   /**
-   * Handles Autentication process
+   * should Autentication process
    */
   it('Autentication', (done) => {
     inject([XHRBackend, LoginService], (mockBackend: MockBackend, service: LoginService) => {
@@ -48,6 +48,9 @@ describe('Login Service ', () => {
       })();
   });
 
+  /**
+   * should Autentication error email=null process
+   */
   it('Autentication error email=null ', (done) => {
     inject([XHRBackend, LoginService], (mockBackend: MockBackend, service: LoginService) => {
       const mockResponse = {

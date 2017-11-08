@@ -20,7 +20,7 @@ describe('User Service', () => {
 
 
   /**
-  * Handles create new user process
+  * should create new user process
   */
   it('Should Create A New User', (done) => {
     inject([XHRBackend, UserService], (mockBackend: MockBackend, service: UserService) => {
@@ -57,7 +57,7 @@ describe('User Service', () => {
       })();
   });
   /**
-  * Handles create new user  Email=null process
+  * should create new user  Email=null process
   */
   it('Should Create A New User Email=null Error', (done) => {
     inject([XHRBackend, UserService], (mockBackend: MockBackend, service: UserService) => {
