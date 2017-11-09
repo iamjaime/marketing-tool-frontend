@@ -14,6 +14,7 @@ import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 import { ServicesService } from './services/services.service';
 import {  UserService } from './services/user/user.service';
 import {  LoginService } from './services/login/login.service';
+ 
 
 const config2: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
 let config = new AuthServiceConfig([
@@ -38,7 +39,7 @@ export function provideConfig() {
 
   ],
   imports: [
-    BrowserModule,
+    BrowserModule, 
     FormsModule,
     HttpModule,
     AppRoutingModule,

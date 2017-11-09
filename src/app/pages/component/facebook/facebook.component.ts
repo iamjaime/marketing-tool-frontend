@@ -17,8 +17,10 @@ import swal from 'sweetalert2';
   `]
 })
 
-export class FacebookComponent {
-  closeResult: string;
+ 
+
+export class FacebookComponent   {
+  
   userName= sessionStorage.getItem('name');
   userEmail= sessionStorage.getItem('email');
   photo= sessionStorage.getItem('photo');

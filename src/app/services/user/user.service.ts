@@ -15,14 +15,14 @@ export class UserService {
    /**
     * should create new user process
     */
-   create( name, email, password) {
+   create(data) {
      let postData = {
       client_id : environment.baseApiClientId ,
       client_secret :environment.baseApiClientSecret,
       grant_type : environment.baseApiGrantType,
-      name : name,
-      email:email,
-      password :password,
+      name : data.name,
+      email:data.email,
+      password :data.password,
       provider : "system",
       provider_id : 1
      };

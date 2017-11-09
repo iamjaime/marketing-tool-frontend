@@ -40,6 +40,6 @@ describe('Signup Componen', () => {
     it('should   Create New User   Email=null',  () => {
         const fixture = TestBed.createComponent(SignupComponent);
         const app = fixture.componentInstance;
-        expect(app.createUser('jonathan','','123456')).toBeUndefined();
+        expect(app.createUser('jonathan','','123456')).toBeDefined([0:({ name: 'jonathan', email: '', password: '123456' })] );
     });    
 });

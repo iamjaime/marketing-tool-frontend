@@ -46,7 +46,7 @@ describe('User Service', () => {
         })));
       });
 
-        service.create('jonathan','jaime@iamjaime.com','Test123').subscribe(data => {
+        service.create('jonathan' ).subscribe(data => {
           result = data.json();
 
       
@@ -79,7 +79,7 @@ describe('User Service', () => {
         })));
       });
 
-        service.create('jonathan','','Test123').subscribe(data => {
+        service.create('jonathan' ).subscribe(data => {
           result = data.json(); 
           console.log(result);
           expect(result.data[0].success).toEqual(false);
