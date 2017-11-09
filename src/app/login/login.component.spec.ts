@@ -20,7 +20,7 @@ export function provideConfig() {
   return config;
 }
 
-describe('Login Componen', () => {
+describe('Login Component', () => {
     beforeEach(async(() => {
       TestBed.configureTestingModule({
 
@@ -31,47 +31,47 @@ describe('Login Componen', () => {
     }));
 
     /**
-    * should should enter with Email and Password
+    * should login with Email and Password
     */
-    it('should should enter with Email and Password',  () => {
+    it('should login with Email and Password',  () => {
         const fixture = TestBed.createComponent(LoginComponent);
         const app = fixture.debugElement.componentInstance;
-        expect(app.login('jaime@iamjaimef.com','Test123')).toBeUndefined();
+        expect(app.login('jaime@iamjaime.com','Test123')).toBeUndefined();
       });
-    
+
     /**
-    * should should enter with Email=null and Password
+    * should login with Email=null and Password
     */
-    it('should should enter with Email=null and Password',  () => {
+    it('should login with Email=null and Password',  () => {
         const fixture = TestBed.createComponent(LoginComponent);
         const app = fixture.debugElement.componentInstance;
         expect(app.login( '','Test123')).toBeUndefined();
       });
-    
+
     /**
-    * should should enter with Email=null and Password=null
+    * should login with Email=null and Password=null
     */
-    it('should should enter with Email=null and Password=null',  () => {
+    it('should login with Email=null and Password=null',  () => {
         const fixture = TestBed.createComponent(LoginComponent);
         const app = fixture.debugElement.componentInstance;
         expect(app.login( '','')).toBeUndefined();
       });
     /**
-    * should should enter with Google
+    * should enter with Google
     */
-    it('should should enter with Google',  () => {
+    it('should login with Google',  () => {
       const fixture = TestBed.createComponent(LoginComponent);
       const app = fixture.componentInstance;
       expect(app.loginGoogle).toBeDefined();
     });
 
     /**
-    * should should enter with Facebbok
+    * should login with Facebook
     */
-    it('should should enter with Facebbok',  () => {
+    it('should login with Facebook',  () => {
       const fixture = TestBed.createComponent(LoginComponent);
       const app = fixture.componentInstance;
       expect(app.loginFacebook).toBeDefined();
     });
-    
+
 });
