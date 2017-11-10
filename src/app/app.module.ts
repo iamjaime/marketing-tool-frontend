@@ -13,7 +13,7 @@ import { FacebookModule } from 'ngx-facebook';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io'; 
 import {  UserService } from './services/user/user.service';
 import {  LoginService } from './services/login/login.service';
-import {  FacebookService } from './services/facebook/facebook';
+import {  FacebookServices } from './services/facebook/facebook';
 import { Likes } from './repositories/facebook/likes';
 import { User } from './repositories/user/user';
 import { Login } from './repositories/login/login';
@@ -49,7 +49,7 @@ export function provideConfig() {
     FacebookModule.forRoot(),
     SocketIoModule.forRoot(config2),
   ],
-  providers: [ Login,User,Likes,FacebookService ,UserService,LoginService,
+  providers: [ Login,User,Likes,FacebookServices ,UserService,LoginService,
     {
     provide: AuthServiceConfig,
     useFactory: provideConfig,

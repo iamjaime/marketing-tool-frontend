@@ -5,24 +5,22 @@ export interface likesInterface {
 
   /**
    * Handles Liking A Post
-   */
-  likePost (url: String) : String;
-
-
-  /**
-   * Handles Liking A Photo
-   */
-  likePhoto() : any;
-
+   */ 
+  likes(url,quantity);
 
   /**
-   * Handles Liking A Page
-   */
-  likePage() : any;
-
+   * Handles Liking A Post
+   */ 
+  comments(url,quantity);
 
   /**
-   * Handles Liking A Video
-   */
-  likeVideo() : any;
+   * Handles Liking A Post
+   */ 
+  posts(url,quantity);
+  
+  /**
+   * Handles Liking A Post
+   */ 
+  shered(url,quantity);
+ 
 }

@@ -1,108 +1,229 @@
 <div class="row">
-    <div class="col-md-3">
-        <div class="card">
-            <div class="card-body">
-                <h2 class="card-title"><i class="fa fa-thumbs-o-up fa-2x" style=" color:  #4267b2; 	"></i>Likes</h2>
-                <h6 class="card-subtitle">This is basic toggletype accordion</h6> 
-								<button class=" btn-lg label  label-info" (click)="buy('Likes')"><i class="fa fa-usd" aria-hidden="true"></i>buy package</button> 
-            </div>
-        </div>
+	 
+	<div class="col-md-3">
+		<div class="card">
+			<div class="card-body">
+				<h2 class="card-title">
+					<i class="fa fa-thumbs-o-up fa-2x" style=" color:  #4267b2; 	"></i>Likes</h2>
+				<h6 class="card-subtitle">This is basic toggletype accordion</h6>
+				<button class=" btn-lg label  label-info" (click)="open2(likes)">
+					<i class="fa fa-usd" aria-hidden="true"></i>buy package</button>
+					<ng-template #likes let-c="close" let-d="dismiss">
+							<div class="modal-header"> 
+								<h3 class="card-title">
+									<img src="{{photo}}" style="width: 30px; height: 30px; border-radius: 150px; -webkit-border-radius: 150px; -moz-border-radius: 150px;"
+									/>{{userName}}</h3>
+								<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<div class="form-group">
+									<h4 class="modal-title">
+										<i class="fa fa-share-alt-square fa-2x" aria-hidden="true"></i> Buy Likes</h4>
+									<label for="firstName1">Facebook URL to like:</label>
+									<input #Username ng-model="Username" type="text" id="Username" class="form-control" placeholder="http:// url facebook" required/>
+								</div> <br>
+								<label for="firstName1">Number of Likes:</label>
+								<input #like ng-model="like" type="number" id="like" class="form-control" placeholder="example 10" required/> </div>
+							<div class="form-group"> </div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+								<button type="button" class="btn btn-secondary" (click)="likeService(Username.value,like.value)">Buy Now</button>
+							</div> 
+						</ng-template>
+			</div>
 		</div>
-		<div class="col-md-3">
-        <div class="card">
-            <div class="card-body">
-								<h2 class="card-title"><i class="fa fa-commenting-o fa-2x" style=" color:  #4267b2; 	"></i>Commets</h2>
-                <h6 class="card-subtitle">This is basic toggletype accordion</h6> 
-								<button class=" btn-lg label  label-info" (click)="buy('Commets')"><i class="fa fa-usd" aria-hidden="true"></i>buy package</button> 
-            </div>
-        </div>
+	</div>
+	<div class="col-md-3">
+		<div class="card">
+			<div class="card-body">
+				<h2 class="card-title">
+					<i class="fa fa-commenting-o fa-2x" style=" color:  #4267b2; 	"></i>Commets</h2>
+				<h6 class="card-subtitle">This is basic toggletype accordion</h6>
+			
+				<button class=" btn-lg label  label-info" (click)="open2(Commets)">
+					<i class="fa fa-usd" aria-hidden="true"></i>buy package</button>
+					<ng-template #Commets let-c="close" let-d="dismiss">
+							<div class="modal-header"> 
+								<h3 class="card-title">
+									<img src="{{photo}}" style="width: 30px; height: 30px; border-radius: 150px; -webkit-border-radius: 150px; -moz-border-radius: 150px;"
+									/>{{userName}}</h3>
+								<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<div class="form-group">
+									<h4 class="modal-title">
+										<i class="fa fa-share-alt-square fa-2x" aria-hidden="true"></i> Buy Commets</h4>
+									<label for="firstName1">Facebook URL to like:</label>
+									<input #Username ng-model="Username" type="text" id="Username" class="form-control" placeholder="http:// url facebook" required/>
+								</div> <br>
+								<label for="firstName1">Number of Commets:</label>
+								<input #like ng-model="like" type="number" id="like" class="form-control" placeholder="example 10" required/> </div>
+							<div class="form-group"> </div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+								<button type="button" class="btn btn-secondary" (click)="commentsService(Username.value,like.value)">Buy Now</button>
+							</div> 
+						</ng-template>
+			</div>
 		</div>
-		<div class="col-md-3">
-        <div class="card">
-            <div class="card-body">
-								<h2 class="card-title"><i class="fa fa-globe fa-2x" style=" color:  #4267b2; 	"></i>Posts</h2>
-                <h6 class="card-subtitle">This is basic toggletype accordion</h6> 
-								<button class=" btn-lg label  label-info" (click)="buy('Posts')"><i class="fa fa-usd" aria-hidden="true"></i>buy package</button>
-				 
-            </div>
-        </div>
+	</div>
+	<div class="col-md-3">
+		<div class="card">
+			<div class="card-body">
+				<h2 class="card-title">
+					<i class="fa fa-globe fa-2x" style=" color:  #4267b2; 	"></i>Posts</h2>
+				<h6 class="card-subtitle">This is basic toggletype accordion</h6>
+				<button class=" btn-lg label  label-info" (click)="open2(Posts)">
+					<i class="fa fa-usd" aria-hidden="true"></i>buy package</button>
+					<ng-template #Posts let-c="close" let-d="dismiss">
+							<div class="modal-header"> 
+								<h3 class="card-title">
+									<img src="{{photo}}" style="width: 30px; height: 30px; border-radius: 150px; -webkit-border-radius: 150px; -moz-border-radius: 150px;"
+									/>{{userName}}</h3>
+								<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<div class="form-group">
+									<h4 class="modal-title">
+										<i class="fa fa-share-alt-square fa-2x" aria-hidden="true"></i> Buy Posts</h4>
+									<label for="firstName1">Facebook URL to like:</label>
+									<input #Username ng-model="Username" type="text" id="Username" class="form-control" placeholder="http:// url facebook" required/>
+								</div> <br>
+								<label for="firstName1">Number of Posts:</label>
+								<input #like ng-model="like" type="number" id="like" class="form-control" placeholder="example 10" required/> </div>
+							<div class="form-group"> </div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+								<button type="button" class="btn btn-secondary" (click)="postService(Username.value,like.value)">Buy Now</button>
+							</div> 
+						</ng-template>
+
+			</div>
 		</div>
-		<div class="col-md-3">
-        <div class="card">
-            <div class="card-body">
-								<h2 class="card-title"><i class="fa  fa-share fa-2x" style=" color:  #4267b2; 	"></i>shered</h2>
-                <h6 class="card-subtitle">This is basic toggletype accordion</h6>
-								<button class=" btn-lg label  label-info" (click)="buy('shered')"><i class="fa fa-usd" aria-hidden="true"></i> buy package</button> 
-            </div>
-        </div>
-    </div>
-		
-		<!-- column -->
-		<div class="col-lg-12">
-				<div class="card">
-						<div class="card-body">
-								<h4 class="card-title">Basic Table</h4>
-								<h6 class="card-subtitle">Add class <code>.table</code></h6>
-								<div class="table-responsive">
-										<table class="table">
-												<thead>
-														<tr>
-																<th>#</th>
-																<th>First Name</th>
-																<th>Last Name</th>
-																<th>Username</th>
-																<th>Role</th>
-														</tr>
-												</thead>
-												<tbody>
-														<tr>
-																<td>1</td>
-																<td>Deshmukh</td>
-																<td>Prohaska</td>
-																<td>@Genelia</td>
-																<td><span class="label label-danger">admin</span> </td>
-														</tr>
-														<tr>
-																<td>2</td>
-																<td>Deshmukh</td>
-																<td>Gaylord</td>
-																<td>@Ritesh</td>
-																<td><span class="label label-info">member</span> </td>
-														</tr>
-														<tr>
-																<td>3</td>
-																<td>Sanghani</td>
-																<td>Gusikowski</td>
-																<td>@Govinda</td>
-																<td><span class="label label-warning">developer</span> </td>
-														</tr>
-														<tr>
-																<td>4</td>
-																<td>Roshan</td>
-																<td>Rogahn</td>
-																<td>@Hritik</td>
-																<td><span class="label label-success">supporter</span> </td>
-														</tr>
-														<tr>
-																<td>5</td>
-																<td>Joshi</td>
-																<td>Hickle</td>
-																<td>@Maruti</td>
-																<td><span class="label label-info">member</span> </td>
-														</tr>
-														<tr>
-																<td>6</td>
-																<td>Nigam</td>
-																<td>Eichmann</td>
-																<td>@Sonu</td>
-																<td><span class="label label-success">supporter</span> </td>
-														</tr>
-												</tbody>
-										</table>
-								</div>
-						</div>
+	</div>
+	<div class="col-md-3">
+		<div class="card">
+			<div class="card-body">
+				<h2 class="card-title">
+					<i class="fa  fa-share fa-2x" style=" color:  #4267b2; 	"></i>shered</h2>
+				<h6 class="card-subtitle">This is basic toggletype accordion</h6>
+				<button class=" btn-lg label  label-info" (click)="open2(Shares)">
+					<i class="fa fa-usd" aria-hidden="true"></i> buy package</button>
+					<ng-template #Shares let-c="close" let-d="dismiss">
+							<div class="modal-header"> 
+								<h3 class="card-title">
+									<img src="{{photo}}" style="width: 30px; height: 30px; border-radius: 150px; -webkit-border-radius: 150px; -moz-border-radius: 150px;"
+									/>{{userName}}</h3>
+								<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<div class="form-group">
+									<h4 class="modal-title">
+										<i class="fa fa-share-alt-square fa-2x" aria-hidden="true"></i> Buy Shares</h4>
+									<label for="firstName1">Facebook URL to like:</label>
+									<input #Username ng-model="Username" type="text" id="Username" class="form-control" placeholder="http:// url facebook" required/>
+								</div> <br>
+								<label for="firstName1">Number of Shares:</label>
+								<input #like ng-model="like" type="number" id="like" class="form-control" placeholder="example 10" required/> </div>
+							<div class="form-group"> </div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+								<button type="button" class="btn btn-secondary" (click)="sheredService(Username.value,like.value)">Buy Now</button>
+							</div> 
+						</ng-template>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- column -->
+	<div class="col-lg-12">
+		<div class="card">
+			<div class="card-body">
+				<h4 class="card-title">Basic Table</h4>
+				<h6 class="card-subtitle">Add class
+					<code>.table</code>
+				</h6>
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>First Name</th>
+								<th>Last Name</th>
+								<th>Username</th>
+								<th>Role</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>Deshmukh</td>
+								<td>Prohaska</td>
+								<td>@Genelia</td>
+								<td>
+									<span class="label label-danger">admin</span>
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Deshmukh</td>
+								<td>Gaylord</td>
+								<td>@Ritesh</td>
+								<td>
+									<span class="label label-info">member</span>
+								</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>Sanghani</td>
+								<td>Gusikowski</td>
+								<td>@Govinda</td>
+								<td>
+									<span class="label label-warning">developer</span>
+								</td>
+							</tr>
+							<tr>
+								<td>4</td>
+								<td>Roshan</td>
+								<td>Rogahn</td>
+								<td>@Hritik</td>
+								<td>
+									<span class="label label-success">supporter</span>
+								</td>
+							</tr>
+							<tr>
+								<td>5</td>
+								<td>Joshi</td>
+								<td>Hickle</td>
+								<td>@Maruti</td>
+								<td>
+									<span class="label label-info">member</span>
+								</td>
+							</tr>
+							<tr>
+								<td>6</td>
+								<td>Nigam</td>
+								<td>Eichmann</td>
+								<td>@Sonu</td>
+								<td>
+									<span class="label label-success">supporter</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
+			</div>
 		</div>
-		
-		 
+	</div>
+
+
 </div>

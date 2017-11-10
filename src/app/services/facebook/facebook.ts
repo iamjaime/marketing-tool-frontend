@@ -3,25 +3,36 @@
  */
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import {environment } from '../../../environments/environment';
-import { Http ,Headers,RequestOptions,Response} from '@angular/http';
+import { environment } from '../../../environments/environment';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { FacebookService, UIParams, UIResponse, InitParams } from 'ngx-facebook';
 
+declare const FB: any;
 @Injectable()
-export class FacebookService {
+export class FacebookServices { 
+  url = environment.baseApiUrl;
+  result: any;
+  response: any;
 
-  url = environment.baseApiUrl ;
-  result:any;
-  response:any;
-
-  constructor(private http: Http,private router :Router) {
-
+  constructor(private http: Http, private router: Router, private fb: FacebookService) {
+    let initParams: InitParams = {  appId: '531968097138866', xfbml: true,  version: 'v2.10'  };
+    this.fb.init(initParams);
   }
+
 
   /**
-   * Handles getting facebook user details
-   * @returns {Observable<Response>}
+   * Handles getting facebook whit id
    */
-  getUserDetails() {
-    console.log('Facebook Service');
+  getUserDetails(id) {
+    FB.api(
+      '/'+id,
+      'GET',
+      { "fields": "sharedposts{from,name,description,full_picture,is_published,permalink_url,created_time},format" },
+      function (response) { this.result = response;
+        console.log(this.result);
+      }
+    );
   }
+  
+
 }
