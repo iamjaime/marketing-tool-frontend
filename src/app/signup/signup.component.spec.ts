@@ -22,7 +22,7 @@ describe('Signup Componen', () => {
     it('should   Create New User ',  () => {
         const fixture = TestBed.createComponent(SignupComponent);
         const app = fixture.componentInstance;
-        expect(app.createUser('jonathan','jonathan@gmail.com','123456')).toBeUndefined();
+        expect(app.createUser('jonathan','jonathan@gmail.com','123456')).toBeTruthy();
     });
 
     /**
@@ -31,7 +31,7 @@ describe('Signup Componen', () => {
     it('should   Create New User clone Email',  () => {
         const fixture = TestBed.createComponent(SignupComponent);
         const app = fixture.componentInstance;
-        expect(app.createUser('jaime','jaime@iamjaime.com','Test123')).toBeUndefined();
+        expect(app.createUser('jaime','jaime@iamjaime.com','Test123')).toBeTruthy();
     });
     
     /**
@@ -40,6 +40,6 @@ describe('Signup Componen', () => {
     it('should   Create New User   Email=null',  () => {
         const fixture = TestBed.createComponent(SignupComponent);
         const app = fixture.componentInstance;
-        expect(app.createUser('jonathan','','123456')).toBeDefined([0:({ name: 'jonathan', email: '', password: '123456' })] );
+        expect(app.createUser('jonathan','','123456')).toBeTruthy();
     });    
 });

@@ -10,11 +10,12 @@ import { AppComponent } from './app.component';
 import { SocialLoginModule, AuthServiceConfig } from "angular4-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
 import { FacebookModule } from 'ngx-facebook';
-import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
-import { ServicesService } from './services/services.service';
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io'; 
 import {  UserService } from './services/user/user.service';
 import {  LoginService } from './services/login/login.service';
- 
+import {  FacebookService } from './services/facebook/facebook';
+import { Likes } from './repositories/facebook/likes';
+import { User } from './repositories/user/user';
 
 const config2: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
 let config = new AuthServiceConfig([
@@ -47,7 +48,7 @@ export function provideConfig() {
     FacebookModule.forRoot(),
     SocketIoModule.forRoot(config2),
   ],
-  providers: [ServicesService,UserService,LoginService,
+  providers: [ User,Likes,FacebookService ,UserService,LoginService,
     {
     provide: AuthServiceConfig,
     useFactory: provideConfig,

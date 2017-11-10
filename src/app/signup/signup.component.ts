@@ -1,9 +1,9 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user/user.service';
-import { User,userAction } from '../Contracts/user.service';
+ 
 import { Injectable } from '@angular/core';
-
+import { User } from '../repositories/user/user';
 
 @Component({
     selector: 'app-signup',
@@ -11,29 +11,19 @@ import { Injectable } from '@angular/core';
     styleUrls: ['./signup.component.css']
 })
 @Injectable()
-export class SignupComponent implements OnInit,userAction {
+export class SignupComponent implements OnInit  {
     result:any;
-    constructor( private router :Router, private User :UserService) { }
+    constructor( private router :Router, private User :User) { }
 
     ngOnInit() { }
 
-    /**
+     /**
      * Handles create new user process
      */
-  
      createUser(username,useremail,userpassword) {
-        const data: User[] = [  {  name: username, email: useremail,  password: userpassword }  ];   
-        this.User.create(data[0]).subscribe((response  )=> {
-            this.result = response.json();
-            console.log(this.result);
-            return this.result ;
-        },
-        err => {
-            this.result =err.json();
-            return this.result  ;
-            
-        });
-        console.log(data);
-        return data;
+       this.User.create(username,useremail,userpassword);
       }
+
+
+
 }

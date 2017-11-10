@@ -6,7 +6,7 @@ export interface likesInterface {
   /**
    * Handles Liking A Post
    */
-  likePost() : any;
+  likePost (url: String) : String;
 
 
   /**

@@ -22,6 +22,6 @@ export class FacebookService {
    * @returns {Observable<Response>}
    */
   getUserDetails() {
-    //do something here
+    console.log('Facebook Service');
   }
 }

@@ -15,8 +15,10 @@ export class Likes implements likesInterface {
   /**
    * Handles liking a post
    */
-  public likePost() {
-
+  public likePost(url='' ){
+    console.log('Repositorie Likes e interface likeInterface datos:'+url );
+    this.facebook.getUserDetails();
+     return url;
   }
 
   /**
