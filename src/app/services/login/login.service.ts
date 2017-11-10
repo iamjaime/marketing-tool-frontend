@@ -9,8 +9,9 @@ export class LoginService {
   result:any;
   response:any;
   
-  constructor(private http: Http,private router :Router) { }
-
+  constructor(private http: Http,private router :Router) { 
+    
+  }
 
    /**
     * Handles authentication service

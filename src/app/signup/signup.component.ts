@@ -22,8 +22,5 @@ export class SignupComponent implements OnInit  {
      */
      createUser(username,useremail,userpassword) {
        this.User.create(username,useremail,userpassword);
-      }
-
-
-
+      } 
 }

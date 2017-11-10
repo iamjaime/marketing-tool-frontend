@@ -1,10 +1,10 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService } from '../services/login/login.service';
+ 
 import { AuthService } from "angular4-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angular4-social-login";
 import { SocialUser } from "angular4-social-login";
-
+import {  Login } from '../repositories/login/login';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
     private user: SocialUser;
     private loggedIn: boolean;
     
-    constructor(private authService: AuthService,public router: Router, private _loginService:LoginService) {
+    constructor(private authService: AuthService,public router: Router, private _loginService:Login) {
 
     }
 
@@ -25,17 +25,8 @@ export class LoginComponent implements OnInit {
      /**
      * Handles authentication process
      */
-    login(Email,Password) {
-        
-        this._loginService.Auth(Email,Password).subscribe((response  )=> {
-            this.result = response.json(); 
-            this.assignSession(this.result.access_token,Email);
-            return this.result.access_token ;
-        },
-        err => {
-            this.result =err.json();
-            return this.result  ;
-        }); 
+    login(Email,Password) { 
+        this._loginService.login(Email,Password); 
         }
     
     /**
@@ -73,22 +64,5 @@ export class LoginComponent implements OnInit {
                 this.navigationStar();
              }
         }); 
-    }
-    /**
-     *  Handles assign session by Email autentication
-     */
-    assignSession(token,email){
-        
-        if(token){ 
-            sessionStorage.setItem('token', token);
-            sessionStorage.setItem('name', email);
-            sessionStorage.setItem('email', email);
-            sessionStorage.setItem('photo', 'assets/images/users/1.jpg');
-            this.router.navigate(['/starter']);
-            this.authService.signOut();   
-            this.navigationStar();
-        }  
-    }
-
-    
+    } 
 }
