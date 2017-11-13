@@ -1,10 +1,10 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import swal from 'sweetalert2';
-import { LikesRepositorio } from '../../../repositories/facebook/likes';
-import { CommetsRepositorio } from '../../../repositories/facebook/commets';
-import { PostsRepositorio } from '../../../repositories/facebook/posts';
-import { SharesRepositorio } from '../../../repositories/facebook/shares';
+import { LikeRepository } from '../../../repositories/facebook/like';
+import { CommentRepository } from '../../../repositories/facebook/comment';
+import { PostRepository } from '../../../repositories/facebook/post';
+import { ShareRepository } from '../../../repositories/facebook/share';
 
 @Component({
   selector: 'ngbd-modal',
@@ -29,7 +29,7 @@ export class FacebookComponent {
   closeResult: string;
   fragment:any;
 
-  constructor(private modalService: NgbModal, private modalService2: NgbModal, private likes: LikesRepositorio, private comments: CommetsRepositorio, private post: PostsRepositorio, private share: SharesRepositorio) {
+  constructor(private modalService: NgbModal, private modalService2: NgbModal, private likes: LikeRepository, private comments: CommentRepository, private post: PostRepository, private share: ShareRepository) {
 
   }
 
@@ -49,7 +49,7 @@ export class FacebookComponent {
    * @param quantity 
    */
   likeService(url, quantity) {
-    var cut =url.split("videos/");
+    var cut =url.split("videos/"); 
     var cuturl =cut[1].split("/");
     this.likes.getAllLikes(cuturl[0], quantity);
   }

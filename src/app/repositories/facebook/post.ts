@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { PostService } from '../../services/facebook/post'; 
 
 @Injectable()
-export class PostsRepositorio implements postInterface {
+export class PostRepository implements postInterface {
 
     public constructor(public facebook: PostService) {
 

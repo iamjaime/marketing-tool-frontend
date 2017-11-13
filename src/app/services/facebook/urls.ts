@@ -18,4 +18,14 @@ comment_id=1973622412896572&comment_tracking=%7B%22tn%22%3A%22R1%22%7D
 groups/1586388721636141/
 groups/229267120420794/
 events/362944430736275/
- marketplace/115817641766379/?ref=bookmark*/
+ marketplace/115817641766379/?ref=bookmark
+ 
+ 
+1 photo.php?fbid=
+2 photos/a.
+3 videos/
+4 videos/g.
+5 events/
+6 groups/
+7 comment_id=
+ */

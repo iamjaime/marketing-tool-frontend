@@ -8,7 +8,7 @@ import { LikeService } from '../../services/facebook/like';
 
 
 @Injectable()
-export class LikesRepositorio implements likeInterface {
+export class LikeRepository implements likeInterface {
 
   public constructor(public facebook: LikeService) {
 

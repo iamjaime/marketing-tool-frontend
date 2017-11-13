@@ -4,11 +4,9 @@
 import { shareInterface } from '../../contracts/facebook/shareInterface';
 import { Injectable } from '@angular/core';
 import { ShareService } from '../../services/facebook/share';
-
-
-
+ 
 @Injectable()
-export class SharesRepositorio implements shareInterface {
+export class ShareRepository implements shareInterface {
 
     public constructor(public facebook: ShareService) {
 

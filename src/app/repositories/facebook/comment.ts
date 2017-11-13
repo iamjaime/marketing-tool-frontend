@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { CommentService } from '../../services/facebook/comment';
 
 @Injectable()
-export class CommetsRepositorio implements commentInterface {
+export class CommentRepository implements commentInterface {
 
     public constructor(public facebook: CommentService) {
 
