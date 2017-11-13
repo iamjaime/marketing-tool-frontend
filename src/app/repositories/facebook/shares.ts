@@ -1,16 +1,16 @@
 /**
  * Created by codehead on 11/9/17.
  */
-import { sharesInterface } from '../../contracts/facebook/sharesInterface';
+import { shareInterface } from '../../contracts/facebook/shareInterface';
 import { Injectable } from '@angular/core';
-import { SharesService } from '../../services/facebook/shares';
+import { ShareService } from '../../services/facebook/share';
 
 
 
 @Injectable()
-export class SharesRepositorio implements sharesInterface {
+export class SharesRepositorio implements shareInterface {
 
-    public constructor(public facebook: SharesService) {
+    public constructor(public facebook: ShareService) {
 
     }
 

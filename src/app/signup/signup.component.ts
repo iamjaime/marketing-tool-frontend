@@ -18,8 +18,11 @@ export class SignupComponent implements OnInit  {
     ngOnInit() { }
 
      /**
-     * Handles create new user process
-     */
+      * Handles create new user process
+      * @param username 
+      * @param useremail 
+      * @param userpassword 
+      */
      createUser(username,useremail,userpassword) {
        this.User.create(username,useremail,userpassword);
       } 

@@ -21,10 +21,10 @@ import { Login } from './repositories/login/login';
 
 import {  UserService } from './services/user/user.service';
 import {  LoginService } from './services/login/login.service';
-import {  LikesService } from './services/facebook/likes';
-import {  PostsService } from './services/facebook/posts';
-import {  SharesService } from './services/facebook/shares';
-import {  CommentsService } from './services/facebook/comments';
+import {  LikeService } from './services/facebook/like';
+import {  PostService } from './services/facebook/post';
+import {  ShareService } from './services/facebook/share';
+import {  CommentService } from './services/facebook/comment';
 
 const config2: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
 let config = new AuthServiceConfig([
@@ -57,7 +57,7 @@ export function provideConfig() {
     FacebookModule.forRoot(),
     SocketIoModule.forRoot(config2),
   ],
-  providers: [ Login,User,LikesService,CommentsService,PostsService,SharesService,
+  providers: [ Login,User,LikeService,CommentService,PostService,ShareService,
     SharesRepositorio, PostsRepositorio,LikesRepositorio, CommetsRepositorio,UserService,LoginService,
     {
     provide: AuthServiceConfig,

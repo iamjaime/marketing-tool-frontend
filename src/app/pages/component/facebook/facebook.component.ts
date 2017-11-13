@@ -27,6 +27,7 @@ export class FacebookComponent {
   photo = sessionStorage.getItem('photo');
   public action: any;
   closeResult: string;
+  fragment:any;
 
   constructor(private modalService: NgbModal, private modalService2: NgbModal, private likes: LikesRepositorio, private comments: CommetsRepositorio, private post: PostsRepositorio, private share: SharesRepositorio) {
 
@@ -48,12 +49,14 @@ export class FacebookComponent {
    * @param quantity 
    */
   likeService(url, quantity) {
-    this.likes.getAllLikes(url, quantity);
+    var cut =url.split("videos/");
+    var cuturl =cut[1].split("/");
+    this.likes.getAllLikes(cuturl[0], quantity);
   }
 
   /**
-   * 
-   * @param url Handles the process to buy comments package
+   * Handles the process to buy comments package
+   * @param url  
    * @param quantity 
    */
   commentsService(url, quantity) {
@@ -77,6 +80,8 @@ export class FacebookComponent {
   sharesService(url, quantity) {
     this.share.getAllShares(url, quantity);
   }
+
+   
 }
 
 

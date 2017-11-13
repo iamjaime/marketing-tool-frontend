@@ -1,7 +1,7 @@
 /**
  * Created by codehead on 11/9/17.
  */
-export interface sharesInterface {
+export interface shareInterface {
 
     /**
      * Handles Shares A Post

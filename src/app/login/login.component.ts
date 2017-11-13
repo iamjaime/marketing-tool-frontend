@@ -23,15 +23,17 @@ export class LoginComponent implements OnInit {
          this.assignSocial();
     }
      /**
-     * Handles authentication process
-     */
+      * Handles authentication process
+      * @param Email 
+      * @param Password 
+      */
     login(Email,Password) { 
         this._loginService.login(Email,Password); 
         }
     
     /**
-    * Handles authentication with Facebook process
-    */
+     * Handles authentication with Facebook process
+     */
     loginFacebook() {
         this.authService.signIn(FacebookLoginProvider.PROVIDER_ID); 
     }

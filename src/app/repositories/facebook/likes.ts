@@ -1,16 +1,16 @@
 /**
  * Created by codehead on 11/9/17.
  */
-import { likesInterface } from '../../contracts/facebook/likesInterface';
+import { likeInterface } from '../../contracts/facebook/likeInterface';
 import { Injectable } from '@angular/core';
-import { LikesService } from '../../services/facebook/likes';
+import { LikeService } from '../../services/facebook/like';
 
 
 
 @Injectable()
-export class LikesRepositorio implements likesInterface {
+export class LikesRepositorio implements likeInterface {
 
-  public constructor(public facebook: LikesService) {
+  public constructor(public facebook: LikeService) {
 
   }
 

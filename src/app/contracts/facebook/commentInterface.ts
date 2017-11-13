@@ -1,10 +1,10 @@
 /**
  * Created by codehead on 11/9/17.
  */
-export interface commentsInterface {
+export interface commentInterface {
 
     /**
-     * Handles comments A Post
+     * Handles Comments A Post
      */
     getAllComments(url, quantity);
 

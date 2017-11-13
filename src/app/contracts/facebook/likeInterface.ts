@@ -1,7 +1,7 @@
 /**
  * Created by codehead on 11/9/17.
  */
-export interface likesInterface {
+export interface likeInterface {
 
     /**
      * Handles Likes A Post

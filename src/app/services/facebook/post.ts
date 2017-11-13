@@ -7,7 +7,7 @@ import { FacebookService, UIParams, UIResponse, InitParams } from 'ngx-facebook'
 declare const FB: any;
 @Injectable()
 
-export class SharesService {
+export class PostService {
 
     constructor(private fb: FacebookService) {
         let initParams: InitParams = { appId: '531968097138866', xfbml: true, version: 'v2.10' };
@@ -15,17 +15,17 @@ export class SharesService {
     }
 
     /**
-     * Handles get facebook shares
+     * Handles  get facebook posts process
      * @param id 
      */
-    getShares(id) {
+    getPosts(id) {
         FB.api(
             '/' + id,
             'GET',
             {"fields":"sharedposts"},
             function (response) {
                 // Insert your code here
-                console.log('shares');  
+                console.log('posts');
                 console.log(response);
             }
         );

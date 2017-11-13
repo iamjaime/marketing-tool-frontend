@@ -7,7 +7,7 @@ import { FacebookService, UIParams, UIResponse, InitParams } from 'ngx-facebook'
 declare const FB: any;
 @Injectable()
 
-export class LikesService {
+export class LikeService {
 
   constructor(private fb: FacebookService) {
     let initParams: InitParams = { appId: '531968097138866', xfbml: true, version: 'v2.10' };
@@ -15,7 +15,7 @@ export class LikesService {
   }
 
   /**
-   * Handles  get facebook Likes
+   * Handles  get facebook Likes  process
    * @param id 
    */
   getLikes(id) {

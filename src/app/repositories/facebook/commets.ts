@@ -1,14 +1,14 @@
 /**
  * Created by codehead on 11/9/17.
  */
-import { commentsInterface } from '../../contracts/facebook/commentsInterface';
+import { commentInterface } from '../../contracts/facebook/commentInterface';
 import { Injectable } from '@angular/core';
-import { CommentsService } from '../../services/facebook/comments';
+import { CommentService } from '../../services/facebook/comment';
 
 @Injectable()
-export class CommetsRepositorio implements commentsInterface {
+export class CommetsRepositorio implements commentInterface {
 
-    public constructor(public facebook: CommentsService) {
+    public constructor(public facebook: CommentService) {
 
     }
 

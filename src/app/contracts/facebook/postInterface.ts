@@ -1,7 +1,7 @@
 /**
  * Created by codehead on 11/9/17.
  */
-export interface postsInterface {
+export interface postInterface {
 
     /**
      * Handles Posts A Post

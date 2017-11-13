@@ -1,16 +1,14 @@
 /**
  * Created by codehead on 11/9/17.
  */
-import { postsInterface } from '../../contracts/facebook/postInterface';
+import { postInterface } from '../../contracts/facebook/postInterface';
 import { Injectable } from '@angular/core';
-import { PostsService } from '../../services/facebook/posts';
-
-
+import { PostService } from '../../services/facebook/post'; 
 
 @Injectable()
-export class PostsRepositorio implements postsInterface {
+export class PostsRepositorio implements postInterface {
 
-    public constructor(public facebook: PostsService) {
+    public constructor(public facebook: PostService) {
 
     }
 
