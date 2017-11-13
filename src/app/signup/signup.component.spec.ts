@@ -5,12 +5,13 @@ import {NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterTestingModule } from '@angular/router/testing'; 
 import { UserService } from '../services/user/user.service';
 import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
+import {User} from '../repositories/user/user'
  
 describe('Signup Componen', () => {
     beforeEach(async(() => {
       TestBed.configureTestingModule({
 
-        providers:[ SignupComponent,UserService, NgbModule, ],
+        providers:[User, SignupComponent,UserService, NgbModule, ],
         imports: [HttpModule,  RouterTestingModule,NgbModule.forRoot () ],
         declarations: [ SignupComponent ]
       }).compileComponents();
@@ -22,7 +23,7 @@ describe('Signup Componen', () => {
     it('should   Create New User ',  () => {
         const fixture = TestBed.createComponent(SignupComponent);
         const app = fixture.componentInstance;
-        expect(app.createUser('jonathan','jonathan@gmail.com','123456')).toBeTruthy();
+        expect(app.createUser('jonathan','jonathan@gmail.com','123456')).toBeUndefined();
     });
 
     /**
@@ -31,7 +32,7 @@ describe('Signup Componen', () => {
     it('should   Create New User clone Email',  () => {
         const fixture = TestBed.createComponent(SignupComponent);
         const app = fixture.componentInstance;
-        expect(app.createUser('jaime','jaime@iamjaime.com','Test123')).toBeTruthy();
+        expect(app.createUser('jaime','jaime@iamjaime.com','Test123')).toBeUndefined();
     });
     
     /**
@@ -40,6 +41,6 @@ describe('Signup Componen', () => {
     it('should   Create New User   Email=null',  () => {
         const fixture = TestBed.createComponent(SignupComponent);
         const app = fixture.componentInstance;
-        expect(app.createUser('jonathan','','123456')).toBeTruthy();
+        expect(app.createUser('jonathan','','123456')).toBeUndefined();
     });    
 });

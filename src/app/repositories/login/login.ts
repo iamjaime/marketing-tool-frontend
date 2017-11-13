@@ -2,7 +2,9 @@ import { LoginInterface } from '../../contracts/login/loginInterface';
 import { Injectable } from '@angular/core';
 import { LoginService } from '../../services/login/login.service';
 import { Router } from '@angular/router';
+
 @Injectable()
+
 export class Login  implements LoginInterface {
     result:any;
   public constructor( private  loginService:LoginService ,private router:Router ){

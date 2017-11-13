@@ -27,6 +27,7 @@ export class FacebookComponent {
   photo = sessionStorage.getItem('photo');
   public action: any;
   closeResult: string;
+
   constructor(private modalService: NgbModal, private modalService2: NgbModal, private likes: Likes) {
 
   }
@@ -41,16 +42,27 @@ export class FacebookComponent {
 
     });
   }
-
+  /**
+  * Handles package to buy
+  */
   likeService(url,quantity ){ 
     this.likes.likes(url,quantity);
   }
+  /**
+  * Handles package to buy
+  */
   commentsService(url,quantity ){ 
     this.likes.comments(url,quantity);
   }
+  /**
+  * Handles package to buy
+  */
   postService(url,quantity ){ 
     this.likes.posts(url,quantity);
   }
+  /**
+  * Handles package to buy
+  */
   sheredService(url,quantity ){ 
     this.likes.shered(url,quantity);
   }

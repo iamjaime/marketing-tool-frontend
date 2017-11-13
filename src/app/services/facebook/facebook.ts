@@ -27,12 +27,42 @@ export class FacebookServices {
     FB.api(
       '/'+id,
       'GET',
-      { "fields": "sharedposts{from,name,description,full_picture,is_published,permalink_url,created_time},format" },
-      function (response) { this.result = response;
-        console.log(this.result);
+      {"fields":"likes"},
+      function(response) {
+          // Insert your code here
+          console.log(response);
       }
     );
   }
-  
+ 
+     /**
+   * Handles getting facebook whit id
+   */
+  getLikes(id) {
+    FB.api(
+      '/'+id,
+      'GET',
+      {"fields":"likes"},
+      function(response) {
+          // Insert your code here
+          console.log(response);
+      }
+    );
+  }
+
+     /**
+   * Handles getting facebook whit id
+   */
+  getComments(id) {
+    FB.api(
+      '/'+id,
+      'GET',
+      {"fields":"comments"},
+      function(response) {
+          // Insert your code here
+          console.log(response);
+      }
+    );
+  }
 
 }

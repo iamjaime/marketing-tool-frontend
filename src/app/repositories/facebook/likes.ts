@@ -18,12 +18,12 @@ export class Likes implements likesInterface {
    * Handles liking a post
    */
   public likes(url,quantity){ 
-    this.facebook.getUserDetails(url);
+    this.facebook.getLikes(url);
      return url;
   }
 
   public comments(url,quantity){ 
-    this.facebook.getUserDetails(url);
+    this.facebook.getComments(url);
      return url;
   }
   public posts(url,quantity){ 

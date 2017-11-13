@@ -46,7 +46,7 @@ describe('User Service', () => {
         })));
       });
 
-        service.create('jonathan' ).subscribe(data => {
+        service.create('jonathan','jnathan@gmail.com','1234567890').subscribe(data => {
           result = data.json();
 
       
@@ -79,7 +79,7 @@ describe('User Service', () => {
         })));
       });
 
-        service.create('jonathan' ).subscribe(data => {
+        service.create('jonathan','','1234567890' ).subscribe(data => {
           result = data.json(); 
           console.log(result);
           expect(result.data[0].success).toEqual(false);
