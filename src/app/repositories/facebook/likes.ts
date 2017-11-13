@@ -3,37 +3,24 @@
  */
 import { likesInterface } from '../../contracts/facebook/likesInterface';
 import { Injectable } from '@angular/core';
-import { FacebookServices } from '../../services/facebook/facebook';
- 
+import { LikesService } from '../../services/facebook/likes';
 
- 
+
+
 @Injectable()
-export class Likes implements likesInterface {
+export class LikesRepositorio implements likesInterface {
 
-  public constructor(public facebook : FacebookServices){
+  public constructor(public facebook: LikesService) {
 
   }
 
   /**
-   * Handles liking a post
+   *  Handles process to get the Likes
+   * @param url 
+   * @param quantity 
    */
-  public likes(url,quantity){ 
+  public getAllLikes(url, quantity) {
     this.facebook.getLikes(url);
-     return url;
-  }
-
-  public comments(url,quantity){ 
-    this.facebook.getComments(url);
-     return url;
-  }
-  public posts(url,quantity){ 
-    this.facebook.getUserDetails(url);
-     return url;
-  }
-  public shered(url,quantity){ 
-    this.facebook.getUserDetails(url);
-     return url;
-  }
- 
-
+    return url;
+  } 
 }

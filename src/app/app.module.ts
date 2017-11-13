@@ -11,12 +11,20 @@ import { SocialLoginModule, AuthServiceConfig } from "angular4-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
 import { FacebookModule } from 'ngx-facebook';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io'; 
-import {  UserService } from './services/user/user.service';
-import {  LoginService } from './services/login/login.service';
-import {  FacebookServices } from './services/facebook/facebook';
-import { Likes } from './repositories/facebook/likes';
+
+import { LikesRepositorio } from './repositories/facebook/likes';
+import { CommetsRepositorio } from './repositories/facebook/commets';
+import { PostsRepositorio } from './repositories/facebook/posts';
+import { SharesRepositorio } from './repositories/facebook/shares';
 import { User } from './repositories/user/user';
 import { Login } from './repositories/login/login';
+
+import {  UserService } from './services/user/user.service';
+import {  LoginService } from './services/login/login.service';
+import {  LikesService } from './services/facebook/likes';
+import {  PostsService } from './services/facebook/posts';
+import {  SharesService } from './services/facebook/shares';
+import {  CommentsService } from './services/facebook/comments';
 
 const config2: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
 let config = new AuthServiceConfig([
@@ -49,7 +57,8 @@ export function provideConfig() {
     FacebookModule.forRoot(),
     SocketIoModule.forRoot(config2),
   ],
-  providers: [ Login,User,Likes,FacebookServices ,UserService,LoginService,
+  providers: [ Login,User,LikesService,CommentsService,PostsService,SharesService,
+    SharesRepositorio, PostsRepositorio,LikesRepositorio, CommetsRepositorio,UserService,LoginService,
     {
     provide: AuthServiceConfig,
     useFactory: provideConfig,
