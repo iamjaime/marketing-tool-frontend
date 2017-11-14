@@ -12,10 +12,12 @@ import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-logi
 import { FacebookModule } from 'ngx-facebook';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io'; 
 
-import { LikeRepository } from './repositories/facebook/like';
-import { CommentRepository } from './repositories/facebook/comment';
-import { PostRepository } from './repositories/facebook/post';
-import { ShareRepository } from './repositories/facebook/share';
+import { FacebookSocket } from './repositories/facebook/socket';
+import { FacebookRepository } from './repositories/facebook/facebook';
+import { LikeRepository } from './repositories/services/like';
+import { CommentRepository } from './repositories/services/comment';
+import { PostRepository } from './repositories/services/post';
+import { ShareRepository } from './repositories/services/share';
 import { User } from './repositories/user/user';
 import { Login } from './repositories/login/login';
 
@@ -57,8 +59,8 @@ export function provideConfig() {
     FacebookModule.forRoot(),
     SocketIoModule.forRoot(config2),
   ],
-  providers: [ Login,User,LikeService,CommentService,PostService,ShareService,
-    ShareRepository, PostRepository,LikeRepository, CommentRepository,UserService,LoginService,
+  providers: [ Login,User,LikeService,CommentService,PostService,ShareService,FacebookRepository,
+    FacebookSocket,ShareRepository, PostRepository,LikeRepository, CommentRepository,UserService,LoginService,
     {
     provide: AuthServiceConfig,
     useFactory: provideConfig,

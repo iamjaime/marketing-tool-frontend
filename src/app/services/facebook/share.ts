@@ -2,16 +2,14 @@
  * Created by codehead on 11/9/17.
  */
 import { Injectable } from '@angular/core';
-import { FacebookService, UIParams, UIResponse, InitParams } from 'ngx-facebook';
+import { FacebookSocket } from '../../repositories/facebook/socket';
 
 declare const FB: any;
 @Injectable()
 
 export class ShareService {
 
-    constructor(private fb: FacebookService) {
-        let initParams: InitParams = { appId: '531968097138866', xfbml: true, version: 'v2.10' };
-        this.fb.init(initParams);
+    constructor(private fb: FacebookSocket) { 
     }
 
     /**
@@ -23,8 +21,7 @@ export class ShareService {
             '/' + id,
             'GET',
             {"fields":"sharedposts"},
-            function (response) {
-                // Insert your code here
+            function (response) { 
                 console.log('shares');  
                 console.log(response);
             }

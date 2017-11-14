@@ -1,7 +1,7 @@
 /**
  * Created by codehead on 11/9/17.
  */
-import { postInterface } from '../../contracts/facebook/postInterface';
+import { postInterface } from '../../contracts/services/postInterface';
 import { Injectable } from '@angular/core';
 import { PostService } from '../../services/facebook/post'; 
 

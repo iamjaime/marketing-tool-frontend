@@ -2,16 +2,14 @@
  * Created by codehead on 11/9/17.
  */
 import { Injectable } from '@angular/core';
-import { FacebookService, UIParams, UIResponse, InitParams } from 'ngx-facebook';
+import { FacebookSocket } from '../../repositories/facebook/socket';
 
 declare const FB: any;
 @Injectable()
 
 export class CommentService {
 
-    constructor(private fb: FacebookService) {
-        let initParams: InitParams = { appId: '531968097138866', xfbml: true, version: 'v2.10' };
-        this.fb.init(initParams);
+    constructor(private fb: FacebookSocket) { 
     }
 
     /**
@@ -19,12 +17,11 @@ export class CommentService {
      * @param id 
      */
     getComments(id) {
-        return   FB.api(
+         FB.api(
             '/' + id,
             'GET',
             {"fields":"comments"},
-            function (result) {
-                // Insert your code here
+            function (result) { 
                 console.log('comments');
                 console.log(result);
             }

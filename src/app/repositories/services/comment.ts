@@ -1,7 +1,7 @@
 /**
  * Created by codehead on 11/9/17.
  */
-import { commentInterface } from '../../contracts/facebook/commentInterface';
+import { commentInterface } from '../../contracts/services/commentInterface';
 import { Injectable } from '@angular/core';
 import { CommentService } from '../../services/facebook/comment';
 

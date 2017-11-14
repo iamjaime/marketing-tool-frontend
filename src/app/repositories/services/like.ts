@@ -1,7 +1,7 @@
 /**
  * Created by codehead on 11/9/17.
  */
-import { likeInterface } from '../../contracts/facebook/likeInterface';
+import { likeInterface } from '../../contracts/services/likeInterface';
 import { Injectable } from '@angular/core';
 import { LikeService } from '../../services/facebook/like';
 
