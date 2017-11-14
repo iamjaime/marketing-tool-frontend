@@ -1,10 +1,10 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
- 
+import { Router } from '@angular/router'; 
 import { AuthService } from "angular4-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angular4-social-login";
 import { SocialUser } from "angular4-social-login";
 import {  Login } from '../repositories/login/login';
+import {  User } from '../repositories/user/user';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
     private user: SocialUser;
     private loggedIn: boolean;
     
-    constructor(private authService: AuthService,public router: Router, private _loginService:Login) {
+    constructor(private authService: AuthService,public router: Router, private _loginService:Login, private _userService: User) {
 
     }
 
@@ -57,11 +57,13 @@ export class LoginComponent implements OnInit {
      */
     assignSocial(){
         this.authService.authState.subscribe((user) => { 
+            
             if(user){ 
                 sessionStorage.setItem('token', user.id);
                 sessionStorage.setItem('name', user.name);
                 sessionStorage.setItem('email', user.email);
                 sessionStorage.setItem('photo', user.photoUrl);
+                this._userService.createUserSocial(user.name,user.email,user.provider);
                 this.authService.signOut();
                 this.navigationStar();
              }

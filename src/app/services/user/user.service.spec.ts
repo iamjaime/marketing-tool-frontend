@@ -5,6 +5,7 @@ import { MockBackend } from '@angular/http/testing';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
 
+
 let result : any;
 
 describe('User Service', () => {

@@ -17,6 +17,7 @@ export class LikeService {
    * @param id 
    */
   getLikes(id) {
+    
     FB.api(
       '/' + id,
       'GET',

@@ -17,6 +17,9 @@ export class CommentService {
      * @param id 
      */
     getComments(id) {
+        
+        var FBfunction = function()
+        {
          FB.api(
             '/' + id,
             'GET',
@@ -26,5 +29,6 @@ export class CommentService {
                 console.log(result);
             }
         );
+        }
     }
 }
