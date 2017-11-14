@@ -47,7 +47,7 @@ export class FacebookComponent {
    * @param quantity 
    */
   likeService(url, quantity,) { 
-    this.facebook.Processingurl(url,quantity,'likes'); 
+    this.facebook.parseUrl(url,quantity,'likes'); 
   }
 
   /**
@@ -56,7 +56,7 @@ export class FacebookComponent {
    * @param quantity 
    */
   commentsService(url, quantity) {
-    this.facebook.Processingurl(url,quantity,'comments');  
+    this.facebook.parseUrl(url,quantity,'comments');  
   }
 
   /**
@@ -65,7 +65,7 @@ export class FacebookComponent {
    * @param quantity 
    */
   postsService(url, quantity) {
-    this.facebook.Processingurl(url,quantity,'post'); 
+    this.facebook.parseUrl(url,quantity,'post'); 
     
   }
 
@@ -74,9 +74,8 @@ export class FacebookComponent {
    * @param url 
    * @param quantity 
    */
-  sharesService(url, quantity) {
- 
-    this.facebook.Processingurl(url,quantity,'shere') ;
+  sharesService(url, quantity) { 
+    this.facebook.parseUrl(url,quantity,'shere') ;
    
   }
  

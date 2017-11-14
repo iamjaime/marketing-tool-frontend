@@ -14,19 +14,19 @@ import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 
 import { FacebookSocket } from './repositories/facebook/socket';
 import { FacebookRepository } from './repositories/facebook/facebook';
-import { LikeRepository } from './repositories/services/like';
-import { CommentRepository } from './repositories/services/comment';
-import { PostRepository } from './repositories/services/post';
-import { ShareRepository } from './repositories/services/share';
+import { LikeRepository } from './repositories/facebook/services/like';
+import { CommentRepository } from './repositories/facebook/services/comment';
+import { PostRepository } from './repositories/facebook/services/post';
+import { ShareRepository } from './repositories/facebook/services/share';
 import { User } from './repositories/user/user';
 import { Login } from './repositories/login/login';
 
 import {  UserService } from './services/user/user.service';
 import {  LoginService } from './services/login/login.service';
-import {  LikeService } from './services/facebook/like';
-import {  PostService } from './services/facebook/post';
-import {  ShareService } from './services/facebook/share';
-import {  CommentService } from './services/facebook/comment';
+import {  LikeService } from './services/facebook/services/like';
+import {  PostService } from './services/facebook/services/post';
+import {  ShareService } from './services/facebook/services/share';
+import {  CommentService } from './services/facebook/services/comment';
 
 const config2: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
 let config = new AuthServiceConfig([

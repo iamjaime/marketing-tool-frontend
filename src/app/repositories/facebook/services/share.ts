@@ -1,9 +1,9 @@
 /**
  * Created by codehead on 11/9/17.
  */
-import { shareInterface } from '../../contracts/services/shareInterface';
+import { shareInterface } from '../../../contracts/facebook/services/shareInterface';
 import { Injectable } from '@angular/core';
-import { ShareService } from '../../services/facebook/share';
+import { ShareService } from '../../../services/facebook/services/share';
  
 @Injectable()
 export class ShareRepository implements shareInterface {

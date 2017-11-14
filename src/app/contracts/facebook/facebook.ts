@@ -4,6 +4,6 @@ export interface facebookInterface {
     /**
     * Handles Url Proccess
     */
-    Processingurl(url, quantity, type); 
+    parseUrl(url, quantity, type); 
 
 }

@@ -1,9 +1,9 @@
 /**
  * Created by codehead on 11/9/17.
  */
-import { postInterface } from '../../contracts/services/postInterface';
+import { postInterface } from '../../../contracts/facebook/services/postInterface';
 import { Injectable } from '@angular/core';
-import { PostService } from '../../services/facebook/post'; 
+import { PostService } from '../../../services/facebook/services/post'; 
 
 @Injectable()
 export class PostRepository implements postInterface {

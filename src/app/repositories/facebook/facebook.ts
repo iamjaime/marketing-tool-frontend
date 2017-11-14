@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { LikeRepository } from '../../repositories/services/like';
-import { CommentRepository } from '../../repositories/services/comment';
-import { PostRepository } from '../../repositories/services/post';
-import { ShareRepository } from '../../repositories/services/share'; 
+import { LikeRepository } from '../facebook/services/like';
+import { CommentRepository } from '../facebook/services/comment';
+import { PostRepository } from '../facebook/services/post';
+import { ShareRepository } from '../facebook/services/share'; 
 import { facebookInterface } from '../../contracts/facebook/facebook';
 import { FacebookService, UIParams, UIResponse, InitParams } from 'ngx-facebook';
 
@@ -23,7 +23,7 @@ export class FacebookRepository implements facebookInterface {
    * @param quantity 
    * @param type 
    */
-  Processingurl(url,quantity,type){   
+  parseUrl(url,quantity,type){   
     var  option = url.match( 'videos/');  
     if(option){return this.getIdUrl(quantity,type,url,'videos/','/');}
  

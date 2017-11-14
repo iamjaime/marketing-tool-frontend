@@ -2,7 +2,7 @@
  * Created by codehead on 11/9/17.
  */
 import { Injectable } from '@angular/core';
-import { FacebookSocket } from '../../repositories/facebook/socket';
+import { FacebookSocket } from '../../../repositories/facebook/socket';
 
 declare const FB: any;
 @Injectable()
