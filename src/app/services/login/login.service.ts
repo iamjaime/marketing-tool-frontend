@@ -15,6 +15,8 @@ export class LoginService {
 
    /**
     * Handles authentication service
+    * @param username 
+    * @param password 
     */
    Auth(username, password) { 
     let postData = {

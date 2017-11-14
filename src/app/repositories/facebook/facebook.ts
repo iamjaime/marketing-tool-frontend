@@ -19,31 +19,31 @@ export class FacebookRepository implements facebookInterface {
 
       /**
    * Handles process to get the type of url
-   * @param url 
+   * @param hyperlink 
    * @param quantity 
    * @param type 
    */
-  parseUrl(url,quantity,type){   
-    var  option = url.match( 'videos/');  
-    if(option){return this.getIdUrl(quantity,type,url,'videos/','/');}
+  parseUrl(hyperlink,quantity,type){   
+    var  option = hyperlink.match( 'videos/');  
+    if(option){return this.getIdUrl(quantity,type,hyperlink,'videos/','/');}
  
-    var  option = url.match( 'groups/'); 
-    if(option){return this.getIdUrl(quantity,type,url,'groups/','/');}
+    var  option = hyperlink.match( 'groups/'); 
+    if(option){return this.getIdUrl(quantity,type,hyperlink,'groups/','/');}
  
-    var  option = url.match( 'photos/a.'); 
-    if(option){return this.getIdUrl(quantity,type,url,'photos/a.','.');} 
+    var  option = hyperlink.match( 'photos/a.'); 
+    if(option){return this.getIdUrl(quantity,type,hyperlink,'photos/a.','.');} 
  
-    var  option = url.match( 'events/');  
-    if(option){return this.getIdUrl(quantity,type,url,'events/','/');}
+    var  option = hyperlink.match( 'events/');  
+    if(option){return this.getIdUrl(quantity,type,hyperlink,'events/','/');}
  
-   var  option = url.match( 'fbid=');  
-   if(option){return this.getIdUrl(quantity,type,url,'fbid=','&');}
+   var  option = hyperlink.match( 'fbid=');  
+   if(option){return this.getIdUrl(quantity,type,hyperlink,'fbid=','&');}
  
-   var  option = url.match( 'id=');  
-   if(option){ return this.getIdUrl(quantity,type,url,'id=','&');}
+   var  option = hyperlink.match( 'id=');  
+   if(option){ return this.getIdUrl(quantity,type,hyperlink,'id=','&');}
  
-   var  option = url.match( 'comment_id=');  
-   if(option){  return this.getIdUrl(quantity,type,url,'comment_id=','&');}
+   var  option = hyperlink.match( 'comment_id=');  
+   if(option){  return this.getIdUrl(quantity,type,hyperlink,'comment_id=','&');}
    
  }
  
@@ -53,13 +53,13 @@ export class FacebookRepository implements facebookInterface {
  * Handles  process to obtain the identification and data of Facebook
  * @param quantity 
  * @param action 
- * @param url 
- * @param filtro 
- * @param filtro2 
+ * @param hyperlink 
+ * @param fragment 
+ * @param fragment2 
  */
-getIdUrl(quantity,action,url,filtro,filtro2){
-  var cut = url.split(filtro);
-  var id = cut[1].split(filtro2);
+getIdUrl(quantity,action,hyperlink,fragment,fragment2){
+  var cut = hyperlink.split(fragment);
+  var id = cut[1].split(fragment2);
   if(action==='likes'){
     this.likes.getAllLikes( id[0], quantity);
   }

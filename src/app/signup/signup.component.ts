@@ -23,7 +23,7 @@ export class SignupComponent implements OnInit  {
       * @param useremail 
       * @param userpassword 
       */
-     createUser(username,useremail,userpassword) {
-       this.User.create(username,useremail,userpassword);
+     createUser(userName,userEmail,userPassword) {
+       this.User.create(userName,userEmail,userPassword);
       } 
 }

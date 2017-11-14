@@ -12,8 +12,8 @@ export class User implements UserInterface {
   /**
    * Handles Ceate new User whit service and interface 
    */
-  public create( username,useremail,userpassword) { 
-        this.userservice.create(username,useremail,userpassword).subscribe((response  )=> {
+  public create( userName,userEmail,userPassword) { 
+        this.userservice.create(userName,userEmail,userPassword).subscribe((response  )=> {
             this.result = response.json();
             console.log(this.result);
             return this.result ;

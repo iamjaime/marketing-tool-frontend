@@ -14,6 +14,9 @@ export class UserService {
 
    /**
     * should create new user process
+    * @param username 
+    * @param useremail 
+    * @param userpassword 
     */
    create(username,useremail,userpassword) {
      let postData = {
