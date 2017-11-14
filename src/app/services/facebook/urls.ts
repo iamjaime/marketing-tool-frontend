@@ -21,11 +21,12 @@ events/362944430736275/
  marketplace/115817641766379/?ref=bookmark
  
  
-1 photo.php?fbid=
-2 photos/a.
-3 videos/
+ 
+ 
+ 
 4 videos/g.
-5 events/
-6 groups/
+ 
+ 
 7 comment_id=
+8 profile.php?id=
  */
