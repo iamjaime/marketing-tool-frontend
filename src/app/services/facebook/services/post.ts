@@ -22,7 +22,7 @@ export class PostService {
             'GET',
             {"fields":"sharedposts"},
             function (response) { 
-                console.log('posts');
+                console.log('posts',id);
                 console.log(response);
             }
         );

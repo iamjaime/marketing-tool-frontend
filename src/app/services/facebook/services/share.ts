@@ -17,14 +17,16 @@ export class ShareService {
      * @param id 
      */
     getShares(id) {
-        FB.api(
+        var FBfunction = FB.api(
             '/' + id,
             'GET',
             {"fields":"sharedposts"},
             function (response) { 
-                console.log('shares');  
+                console.log('shares',id);  
                 console.log(response);
             }
         );
     }
+
+    
 }

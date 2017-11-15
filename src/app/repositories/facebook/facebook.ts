@@ -23,27 +23,31 @@ export class FacebookRepository implements facebookInterface {
    * @param quantity 
    * @param type 
    */
-  parseUrl(hyperlink,quantity,type){   
+  parseUrl(hyperlink,quantity,type){ 
+    var  option = hyperlink.match( 'comment_id=');  
+    if(option){  return this.getIdUrl(quantity,type,hyperlink,'comment_id=','&',0);}
+      
     var  option = hyperlink.match( 'videos/');  
-    if(option){return this.getIdUrl(quantity,type,hyperlink,'videos/','/');}
+    if(option){return this.getIdUrl(quantity,type,hyperlink,'videos/','/',0);}
  
     var  option = hyperlink.match( 'groups/'); 
-    if(option){return this.getIdUrl(quantity,type,hyperlink,'groups/','/');}
+    if(option){return this.getIdUrl(quantity,type,hyperlink,'groups/','/',0);}
  
     var  option = hyperlink.match( 'photos/a.'); 
-    if(option){return this.getIdUrl(quantity,type,hyperlink,'photos/a.','.');} 
- 
+    if(option){return this.getIdUrl(quantity,type,hyperlink,'photos/a.','/',1);} 
+
+   var  option = hyperlink.match( 'photos/p.'); 
+    if(option){return this.getIdUrl(quantity,type,hyperlink,'photos/p.','/',1);} 
+
     var  option = hyperlink.match( 'events/');  
-    if(option){return this.getIdUrl(quantity,type,hyperlink,'events/','/');}
+    if(option){return this.getIdUrl(quantity,type,hyperlink,'events/','/',0);}
  
-   var  option = hyperlink.match( 'fbid=');  
-   if(option){return this.getIdUrl(quantity,type,hyperlink,'fbid=','&');}
+   var  option = hyperlink.match( 'set=a.');  
+   if(option){return this.getIdUrl(quantity,type,hyperlink,'set=a.','.',0);}
  
    var  option = hyperlink.match( 'id=');  
-   if(option){ return this.getIdUrl(quantity,type,hyperlink,'id=','&');}
- 
-   var  option = hyperlink.match( 'comment_id=');  
-   if(option){  return this.getIdUrl(quantity,type,hyperlink,'comment_id=','&');}
+   if(option){ return this.getIdUrl(quantity,type,hyperlink,'id=','&',0);}
+   
    
  }
  
@@ -57,20 +61,20 @@ export class FacebookRepository implements facebookInterface {
  * @param fragment 
  * @param fragment2 
  */
-getIdUrl(quantity,action,hyperlink,fragment,fragment2){
+getIdUrl(quantity,action,hyperlink,fragment,fragment2,position){
   var cut = hyperlink.split(fragment);
   var id = cut[1].split(fragment2);
   if(action==='likes'){
-    this.likes.getAllLikes( id[0], quantity);
+    this.likes.getAllLikes( id[position], quantity);
   }
   if(action==='comments'){
-    this.comments.getAllComments(id[0], quantity);
+    this.comments.getAllComments(id[position], quantity);
   }  
   if(action==='post'){ 
-    this.post.getAllPost(id[0], quantity);
+    this.post.getAllPost(id[position], quantity);
   }
   if(action==='shere'){
-    this.share.getAllShares(id[0], quantity);
+    this.share.getAllShares(id[position], quantity);
   } 
  } 
 } 

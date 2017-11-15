@@ -20,7 +20,7 @@ describe('Login Service ', () => {
   /**
    * should Autentication process
    */
-  it('Autentication', (done) => {
+   it('Autentication', (done) => {
     inject([XHRBackend, LoginService], (mockBackend: MockBackend, service: LoginService) => {
       const mockResponse = {
         data: [
@@ -46,12 +46,12 @@ describe('Login Service ', () => {
           done();
         });
       })();
-  });
+  }); 
 
   /**
    * should Autentication error email=null process
    */
-  it('Autentication error email=null ', (done) => {
+  /*it('Autentication error email=null ', (done) => {
     inject([XHRBackend, LoginService], (mockBackend: MockBackend, service: LoginService) => {
       const mockResponse = {
         data: [
@@ -77,7 +77,7 @@ describe('Login Service ', () => {
           done();
         });
       })();
-  });
+  });*/
 
    
 

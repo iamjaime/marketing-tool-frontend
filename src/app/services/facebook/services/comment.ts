@@ -18,17 +18,16 @@ export class CommentService {
      */
     getComments(id) {
         
-        var FBfunction = function()
-        {
-         FB.api(
+         
+        return FB.api(
             '/' + id,
             'GET',
             {"fields":"comments"},
             function (result) { 
-                console.log('comments');
+                console.log('comments',id);
                 console.log(result);
             }
         );
         }
-    }
+    
 }

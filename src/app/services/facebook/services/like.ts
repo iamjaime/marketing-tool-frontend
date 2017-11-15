@@ -16,16 +16,16 @@ export class LikeService {
    * Handles  get facebook Likes  process
    * @param id 
    */
-  getLikes(id) {
-    
-    FB.api(
-      '/' + id,
-      'GET',
-      { "fields": "likes" },
-      function (response) { 
-        console.log('likes');
-        console.log(response);
-      }
-    );
+  getLikes(id) {  
+      FB.api(
+        '/' + id,
+        'GET',
+        { "fields": "likes" },
+        function (response) { 
+          console.log('likes',id);
+          console.log(response);
+        }
+      ); 
   }
+ 
 }
