@@ -7,7 +7,10 @@ declare const FB: any;
 export class FacebookSocket {
 
     constructor(private fb: FacebookService) {
-        let initParams: InitParams = { appId: '531968097138866', xfbml: true, version: 'v2.3' };
+        let initParams: InitParams = { appId: '531968097138866',   status: true, 
+        cookie: true, 
+        xfbml: true,
+        version: 'v2.11' };
         this.fb.init(initParams);
     }
  

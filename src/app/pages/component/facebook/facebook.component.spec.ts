@@ -36,7 +36,7 @@ describe('Facebook Services', () => {
     it('should  get  likes ', () => {
         const fixture = TestBed.createComponent(FacebookComponent);
         const app = fixture.componentInstance;
-        expect(app.likeService('https://www.facebook.com/Roboticaesimez/videos/1566496720059978/', '')).toBeUndefined();
+        expect(app.likeService('https://www.facebook.com/Roboticaesimez/videos/1566496720059978/', '')).toBeTruthy();
 
         expect(app.likeService('https://www.facebook.com/WixEspanol/photos/p.10155019291053951/10155019291053951/?type=3&theater', '')).toBeUndefined();
 
