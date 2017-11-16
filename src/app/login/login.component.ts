@@ -49,28 +49,29 @@ export class LoginComponent implements OnInit {
     /**
      * login  for facebook
      */
-    loginSocialFacebook() {
-        FB.login(
-            function (response) {
-                sessionStorage.setItem('id', response.authResponse.accessToken);
-                this.sperson = sessionStorage.getItem('id');
-                if (this.sperson) {
-                    FB.api('/' + response.authResponse.userID,
-                        'GET',
-                        { "fields": "name,email,picture,first_name,last_name" },
-                        function (response) {
-                            console.log(response);
-                            sessionStorage.setItem('token', response.id);
-                            sessionStorage.setItem('name', response.name);
-                            sessionStorage.setItem('email', response.email);
-                            sessionStorage.setItem('photo', response.picture.data.url);
-                        }
-                    );
+    loginSocialFacebook() { 
+           
+            FB.login(
+                function (response) {
+                    sessionStorage.setItem('id', response.authResponse.accessToken);
+                    this.sperson = sessionStorage.getItem('id');
+                    if (this.sperson) {
+                        FB.api('/' + response.authResponse.userID,
+                            'GET',
+                            { "fields": "name,email,picture,first_name,last_name" },
+                            function (response) {
+                                console.log(response);
+                                sessionStorage.setItem('token', response.id);
+                                sessionStorage.setItem('name', response.name);
+                                sessionStorage.setItem('email', response.email);
+                                sessionStorage.setItem('photo', response.picture.data.url);
+                            }
+                        );
+                    }
                 }
+            );
+            if (sessionStorage.getItem('token')) {
+                this.navigationStar();
             }
-        );
-        if (sessionStorage.getItem('token')) {
-            this.navigationStar();
         }
-    }
 }

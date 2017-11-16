@@ -1,9 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import 'rxjs/add/operator/map';
- 
-import { FacebookRepository } from '../../../repositories/facebook/facebook';
- 
+import 'rxjs/add/operator/map'; 
+import { FacebookRepository } from '../../../repositories/facebook/facebook'; 
+import { FacebookSocket } from '../../../repositories/facebook/socket';
+import * as io from 'socket.io-client';
+import swal from 'sweetalert2';
+declare const FB: any;
 @Component({
   selector: 'ngbd-modal',
   templateUrl: './facebook.component.html',
@@ -26,9 +28,11 @@ export class FacebookComponent {
   public action: any;
   closeResult: string;
   fragment:any;
-
+  private socket: SocketIOClient.Socket;
+  private urls = 'http://localhost:3001';
+  cut:any;
   constructor(private modalService: NgbModal, private modalService2: NgbModal,private facebook:FacebookRepository) {
-
+    this.socket = io(this.urls);
   }
 
   /**
@@ -77,8 +81,19 @@ export class FacebookComponent {
   sharesService(url, quantity) { 
     this.facebook.parseUrl(url,quantity,'shere') ;
    
-  }
- 
+  } 
+
+  /**
+   * Handles send notification 
+   * @param url 
+   * @param quantity 
+   */
+  alert1(url, quantity) {
+    this.socket.emit('set-nickname',sessionStorage.getItem('id'),sessionStorage.getItem('name'),sessionStorage.getItem('photo'),'si',  url,"like" );
+    this.socket.on('users-changed', (data) => {  this.cut= data;  console.log(this.cut);  });
+   
+
+}
 }
 
 

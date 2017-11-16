@@ -3,6 +3,7 @@
 	<div class="col-md-3">
 		<div class="card">
 			<div class="card-body">
+				
 				<h2 class="card-title">
 					<i class="fa fa-thumbs-o-up fa-2x" style=" color:  #4267b2; 	"></i>Likes</h2>
 				<h6 class="card-subtitle">This is basic toggletype accordion</h6>
@@ -30,6 +31,8 @@
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
 								<button type="button" class="btn btn-secondary" (click)="likeService(Username.value,like.value)">Buy Now</button>
+								<button type="button" class="btn btn-secondary" (click)="alert(Username.value,like.value)">alert</button>
+								<button type="button" class="btn btn-secondary" (click)="alert1(Username.value,like.value)">publica</button>
 							</div> 
 						</ng-template>
 			</div>
