@@ -14,6 +14,7 @@ import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 
 import { FacebookSocket } from './repositories/facebook/socket';
 import { FacebookRepository } from './repositories/facebook/facebook';
+import { NotificationRepository } from './repositories/facebook/notification/notification';
 import { LikeRepository } from './repositories/facebook/services/like';
 import { CommentRepository } from './repositories/facebook/services/comment';
 import { PostRepository } from './repositories/facebook/services/post';
@@ -60,7 +61,7 @@ export function provideConfig() {
     SocketIoModule.forRoot(config2),
   ],
   providers: [ Login,User,LikeService,CommentService,PostService,ShareService,FacebookRepository,
-    FacebookSocket,ShareRepository, PostRepository,LikeRepository, CommentRepository,UserService,LoginService,
+    FacebookSocket,ShareRepository,NotificationRepository, PostRepository,LikeRepository, CommentRepository,UserService,LoginService,
     {
     provide: AuthServiceConfig,
     useFactory: provideConfig,

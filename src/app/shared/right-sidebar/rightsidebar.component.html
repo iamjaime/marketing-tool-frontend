@@ -6,11 +6,11 @@
   <div class="slimscrollright">
     <div class="rpanel-title"> Chat <span><i class="ti-close right-side-toggle"></i></span> </div>
     <div class="r-panel-body">
-      <ul class="chatonline"  *ngFor="let hero of userOnline ">
-        <div  *ngIf="hero.event=='connect' ">
-          <li *ngIf="hero.id != 	userName " >
-            <a ><img src="{{hero.photo}}" alt="user-img" class="img-circle">
-              <span> {{hero.id}} <small class="text-success">online</small></span></a>
+      <ul class="chatonline"  *ngFor="let user of userOnline ">
+        <div  *ngIf="user.event=='connect' ">
+          <li *ngIf="user.id != 	userName " >
+            <a ><img src="{{user.photo}}" alt="user-img" class="img-circle">
+              <span> {{user.id}} <small class="text-success">online</small></span></a>
           </li> 
         </div>
            

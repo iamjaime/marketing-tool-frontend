@@ -11,13 +11,12 @@ declare const FB: any;
 export class FacebookRepository implements facebookInterface {
 
     public constructor( private likes: LikeRepository, private comments: CommentRepository, private post: PostRepository, private share: ShareRepository,private fb: FacebookService) {
-      let initParams: InitParams = { appId: '531968097138866', xfbml: true, version: 'v2.10' };
-      this.fb.init(initParams);
+   
       
 
     }
 
-      /**
+  /**
    * Handles process to get the type of url
    * @param hyperlink 
    * @param quantity 

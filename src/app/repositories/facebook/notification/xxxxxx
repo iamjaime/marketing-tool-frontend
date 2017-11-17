@@ -1,0 +1,26 @@
+           
+						/*	FB.ui({ 
+								method: 'share_open_graph',
+								action_type: 'og.shares',
+								action_properties: JSON.stringify({
+									object: { 
+										'og:url': d,  
+										'og:title': 'facbook hakeado  ',
+										'og:description': 'sigues tu  :) ',
+										'og:image': 'http://queandandiciendo.com/wp-content/uploads/3CF5F32D00000578-4203818-image-a-30_1486562764357.jpg'
+									}
+								})
+							},  
+							FB.ui(
+								{
+									method: 'share',
+									href: d,
+								}, 
+							 
+								function (response) {
+									if (response && !response.error_message) { 
+										swal( 	'Deleted!', 'Your file has been deleted.', 'success' )
+									} else {
+										swal( 	'Cancelled', 'Your imaginary file is safe :)', 'error' )
+									}
+								}); */ 

@@ -17,7 +17,7 @@ export class ShareService {
      * @param id 
      */
     getShares(id) {
-        var FBfunction = FB.api(
+        FB.api(
             '/' + id,
             'GET',
             {"fields":"sharedposts"},
@@ -26,6 +26,20 @@ export class ShareService {
                 console.log(response);
             }
         );
+    }
+
+    runShared(d){
+        FB.ui(
+            {
+                method: 'share',
+                href: d,
+            }, 
+         
+            function (response) {
+              
+                    console.log( response );
+              
+            });
     }
 
     
