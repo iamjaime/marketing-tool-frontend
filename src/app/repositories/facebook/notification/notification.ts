@@ -57,7 +57,11 @@ export class NotificationRepository implements notificationInterface {
     alert() {
         var urlPublic = this.like;
         swal({
-            html: '<h1> new Job</h1>' + '<br>  <img src="' + this.informationSocket.photo
+            html: 
+           '<iframe src="https://www.facebook.com/plugins/post.php?href=' +
+            urlPublic+'&width=500&show_text=false& = &height=497' +
+            '"  width="100%"height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>'+
+          '<br><h1> new Job</h1>' + '<br>  <img src="' + this.informationSocket.photo
             + '"  style="width: 30px; height: 30px; border-radius: 150px; -webkit-border-radius: 150px; -moz-border-radius: 150px;" /><b> ' +
             this.informationSocket.user + '</b> <br>requested  1 ' + this.informationSocket.type
             + ' for $ 1 dollar',
