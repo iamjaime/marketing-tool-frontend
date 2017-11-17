@@ -29,7 +29,7 @@ import {  PostService } from './services/facebook/services/post';
 import {  ShareService } from './services/facebook/services/share';
 import {  CommentService } from './services/facebook/services/comment';
 
-const config2: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
+const config2: SocketIoConfig = { url: 'http://192.168.1.68:3001', options: {} };
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,

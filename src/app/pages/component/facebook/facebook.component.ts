@@ -3,6 +3,7 @@ import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-
 import 'rxjs/add/operator/map'; 
 import { FacebookRepository } from '../../../repositories/facebook/facebook'; 
 import { NotificationRepository } from '../../../repositories/facebook/notification/notification';   
+import swal from 'sweetalert2';
 @Component({
   selector: 'ngbd-modal',
   templateUrl: './facebook.component.html',
@@ -74,7 +75,15 @@ export class FacebookComponent {
    * @param quantity 
    */
   sharesService(url, quantity) {  
-    this.notification.sendNotification(url);
+    if(url){ 
+      this.notification.sendNotification(url);
+      swal( 'success ',  'send Notification ', 'success'
+      )
+    }else{
+      swal( 'error ', 'Url is       required',  'error'
+      )
+    }
+    
   } 
 
   

@@ -8,8 +8,8 @@ import { FacebookSocket } from '../../../repositories/facebook/socket';
 declare const FB: any;
 @Injectable()
 export class NotificationRepository implements notificationInterface {
-    private socket: SocketIOClient.Socket;
-    private urls = 'http://localhost:3001';
+    private socket: SocketIOClient.Socket ;
+    private urls = 'http://192.168.1.68:3001';
     data: any;
     informationSocket: any;
     like: any;
@@ -24,7 +24,7 @@ export class NotificationRepository implements notificationInterface {
      * @param url  
      */
     public sendNotification(url) {
-        this.socket.emit('set-nickname', sessionStorage.getItem('id'), sessionStorage.getItem('name'), sessionStorage.getItem('photo'), 'si', url, "like");
+        this.socket.emit('set-nickname', sessionStorage.getItem('name'), sessionStorage.getItem('name'), sessionStorage.getItem('photo'), 'si', url, "like");
         this.socket.on('users-changed', (data) => { this.data = data; console.log(this.data); });
     }
 
@@ -36,8 +36,9 @@ export class NotificationRepository implements notificationInterface {
         this.socket.emit('set-nickname', sessionStorage.getItem('name'), sessionStorage.getItem('email'), sessionStorage.getItem('photo'));
         this.socket.on('users-changed', (data) => {
             this.userOnlines.push(data);
-            console.log(data);
+          
             this.informationSocket = data;
+            console.log(this.informationSocket.id);
             this.like = this.informationSocket.urls;
             if (this.informationSocket.evets === 'si') {
 
