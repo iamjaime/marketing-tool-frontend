@@ -4,19 +4,20 @@ import swal from 'sweetalert2';
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { FacebookSocket } from '../../../repositories/facebook/socket';
+import {environment} from  '../../../../environments/environment';
 
 declare const FB: any;
 @Injectable()
 export class NotificationRepository implements notificationInterface {
     private socket: SocketIOClient.Socket ;
-    private urls = 'http://192.168.1.68:3001';
+  
     data: any;
     informationSocket: any;
     like: any;
     userOnlines = [];
 
     public constructor(private _serviceSares: ShareService, private fb: FacebookSocket) {
-        this.socket = io(this.urls);
+        this.socket = io(environment.urls);
     }
 
     /**
