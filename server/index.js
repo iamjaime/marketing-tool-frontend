@@ -25,6 +25,19 @@ io.on('connection', (socket) => {
 
 });
 
+
+
+socket.on('notification', (idusu,nickname,emails,photos) => {
+  socket.nickname = idusu;
+
+  io.emit('users-notification', {id:idusu,user: nickname,email:emails,photo:photos});
+
+     console.log(socket.nickname );
+
+});
+
+
+
 socket.on('set-post', (idusu,nickname,photo,notification,url,types) => {
   socket.nickname = idusu;
 
@@ -47,5 +60,5 @@ console.log(socket.nickname );
 var port = process.env.PORT || 3001;
 
 http.listen(port, function(){
-   console.log('listening in http://192.168.1.68:' + port);
+   console.log('listening in http://localhost:' + port);
 });

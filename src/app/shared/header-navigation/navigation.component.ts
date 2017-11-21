@@ -1,28 +1,72 @@
 import { Component, AfterViewInit } from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { AuthService } from "angular4-social-login";
+import * as io from 'socket.io-client';
+import { environment } from '../../../environments/environment';
+import { FacebookSocket } from '../../repositories/facebook/socket';
+import swal from 'sweetalert2';
 
+declare const FB:any;
 @Component({
-  selector: 'ap-navigation',
-  templateUrl: './navigation.component.html'
+    selector: 'ap-navigation',
+    templateUrl: './navigation.component.html'
 })
 export class NavigationComponent implements AfterViewInit {
-	name:string;
-    showHide:boolean;
-    userName= sessionStorage.getItem('name');
-    userEmail= sessionStorage.getItem('email');
-    photo= sessionStorage.getItem('photo');
+    name: string;
+    showHide: boolean;
+    userName = sessionStorage.getItem('name');
+    userEmail = sessionStorage.getItem('email');
+    photo = sessionStorage.getItem('photo');
+    private socket: SocketIOClient.Socket;
+    public informationSocket = [];
+    userOnline = [];
 
-  	constructor(private authService: AuthService,private router:Router) {
+    constructor(private authService: AuthService, private router: Router) {
         this.showHide = true;
-        
-  	}
-       
-  	changeShowStatus(){
-    	this.showHide = !this.showHide;
-  	}
-    
+        this.socket = io(environment.urls);
+
+    }
+
+    public ngOnInit() {
+        this.socket.emit('set-nickname', sessionStorage.getItem('name'), sessionStorage.getItem('email'), sessionStorage.getItem('photo'));
+        this.socket.on('users-changed', (data) => { 
+            if (data.evets === 'si') { 
+                if (sessionStorage.getItem('name') != data.id) {
+                    this.userOnline.push(data);
+                }
+            } 
+        });
+    }
+
+    actionFacebook(link,user){
+        FB.ui(
+            {
+                method: 'share',
+                href: link,
+            },
+         
+            function (response) {
+                if (response.error_message) { 
+                    swal( 	'Cancelled', 'Canceled job ', 'error' )
+                } else {
+                 
+                    swal( 	'Successful!', 'Successful work, thank you for your trust', 'success' );
+                    
+                    
+                }
+            }); 
+
+            this.socket.emit('notification',user,sessionStorage.getItem('name'), sessionStorage.getItem('email'), sessionStorage.getItem('photo'));
+          
+         
+    }
+
+
+    changeShowStatus() {
+        this.showHide = !this.showHide;
+    }
+
     ngAfterViewInit() {
 
         $(function () {
@@ -55,17 +99,17 @@ export class NavigationComponent implements AfterViewInit {
         $(document).on('click', '.mega-dropdown', function (e) {
             e.stopPropagation();
         });
-        
+
         $(".search-box a, .search-box .app-search .srh-btn").on('click', function () {
             $(".app-search").toggle(200);
         });
-        
+
         (<any>$('.scroll-sidebar, .right-sidebar, .message-center')).perfectScrollbar();
 
         $("body").trigger("resize");
     }
-    logou(){
-   
+    logou() {
+
         sessionStorage.clear();
         sessionStorage.removeItem('token');
         this.router.navigate(['/login']);

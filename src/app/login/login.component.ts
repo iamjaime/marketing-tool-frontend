@@ -1,7 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-
+import { Router } from '@angular/router'; 
 import { SocialUser } from "angular4-social-login";
 import { Login } from '../repositories/login/login';
 import { User } from '../repositories/user/user';
@@ -53,6 +51,7 @@ export class LoginComponent implements OnInit {
            
             FB.login(
                 function (response) {
+                    console.log(response);
                     sessionStorage.setItem('id', response.authResponse.accessToken);
                     this.sperson = sessionStorage.getItem('id');
                     if (this.sperson) {

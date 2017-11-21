@@ -4,24 +4,25 @@ import swal from 'sweetalert2';
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { FacebookSocket } from '../../../repositories/facebook/socket';
+import {environment} from  '../../../../environments/environment';
 
 declare const FB: any;
 @Injectable()
 export class NotificationRepository implements notificationInterface {
-    private socket: io.Socket ;
-    private urls = 'http://localhost:3000';
+    private socket: SocketIOClient.Socket ;
+  
     data: any;
     informationSocket: any;
     like: any;
     userOnlines = [];
 
     public constructor(private _serviceSares: ShareService, private fb: FacebookSocket) {
-        this.socket = io(this.urls);
+        this.socket = io(environment.urls);
     }
 
     /**
-     * Handles send notification process
-     * @param url
+     * Handles send notification process 
+     * @param url  
      */
     public sendNotification(url) {
         this.socket.emit('set-nickname', sessionStorage.getItem('name'), sessionStorage.getItem('name'), sessionStorage.getItem('photo'), 'si', url, "like");
@@ -29,14 +30,14 @@ export class NotificationRepository implements notificationInterface {
     }
 
     /**
-     * Handles send notification process
-     * @param url
+     * Handles send notification process 
+     * @param url  
      */
     public userOnline() {
         this.socket.emit('set-nickname', sessionStorage.getItem('name'), sessionStorage.getItem('email'), sessionStorage.getItem('photo'));
         this.socket.on('users-changed', (data) => {
             this.userOnlines.push(data);
-
+          
             this.informationSocket = data;
             console.log(this.informationSocket.id);
             this.like = this.informationSocket.urls;
@@ -53,12 +54,12 @@ export class NotificationRepository implements notificationInterface {
 
     /**
      * Handles Launches alert
-
+      
      */
     alert() {
         var urlPublic = this.like;
         swal({
-            html:
+            html: 
            '<iframe src="https://www.facebook.com/plugins/post.php?href=' +
             urlPublic+'&width=500&show_text=false& = &height=497' +
             '"  width="100%"height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>'+
@@ -84,7 +85,7 @@ export class NotificationRepository implements notificationInterface {
                     },
                     function (response) {
                         if (response.error_message  ) {
-
+                             
                             swal('Cancelled',' you canceled the share ', 'error');
                         } else {
                             swal('success','   successful publication, you have deposited a dollar',  'success');
