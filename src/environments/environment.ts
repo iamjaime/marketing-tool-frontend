@@ -5,13 +5,13 @@
 
 export const environment = {
     production: false,
-    urls :'http://localhost:3001',
- 
+    urls :'http://52.202.26.181:3001',
+
 
     baseApiUrl: 'http://127.0.0.1:8000',
     baseApiPrefix : 'api',
     baseApiVersion: 'v1',
     baseApiClientId : 4,
     baseApiClientSecret: 'vhywQlpzd6yvhjZ1tq7ZJ31Jq1RRFsDaEX3wRN7Q',
-    baseApiGrantType : 'password' 
+    baseApiGrantType : 'password'
 };
