@@ -11,7 +11,7 @@ declare const FB: any;
 })
 
 export class RightSidebarComponent {
-	private socket: SocketIOClient.Socket; 
+	private socket: io.Socket;
 	userName = sessionStorage.getItem('name');
 	userEmail = sessionStorage.getItem('email');
 	photo = sessionStorage.getItem('photo');

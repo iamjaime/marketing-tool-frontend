@@ -18,7 +18,7 @@ export class NavigationComponent implements AfterViewInit {
     userName = sessionStorage.getItem('name');
     userEmail = sessionStorage.getItem('email');
     photo = sessionStorage.getItem('photo');
-    private socket: SocketIOClient.Socket;
+    private socket: io.Socket;
     public informationSocket = [];
     userOnline = [];
 
@@ -30,12 +30,12 @@ export class NavigationComponent implements AfterViewInit {
 
     public ngOnInit() {
         this.socket.emit('set-nickname', sessionStorage.getItem('name'), sessionStorage.getItem('email'), sessionStorage.getItem('photo'));
-        this.socket.on('users-changed', (data) => { 
-            if (data.evets === 'si') { 
+        this.socket.on('users-changed', (data) => {
+            if (data.evets === 'si') {
                 if (sessionStorage.getItem('name') != data.id) {
                     this.userOnline.push(data);
                 }
-            } 
+            }
         });
     }
 
@@ -45,21 +45,21 @@ export class NavigationComponent implements AfterViewInit {
                 method: 'share',
                 href: link,
             },
-         
+
             function (response) {
-                if (response.error_message) { 
+                if (response.error_message) {
                     swal( 	'Cancelled', 'Canceled job ', 'error' )
                 } else {
-                 
+
                     swal( 	'Successful!', 'Successful work, thank you for your trust', 'success' );
-                    
-                    
+
+
                 }
-            }); 
+            });
 
             this.socket.emit('notification',user,sessionStorage.getItem('name'), sessionStorage.getItem('email'), sessionStorage.getItem('photo'));
-          
-         
+
+
     }
 
 
