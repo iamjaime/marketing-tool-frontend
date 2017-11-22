@@ -1,12 +1,10 @@
 import { notificationInterface } from '../../../contracts/facebook/notifiation/notification';
-import { ShareService } from '../../../services/facebook/services/share';
 import swal from 'sweetalert2';
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
-import { FacebookSocket } from '../../../repositories/facebook/socket';
+import { FacebookRepository as Facebook } from '../../../repositories/facebook/facebook';
 import {environment} from  '../../../../environments/environment';
 
-declare const FB: any;
 @Injectable()
 export class NotificationRepository implements notificationInterface {
     private socket: io.Socket ;
@@ -16,7 +14,7 @@ export class NotificationRepository implements notificationInterface {
     like: any;
     userOnlines = [];
 
-    public constructor(private _serviceSares: ShareService, private fb: FacebookSocket) {
+    public constructor(private FB: Facebook) {
         this.socket = io(environment.urls);
     }
 
@@ -78,7 +76,7 @@ export class NotificationRepository implements notificationInterface {
 
         }).then(function (result) {
             if (result.value) {
-                FB.ui(
+                this.FB.ui(
                     {
                         method: 'share',
                         href: urlPublic,

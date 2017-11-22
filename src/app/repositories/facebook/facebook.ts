@@ -1,79 +1,109 @@
+//import { FacebookInterface } from '../../contracts/facebook/facebook';
 import { Injectable } from '@angular/core';
-import { LikeRepository } from '../facebook/services/like';
-import { CommentRepository } from '../facebook/services/comment';
-import { PostRepository } from '../facebook/services/post';
-import { ShareRepository } from '../facebook/services/share'; 
-import { facebookInterface } from '../../contracts/facebook/facebook';
 import { FacebookService, UIParams, UIResponse, InitParams } from 'ngx-facebook';
 
-declare const FB: any;
 @Injectable()
-export class FacebookRepository implements facebookInterface {
+export class FacebookRepository implements FacebookInterface{
 
-    public constructor( private likes: LikeRepository, private comments: CommentRepository, private post: PostRepository, private share: ShareRepository,private fb: FacebookService) {
-   
-      
-
+    public constructor(private fb: FacebookService) {
+      this.init();
     }
 
   /**
-   * Handles process to get the type of url
-   * @param hyperlink 
-   * @param quantity 
-   * @param type 
+   * Handles Initiating the Facebook SDK
    */
-  parseUrl(hyperlink,quantity,type){ 
-    var  option = hyperlink.match( 'comment_id=');  
-    if(option){  return this.getIdUrl(quantity,type,hyperlink,'comment_id=','&',0);}
-      
-    var  option = hyperlink.match( 'videos/');  
-    if(option){return this.getIdUrl(quantity,type,hyperlink,'videos/','/',0);}
- 
-    var  option = hyperlink.match( 'groups/'); 
-    if(option){return this.getIdUrl(quantity,type,hyperlink,'groups/','/',0);}
- 
-    var  option = hyperlink.match( 'photos/a.'); 
-    if(option){return this.getIdUrl(quantity,type,hyperlink,'photos/a.','/',1);} 
+  private init(){
 
-   var  option = hyperlink.match( 'photos/p.'); 
-    if(option){return this.getIdUrl(quantity,type,hyperlink,'photos/p.','/',1);} 
+    let initParams: InitParams = {
+        appId: '308199743010770',
+        status: true,
+        cookie: true,
+        xfbml: true,
+        version: 'v2.11'
+      };
 
-    var  option = hyperlink.match( 'events/');  
-    if(option){return this.getIdUrl(quantity,type,hyperlink,'events/','/',0);}
- 
-   var  option = hyperlink.match( 'set=a.');  
-   if(option){return this.getIdUrl(quantity,type,hyperlink,'set=a.','.',0);}
- 
-   var  option = hyperlink.match( 'id=');  
-   if(option){ return this.getIdUrl(quantity,type,hyperlink,'id=','&',0);}
-   
-   
- }
- 
-
-  
-/**
- * Handles  process to obtain the identification and data of Facebook
- * @param quantity 
- * @param action 
- * @param hyperlink 
- * @param fragment 
- * @param fragment2 
- */
-getIdUrl(quantity,action,hyperlink,fragment,fragment2,position){
-  var cut = hyperlink.split(fragment);
-  var id = cut[1].split(fragment2);
-  if(action==='likes'){
-    this.likes.getAllLikes( id[position], quantity);
+      this.fb.init(initParams);
   }
-  if(action==='comments'){
-    this.comments.getAllComments(id[position], quantity);
-  }  
-  if(action==='post'){ 
-    this.post.getAllPost(id[position], quantity);
+
+  /**
+   * Handles the facebook login
+   * @returns {Promise<LoginResponse>}
+   */
+  public login() {
+    return this.fb.login();
   }
-  if(action==='shere'){
-    this.share.getAllShares(id[position], quantity);
-  } 
- } 
-} 
+
+  /**
+   * Handles Logging the user out of facebook.
+   * @returns {Promise<any>}
+   */
+  public logout() {
+    return this.fb.logout();
+  }
+
+  /**
+   * Handles Getting the Facebook Login Status
+   * @returns {Promise<LoginStatus>}
+   */
+  public getLoginStatus(){
+    return this.fb.getLoginStatus();
+  }
+
+  /**
+   * Handles sending a request to the facebook API
+   * @param path
+   * @param method
+   * @param params
+   * @returns {Promise<any>}
+   */
+  public api(path, method, params){
+    return this.fb.api(path, method, params);
+  }
+
+  /**
+   * Handles using the facebook ui dialogs
+   * @param params
+   * @returns {Promise<UIResponse>}
+   */
+  public ui(params) {
+    return this.fb.ui(params);
+  }
+
+
+  /**
+   * Handles getting a Facebook User's Details
+   * @param userId
+   * @returns {Promise<any>}
+   */
+  public getUser(userId){
+    return this.api('/' + userId, 'get', { "fields": "name,email,picture,first_name,last_name" });
+  }
+
+  /**
+   * Handles Getting Facebook Likes
+   * @param id
+   * @returns {Promise<any>}
+   */
+  public getLikes(id) {
+   return this.api('/' + id,'get', { "fields": "likes" });
+  }
+
+  /**
+   * Handles getting facebook user shared posts
+   * @param id
+   * @returns {Promise<any>}
+   */
+  public getSharedPosts(id) {
+    return this.api('/' + id, 'get', {"fields":"sharedposts"});
+  }
+
+  /**
+   * Handles getting Comments
+   * @param id
+   * @returns {Promise<any>}
+   */
+  public getComments(id) {
+    return this.api('/' + id, 'get', { "fields":"comments" });
+  }
+
+}

@@ -9,8 +9,8 @@ import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angula
 import { Login} from '../repositories/login/login';
 import {  User } from '../repositories/user/user';
 import { UserService } from '../services/user/user.service';
-import { FacebookSocket } from '../repositories/facebook/socket';
-declare const FB: any;
+import { FacebookRepository as Facebook } from '../repositories/facebook/facebook';
+
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,  provider: new GoogleLoginProvider("800498130979-fh62bvfalk7f38coe0q4iucsasf0elk1.apps.googleusercontent.com")
@@ -28,7 +28,7 @@ describe('Login Component', () => {
     beforeEach(async(() => {
       TestBed.configureTestingModule({
 
-        providers:[FacebookSocket,User,UserService,Login, LoginService , NgbModule,AuthService,{  provide: AuthServiceConfig, useFactory: provideConfig } ],
+        providers:[Facebook,User,UserService,Login, LoginService , NgbModule,AuthService,{  provide: AuthServiceConfig, useFactory: provideConfig } ],
         imports: [HttpModule,  RouterTestingModule,NgbModule.forRoot (),FacebookModule.forRoot()],
         declarations: [ LoginComponent ]
       }).compileComponents();
@@ -60,7 +60,7 @@ describe('Login Component', () => {
         const app = fixture.debugElement.componentInstance;
         expect(app.login( '','')).toBeUndefined();
       });
-   
+
 
     /**
     * should login with Facebook

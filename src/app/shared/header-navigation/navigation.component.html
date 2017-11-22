@@ -20,7 +20,7 @@
                 <span *ngIf="showHide">
                          <!-- dark Logo text -->
                          <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo" />
-                         <!-- Light Logo text -->    
+                         <!-- Light Logo text -->
                          <img src="assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
                          </span> </a>
         </div>
@@ -114,7 +114,7 @@
                                     <div *ngFor="let user of userOnline ">
                                        <a (click)="actionFacebook(user.urls,user.id)"  > <div class="user-img"> <img src="{{user.photo}}" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>
                                         <div class="mail-contnet">
-                                            <h5>{{user.id}}</h5> <span class="mail-desc">new job {{user.type}}</span> 
+                                            <h5>{{user.id}}</h5> <span class="mail-desc">new job {{user.type}}</span>
                                         </div>
                                     </a>
                                 </div>
@@ -258,7 +258,7 @@
                             <li role="separator" class="divider"></li>
                             <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a  (click)="logou()"><i class="fa fa-power-off"></i> Logout</a></li>
+                            <li><a  (click)="logout()"><i class="fa fa-power-off"></i> Logout</a></li>
                         </ul>
                     </div>
                 </li>

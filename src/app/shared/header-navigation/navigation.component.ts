@@ -4,10 +4,10 @@ import { Router } from '@angular/router';
 import { AuthService } from "angular4-social-login";
 import * as io from 'socket.io-client';
 import { environment } from '../../../environments/environment';
-import { FacebookSocket } from '../../repositories/facebook/socket';
+import { FacebookRepository as Facebook } from '../../repositories/facebook/facebook';
 import swal from 'sweetalert2';
 
-declare const FB:any;
+
 @Component({
     selector: 'ap-navigation',
     templateUrl: './navigation.component.html'
@@ -22,10 +22,9 @@ export class NavigationComponent implements AfterViewInit {
     public informationSocket = [];
     userOnline = [];
 
-    constructor(private authService: AuthService, private router: Router) {
+    constructor(private authService: AuthService, private router: Router, private FB: Facebook) {
         this.showHide = true;
         this.socket = io(environment.urls);
-
     }
 
     public ngOnInit() {
@@ -40,26 +39,15 @@ export class NavigationComponent implements AfterViewInit {
     }
 
     actionFacebook(link,user){
-        FB.ui(
-            {
-                method: 'share',
-                href: link,
-            },
+      this.FB.ui({ method: 'share', href: link }).then((response) => {
+          if (response.error_message) {
+            swal('Cancelled', 'Canceled job ', 'error');
+          } else {
+            swal('Successful!', 'Successful work, thank you for your trust', 'success');
+          }
+        });
 
-            function (response) {
-                if (response.error_message) {
-                    swal( 	'Cancelled', 'Canceled job ', 'error' )
-                } else {
-
-                    swal( 	'Successful!', 'Successful work, thank you for your trust', 'success' );
-
-
-                }
-            });
-
-            this.socket.emit('notification',user,sessionStorage.getItem('name'), sessionStorage.getItem('email'), sessionStorage.getItem('photo'));
-
-
+      this.socket.emit('notification',user,sessionStorage.getItem('name'), sessionStorage.getItem('email'), sessionStorage.getItem('photo'));
     }
 
 
@@ -108,10 +96,20 @@ export class NavigationComponent implements AfterViewInit {
 
         $("body").trigger("resize");
     }
-    logou() {
 
-        sessionStorage.clear();
-        sessionStorage.removeItem('token');
-        this.router.navigate(['/login']);
+
+    logout() {
+        if(sessionStorage.getItem('loggedInType') == 'facebook'){
+          this.FB.logout().then((response) => {
+            console.log(response);
+            sessionStorage.clear();
+            sessionStorage.removeItem('token');
+            this.router.navigate(['/login']);
+          });
+        }else{
+          sessionStorage.clear();
+          sessionStorage.removeItem('token');
+          this.router.navigate(['/login']);
+        }
     }
 }

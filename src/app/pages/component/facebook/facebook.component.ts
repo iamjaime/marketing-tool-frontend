@@ -28,7 +28,7 @@ export class FacebookComponent {
   fragment:any;
   buy=[];
  
-  constructor(private modalService: NgbModal, private modalService2: NgbModal,private facebook:FacebookRepository,private notification:NotificationRepository) {
+  constructor(private modalService: NgbModal, private facebook:FacebookRepository,private notification:NotificationRepository) {
  
   }
 
@@ -43,47 +43,16 @@ export class FacebookComponent {
   }
 
   /**
-   * Handles the process to buy likes package
-   * @param url 
-   * @param quantity 
-   */
-  likeService(url, quantity,) { 
-    this.facebook.parseUrl(url,quantity,'likes'); 
-  }
-
-  /**
-   * Handles the process to buy comments package
-   * @param url  
-   * @param quantity 
-   */
-  commentsService(url, quantity) {
-    this.facebook.parseUrl(url,quantity,'comments');  
-  }
-
-  /**
-   * Handles the process to buy posts package
-   * @param url 
-   * @param quantity 
-   */
-  postsService(url, quantity) {
-    this.facebook.parseUrl(url,quantity,'post'); 
-    
-  }
-
-  /**
    * Handles the process to buy shares package
-   * @param url 
-   * @param quantity 
+   * @param url
    */
-  sharesService(url, quantity) {  
+  sharesService(url) {
     this.buy.push(url);
     if(url){ 
       this.notification.sendNotification(url);
-      swal( 'success ',  'send Notification ', 'success'
-      )
+      swal('success ',  'send Notification ', 'success')
     }else{
-      swal( 'error ', 'Url is       required',  'error'
-      )
+      swal('error ', 'Url is required',  'error')
     }
     
   } 
@@ -96,23 +65,21 @@ export class FacebookComponent {
  verificateUrl(url) {  
   swal({
     
-                html:'<iframe src="https://www.facebook.com/plugins/post.php?href=' +
-                url+ '&width=500&show_text=false& = &height=497' +
-                '"  width="100%"height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>' +
-                '<br>  <img src="' + this.photo
-                +
-                '"  style="width: 30px; height: 30px; border-radius: 150px; -webkit-border-radius: 150px; -moz-border-radius: 150px;" /><b> ' +
-                this.userName+'</b> <br>requested  1 ' +' for $ 1 dollar',
-    
-                confirmButtonText: 'Cancel',
-    
-                showLoaderOnConfirm: true,
-    
-    
-    
-              })
-    
-   
+      html:'<iframe src="https://www.facebook.com/plugins/post.php?href=' +
+      url+ '&width=500&show_text=false& = &height=497' +
+      '"  width="100%"height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>' +
+      '<br>  <img src="' + this.photo
+      +
+      '"  style="width: 30px; height: 30px; border-radius: 150px; -webkit-border-radius: 150px; -moz-border-radius: 150px;" /><b> ' +
+      this.userName+'</b> <br>requested  1 ' +' for $ 1 dollar',
+
+      confirmButtonText: 'Cancel',
+
+      showLoaderOnConfirm: true,
+
+
+
+    })
  } 
 
   

@@ -1,11 +1,11 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router'; 
+import { Router } from '@angular/router';
 import { SocialUser } from "angular4-social-login";
 import { Login } from '../repositories/login/login';
 import { User } from '../repositories/user/user';
-import { FacebookSocket } from '../repositories/facebook/socket';
+import { FacebookRepository as Facebook } from '../repositories/facebook/facebook';
 
-declare const FB: any;
+
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -17,19 +17,19 @@ export class LoginComponent implements OnInit {
     private loggedIn: boolean;
     sperson: any
 
-    constructor(private fb: FacebookSocket, public router: Router, private _loginService: Login, private _userService: User) {
+    constructor(private FB: Facebook, public router: Router, private _loginService: Login, private _userService: User) {
 
     }
 
     ngOnInit() {
         if (sessionStorage.getItem('token')) {
-            this.navigationStar();
+            this.navigateToStart();
         }
     }
     /**
      * Handles authentication process
-     * @param Email 
-     * @param Password 
+     * @param Email
+     * @param Password
      */
     login(Email, Password) {
         this._loginService.login(Email, Password);
@@ -40,37 +40,53 @@ export class LoginComponent implements OnInit {
     /**
      * session start navigation
      */
-    navigationStar() {
+    navigateToStart() {
         this.router.navigate(['/starter']);
     }
 
     /**
      * login  for facebook
      */
-    loginSocialFacebook() { 
-           
-            FB.login(
-                function (response) {
-                    console.log(response);
-                    sessionStorage.setItem('id', response.authResponse.accessToken);
-                    this.sperson = sessionStorage.getItem('id');
-                    if (this.sperson) {
-                        FB.api('/' + response.authResponse.userID,
-                            'GET',
-                            { "fields": "name,email,picture,first_name,last_name" },
-                            function (response) {
-                                console.log(response);
-                                sessionStorage.setItem('token', response.id);
-                                sessionStorage.setItem('name', response.name);
-                                sessionStorage.setItem('email', response.email);
-                                sessionStorage.setItem('photo', response.picture.data.url);
-                            }
-                        );
-                    }
-                }
-            );
-            if (sessionStorage.getItem('token')) {
-                this.navigationStar();
-            }
+    loginSocialFacebook() {
+
+      this.FB.getLoginStatus().then((response) => {
+        console.log(response);
+        if(response.status == "connected"){
+          sessionStorage.setItem('id', response.authResponse.accessToken);
+
+          this.FB.getUser(response.authResponse.userID).then((res) => {
+            sessionStorage.setItem('token', res.id);
+             sessionStorage.setItem('name', res.name);
+             sessionStorage.setItem('email', res.email);
+             sessionStorage.setItem('photo', res.picture.data.url);
+
+            this.navigateToStart();
+          });
+        }else{
+          this.FB.login()
+            .then((response) => {
+              console.log(response);
+              if(response.status == "connected"){
+                sessionStorage.setItem('id', response.authResponse.accessToken);
+                sessionStorage.setItem('loggedInType', 'facebook');
+                this.FB.getUser(response.authResponse.userID).then((res) => {
+                  sessionStorage.setItem('token', res.id);
+                  sessionStorage.setItem('name', res.name);
+                  sessionStorage.setItem('email', res.email);
+                  sessionStorage.setItem('photo', res.picture.data.url);
+
+                  this.navigateToStart();
+                });
+              }
+
+            })
+            .catch(e => console.error('Error logging in'));
         }
+      });
+
+    }
+
+
+
+
 }

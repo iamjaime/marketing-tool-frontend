@@ -9,40 +9,41 @@ export class Login  implements LoginInterface {
     result:any;
   public constructor( private  loginService:LoginService ,private router:Router ){
 
-  } 
+  }
 
     /**
     * Handles Auterntication whit Email and password
     */
-    public login(Email,Password) {  
+    public login(Email,Password) {
     this.loginService.Auth(Email,Password).subscribe((response  )=> {
-        this.result = response.json(); 
+        this.result = response.json();
         this.assignSession(this.result.access_token,Email);
         return this.result.access_token ;
     },
     err => {
         this.result =err.json();
         return this.result  ;
-    }); 
-      } 
-       /**
+    });
+      }
+
+      /**
      *  Handles assign session by Email autentication
      */
     assignSession(token,email){
-        
-        if(token){ 
+
+        if(token){
             sessionStorage.setItem('token', token);
             sessionStorage.setItem('name', email);
             sessionStorage.setItem('email', email);
-            sessionStorage.setItem('photo', 'assets/images/users/1.jpg'); 
-            this.navigationStar();
-        }  
+            sessionStorage.setItem('photo', 'assets/images/users/1.jpg');
+            this.navigateToStart();
+        }
     }
 
     /**
      * session start navigation
      */
-    navigationStar(){
+    navigateToStart(){
         this.router.navigate(['/starter']);
     }
 }

@@ -2,10 +2,8 @@ import { FacebookComponent } from './facebook.component';
 import { TestBed, async } from '@angular/core/testing';
 import { FacebookModule } from 'ngx-facebook';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
- 
 
-import { FacebookSocket } from '../../../repositories/facebook/socket';
-import { FacebookRepository } from '../../../repositories/facebook/facebook';
+import { FacebookRepository as Facebook } from '../../../repositories/facebook/facebook';
 
 import { LikeRepository } from '../../../repositories//facebook/services/like';
 import { CommentRepository } from '../../../repositories//facebook/services/comment';
@@ -23,7 +21,7 @@ describe('Facebook Services', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
 
-            providers: [ShareService, PostService, PostRepository, ShareRepository, CommentService, CommentRepository, FacebookSocket, LikeService, LikeRepository, FacebookRepository, NgbModule],
+            providers: [ShareService, PostService, PostRepository, ShareRepository, CommentService, CommentRepository, Facebook, LikeService, LikeRepository, NgbModule],
             imports: [  NgbModule.forRoot(), FacebookModule.forRoot()],
             declarations: [FacebookComponent]
         }).compileComponents();
@@ -61,7 +59,7 @@ describe('Facebook Services', () => {
         expect(app.commentsService('https://www.facebook.com/groups/ChistesProgramadores/permalink/737882663002258/?comment_id=738485716275286&comment_tracking=%7B%22tn%22%3A%22R0%22%7D', '')).toBeUndefined();
     });
 
-   
+
 
     it('should  get posts', () => {
         const fixture = TestBed.createComponent(FacebookComponent);

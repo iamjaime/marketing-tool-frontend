@@ -8,12 +8,12 @@ import { FacebookComponent } from './facebook.component';
 
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
- 
+
 const routes: Routes = [{
 	path: '',
 	data: {
       title: 'Facebook',
-      urls: [{title: 'Facebool', url: '/facebook'} ]
+      urls: [{title: 'Facebook', url: '/facebook'} ]
     },
 	component: FacebookComponent
 }];
@@ -22,7 +22,7 @@ const routes: Routes = [{
 	imports: [
     	FormsModule,
     	CommonModule,
-      ReactiveFormsModule, 
+      ReactiveFormsModule,
       NgbModule.forRoot(),
     	RouterModule.forChild(routes)
     ],

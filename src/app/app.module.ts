@@ -10,24 +10,15 @@ import { AppComponent } from './app.component';
 import { SocialLoginModule, AuthServiceConfig } from "angular4-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
 import { FacebookModule } from 'ngx-facebook';
-import { SocketIoModule, SocketIoConfig } from 'ng-socket-io'; 
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 
-import { FacebookSocket } from './repositories/facebook/socket';
 import { FacebookRepository } from './repositories/facebook/facebook';
 import { NotificationRepository } from './repositories/facebook/notification/notification';
-import { LikeRepository } from './repositories/facebook/services/like';
-import { CommentRepository } from './repositories/facebook/services/comment';
-import { PostRepository } from './repositories/facebook/services/post';
-import { ShareRepository } from './repositories/facebook/services/share';
 import { User } from './repositories/user/user';
 import { Login } from './repositories/login/login';
 
 import {  UserService } from './services/user/user.service';
 import {  LoginService } from './services/login/login.service';
-import {  LikeService } from './services/facebook/services/like';
-import {  PostService } from './services/facebook/services/post';
-import {  ShareService } from './services/facebook/services/share';
-import {  CommentService } from './services/facebook/services/comment';
 
 const config2: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
 let config = new AuthServiceConfig([
@@ -52,7 +43,7 @@ export function provideConfig() {
 
   ],
   imports: [
-    BrowserModule, 
+    BrowserModule,
     FormsModule,
     HttpModule,
     AppRoutingModule,
@@ -60,8 +51,7 @@ export function provideConfig() {
     FacebookModule.forRoot(),
     SocketIoModule.forRoot(config2),
   ],
-  providers: [ Login,User,LikeService,CommentService,PostService,ShareService,FacebookRepository,
-    FacebookSocket,ShareRepository,NotificationRepository, PostRepository,LikeRepository, CommentRepository,UserService,LoginService,
+  providers: [ Login,User,FacebookRepository,NotificationRepository,UserService,LoginService,
     {
     provide: AuthServiceConfig,
     useFactory: provideConfig,
