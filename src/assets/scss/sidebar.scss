@@ -128,10 +128,10 @@ sidebar navigation
     > ul > li {
         margin-bottom: 5px;
         &.active > a {
-          font-weight: 400;
-          color: $white;
+          
+          color: $sidebar-text;
           i {
-            color: $white;
+            color: $sidebar-text;
           }
         }
     }

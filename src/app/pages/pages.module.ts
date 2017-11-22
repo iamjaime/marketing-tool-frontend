@@ -9,6 +9,7 @@ import { NavigationComponent } from '../shared/header-navigation/navigation.comp
 import { SidebarComponent } from '../shared/sidebar/sidebar.component';
 import { RightSidebarComponent } from '../shared/right-sidebar/rightsidebar.component';
 import { BreadcrumbComponent } from '../shared/breadcrumb/breadcrumb.component';
+import { PricingComponent } from '../pages/pricing/pricing.component';
 
 @NgModule({
     imports: [
@@ -22,7 +23,8 @@ import { BreadcrumbComponent } from '../shared/breadcrumb/breadcrumb.component';
         SidebarComponent,
         RightSidebarComponent,
         SIDEBAR_TOGGLE_DIRECTIVES,
-        NAV_DROPDOWN_DIRECTIVES
+        NAV_DROPDOWN_DIRECTIVES,
+        PricingComponent
     ]
 })
 export class PagesModule { }

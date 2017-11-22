@@ -7,7 +7,6 @@ import { environment } from '../../../environments/environment';
 import { FacebookRepository as Facebook } from '../../repositories/facebook/facebook';
 import swal from 'sweetalert2';
 
-
 @Component({
     selector: 'ap-navigation',
     templateUrl: './navigation.component.html'
