@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { FacebookService, UIParams, UIResponse, InitParams } from 'ngx-facebook';
 
 @Injectable()
-export class FacebookRepository implements FacebookInterface{
+export class FacebookRepository{
 
     public constructor(private fb: FacebookService) {
       this.init();
