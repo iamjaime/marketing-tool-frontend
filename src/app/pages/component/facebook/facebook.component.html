@@ -1,192 +1,81 @@
 <div class="row">
-
-	<div class="col-md-3">
+  <div class="col-md-3">
 		<div class="card">
 			<div class="card-body">
 
+        <h2 class="card-title fb-blue">
+					<i class="fa fa-share"></i>
+          <span>Share A Post</span>
+        </h2>
 
-				<h2 class="card-title">
-					<i class="fa fa-thumbs-o-up fa-2x" style=" color:  #4267b2; 	"></i>Likes</h2>
-				<h6 class="card-subtitle">This is basic toggletype accordion</h6>
-				<button class=" btn-lg label  label-info" (click)="open2(likes)">
-					<i class="fa fa-usd" aria-hidden="true"></i>buy package</button>
-				<ng-template #likes let-c="close" let-d="dismiss">
-					<div class="modal-header">
-						<h3 class="card-title">
-							<img src="{{photo}}" style="width: 30px; height: 30px; border-radius: 150px; -webkit-border-radius: 150px; -moz-border-radius: 150px;"
-							/>{{userName}}</h3>
-						<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<div class="form-group">
-							<h4 class="modal-title">
-								<i class="fa fa-share-alt-square fa-2x" aria-hidden="true"></i> Buy Likes</h4>
-							<label for="firstName1">Facebook URL to like:</label>
-							<input #Username ng-model="Username" type="text" id="Username" class="form-control" placeholder="http:// url facebook" required/>
-						</div>
-						<br>
-						<label for="firstName1">Number of Likes:</label>
-						<input #like ng-model="like" type="number" id="like" class="form-control" placeholder="example 10" required/> </div>
-					<div class="form-group"> </div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-						<button type="button" class="btn btn-secondary" (click)="likeService(Username.value,like.value)">Buy Now</button>
-						<button type="button" class="btn btn-secondary" (click)="alert(Username.value,like.value)">alert</button>
-						<button type="button" class="btn btn-secondary" (click)="alert1(Username.value,like.value)">publica</button>
-					</div>
-				</ng-template>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-3">
-		<div class="card">
-			<div class="card-body">
-				<h2 class="card-title">
-					<i class="fa fa-commenting-o fa-2x" style=" color:  #4267b2; 	"></i>Commets</h2>
-				<h6 class="card-subtitle">This is basic toggletype accordion</h6>
+				<h6 class="card-subtitle">Have your facebook publication shared by many other facebook users!</h6>
 
-				<button class=" btn-lg label  label-info" (click)="open2(Commets)">
-					<i class="fa fa-usd" aria-hidden="true"></i>buy package</button>
-				<ng-template #Commets let-c="close" let-d="dismiss">
-					<div class="modal-header">
-						<h3 class="card-title">
-							<img src="{{photo}}" style="width: 30px; height: 30px; border-radius: 150px; -webkit-border-radius: 150px; -moz-border-radius: 150px;"
-							/>{{userName}}</h3>
-						<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<div class="form-group">
-							<h4 class="modal-title">
-								<i class="fa fa-share-alt-square fa-2x" aria-hidden="true"></i> Buy Commets</h4>
-							<label for="firstName1">Facebook URL to like:</label>
-							<input #Username ng-model="Username" type="text" id="Username" class="form-control" placeholder="http:// url facebook" required/>
-						</div>
-						<br>
-						<label for="firstName1">Number of Commets:</label>
-						<input #like ng-model="like" type="number" id="like" class="form-control" placeholder="example 10" required/> </div>
-					<div class="form-group"> </div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-						<button type="button" class="btn btn-secondary" (click)="commentsService(Username.value,like.value)">Buy Now</button>
-					</div>
-				</ng-template>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-3">
-		<div class="card">
-			<div class="card-body">
-				<h2 class="card-title">
-					<i class="fa fa-globe fa-2x" style=" color:  #4267b2; 	"></i>Posts</h2>
-				<h6 class="card-subtitle">This is basic toggletype accordion</h6>
-				<button class=" btn-lg label  label-info" (click)="open2(Posts)">
-					<i class="fa fa-usd" aria-hidden="true"></i>buy package</button>
-				<ng-template #Posts let-c="close" let-d="dismiss">
-					<div class="modal-header">
-						<h3 class="card-title">
-							<img src="{{photo}}" style="width: 30px; height: 30px; border-radius: 150px; -webkit-border-radius: 150px; -moz-border-radius: 150px;"
-							/>{{userName}}</h3>
-						<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<div class="form-group">
-							<h4 class="modal-title">
-								<i class="fa fa-share-alt-square fa-2x" aria-hidden="true"></i> Buy Posts</h4>
-							<label for="firstName1">Facebook URL to like:</label>
-							<input #Username ng-model="Username" type="text" id="Username" class="form-control" placeholder="http:// url facebook" required/>
-						</div>
-						<br>
-						<label for="firstName1">Number of Posts:</label>
-						<input #like ng-model="like" type="number" id="like" class="form-control" placeholder="example 10" required/> </div>
-					<div class="form-group"> </div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-						<button type="button" class="btn btn-secondary" (click)="postsService(Username.value,like.value)">Buy Now</button>
-					</div>
-				</ng-template>
+        <button class="btn btn-info" (click)="openModal(Shares)">Get Started!</button>
 
-			</div>
-		</div>
-	</div>
-	<div class="col-md-3">
-		<div class="card">
-			<div class="card-body">
-				<h2 class="card-title">
-					<i class="fa  fa-share fa-2x" style=" color:  #4267b2; 	"></i>shered</h2>
-				<h6 class="card-subtitle">This is basic toggletype accordion</h6>
-				<button class=" btn-lg label  label-info" (click)="open2(Shares)">
-					<i class="fa fa-usd" aria-hidden="true"></i> buy package</button>
+        <!--Begin Shares Modal-->
 				<ng-template #Shares let-c="close" let-d="dismiss">
 					<div class="modal-header">
-						<h3 class="card-title">
-							<img src="{{photo}}" style="width: 30px; height: 30px; border-radius: 150px; -webkit-border-radius: 150px; -moz-border-radius: 150px;"
-							/>{{userName}}</h3>
+						<h3 class="card-title">Share A Post</h3>
 						<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<h4 class="modal-title">
-								<i class="fa fa-share-alt-square fa-2x" aria-hidden="true"></i> Buy Shares</h4>
-							<label for="firstName1">Facebook URL to like:</label>
-							<input #Username ng-model="Username" type="text" id="Username" class="form-control" placeholder="http:// url facebook" required/>
+							<!--<h4 class="modal-title">Buy Shares</h4>-->
+							<label>Facebook Post URL:</label>
+							<input #url ng-model="url" type="text" id="url" class="form-control" placeholder="http:// url facebook" required/>
 						</div>
-						<br>
-						<label for="firstName1">Number of Shares:</label>
-						<input #like ng-model="like" type="number" id="like" class="form-control" placeholder="example 10" required/> </div>
+						<!--<label>Number of Shares:</label>-->
+						<!--<input #shares ng-model="shares" type="number" id="shares" class="form-control" placeholder="example 10" required/> -->
+          </div>
 
-					<div class="form-group">  </div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-						<button type="button" class="btn btn-secondary" (click)="sharesService(Username.value,like.value)">Buy Now</button>
+						<!--<button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>-->
+            <button type="button" class="btn btn-success" (click)="verifyUrl(url.value)">Preview Post</button>
+						<button type="button" class="btn btn-secondary" (click)="beginSharing(url.value)">Begin Sharing</button>
 					</div>
-					<button type="button" class="btn btn-success" (click)="verificateUrl(Username.value)" >preview</button>
 				</ng-template>
+        <!--End Shares Modal-->
+
 			</div>
 		</div>
 
 	</div>
 
-
-	<div class="col-lg-12">
+	<div class="col-md-9">
 		<div class="card">
 			<div class="card-body">
-				<h4 class="card-title">my shopping</h4>
+				<h4 class="card-title">My Orders</h4>
 
 				<div class="table-responsive">
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th>Name</th>
-								<th>process</th>
-								<th>date</th>
+								<th>URL</th>
+								<th>Progress</th>
+								<th>Date</th>
 								<th class="text-nowrap">Status</th>
 							</tr>
 						</thead>
 						<tbody *ngFor="let user of buy ">
 
 							<tr>
-								<td> {{userName}}</td>
+								<td>{{userName}}</td>
 								<td>
 									<div class="progress progress-xs margin-vertical-10 ">
 										<div class="progress-bar bg-warning" style="width: 50%; height:6px;"></div>
 									</div>
 								</td>
-								<td>July 1, 2015</td>
+								<td>November 22, 2017</td>
 								<td class="text-nowrap">
-									active
+									In Progress
 								</td>
 							</tr>
 
 						</tbody>
 					</table>
+
 				</div>
 			</div>
 		</div>
