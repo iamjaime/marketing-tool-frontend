@@ -4,18 +4,21 @@
 <!-- .right-sidebar -->
 <div class="right-sidebar">
   <div class="slimscrollright">
-    <div class="rpanel-title"> Chat <span><i class="ti-close right-side-toggle"></i></span> </div>
+    <div class="rpanel-title"> Chat
+      <span>
+        <i class="ti-close right-side-toggle"></i>
+      </span>
+    </div>
     <div class="r-panel-body">
-      <ul class="chatonline"  *ngFor="let user of userOnline ">
-        <div  *ngIf="user.event=='connect' ">
-          <li *ngIf="user.id != 	userName " >
-            <a ><img src="{{user.photo}}" alt="user-img" class="img-circle">
-              <span> {{user.id}} <small class="text-success">online</small></span></a>
-          </li> 
-        </div>
-           
-              
-         </ul> 
+      <ul class="chatonline" *ngFor="let user of userOnline ">
+        <li>
+          <a>
+            <span><b>{{user }}</b> 
+              <small class="text-success">online</small>
+            </span>
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

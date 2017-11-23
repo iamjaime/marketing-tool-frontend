@@ -2,13 +2,14 @@ import { LoginInterface } from '../../contracts/login/loginInterface';
 import { Injectable } from '@angular/core';
 import { LoginService } from '../../services/login/login.service';
 import { Router } from '@angular/router';
-
+ 
 @Injectable()
 
 export class Login  implements LoginInterface {
     result:any;
+   
   public constructor( private  loginService:LoginService ,private router:Router ){
-
+ 
   }
 
     /**
@@ -36,6 +37,7 @@ export class Login  implements LoginInterface {
             sessionStorage.setItem('name', email);
             sessionStorage.setItem('email', email);
             sessionStorage.setItem('photo', 'assets/images/users/1.jpg');
+          
             this.navigateToStart();
         }
     }

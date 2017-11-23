@@ -98,6 +98,10 @@ export class NavigationComponent implements AfterViewInit {
 
 
     logout() {
+        this.socket.emit('set-discon', sessionStorage.getItem('name'));
+        this.socket.on('get-discon', (data) => {
+            console.log(data);
+        });
         if(sessionStorage.getItem('loggedInType') == 'facebook'){
           this.FB.logout().then((response) => {
             console.log(response);

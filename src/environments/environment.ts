@@ -5,7 +5,7 @@
 
 export const environment = {
     production: false,
-    urls :'http://52.202.26.181:3001',
+    urls :'http://localhost:3001',
 
 
     baseApiUrl: 'http://127.0.0.1:8000',

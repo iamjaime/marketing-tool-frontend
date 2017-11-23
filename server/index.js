@@ -1,57 +1,82 @@
+
 let app = require('express')();
 let http = require('http').Server(app);
 let io = require('socket.io')(http);
+users = [];
 
-var clients = [];
-var cant=0;
 io.on('connection', (socket) => {
 
 
-  console.log('user connected' );
-   socket.on('disconnect', function(){
-    io.emit('users-changed', {user: socket.nickname, event: 'disconnect'});
+  /**
+   * desconection 
+   */
+  socket.on('disconnect', function () {
+    io.emit('users-changed', { user: socket.nickname, event: 'disconnect' });
 
-     clients.splice(clients.indexOf(socket.nickname));
+
   });
+  /**
+   * conection 
+   */
+  socket.on('set-conection', (idusu, nickname, photo, notification, url, types) => {
+    socket.nickname = idusu;
+    socket.photo = photo;
+    var userss = (idusu);
+    users.push(userss);
 
+    io.emit('get-conection', { id: idusu, user: nickname, photo: photo, event: 'connect', evets: notification, urls: url, types: types, s: users });
 
+    console.log(users);
 
-  socket.on('set-nickname', (idusu,nickname,photo,notification,url,types) => {
+  });
+  
+/**
+   * discon 
+   */
+  socket.on('set-discon', (idusu, nickname, photo, notification, url, types) => {
     socket.nickname = idusu;
 
-    io.emit('users-changed', {id:idusu,user: nickname,photo:photo,  event: 'connect',evets:notification,urls:url,types:types});
-
-       console.log(socket.nickname );
-
-});
+    users.splice(users.indexOf(idusu), 1);
+    console.log(users);
+    io.emit('users-changed', { id: idusu, user: nickname, photo: photo, event: 'connect', evets: notification, urls: url, types: types, s: users });
 
 
 
-socket.on('notification', (idusu,nickname,emails,photos) => {
-  socket.nickname = idusu;
+  }); 
 
-  io.emit('users-notification', {id:idusu,user: nickname,email:emails,photo:photos});
+discon
+  socket.on('set-nickname', (idusu, nickname, photo, notification, url, types) => {
+    socket.nickname = idusu;
 
-     console.log(socket.nickname );
-
-});
-
+    io.emit('users-changed', { id: idusu, user: nickname, photo: photo, event: 'connect', evets: notification, urls: url, types: types, s: users });
 
 
-socket.on('set-post', (idusu,nickname,photo,notification,url,types) => {
-  socket.nickname = idusu;
-
-io.emit('users-post', {id:idusu,user: nickname,photo:photo,  event: 'connect',evets:notification,urls:url,types:types});
-
-console.log(socket.nickname );
-
-});
-
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-    cant--;
 
   });
+
+
+
+  socket.on('notification', (idusu, nickname, emails, photos) => {
+    socket.nickname = idusu;
+
+    io.emit('users-notification', { id: idusu, user: nickname, email: emails, photo: photos });
+
+
+
+  });
+
+
+
+  socket.on('set-post', (idusu, nickname, photo, notification, url, types) => {
+    socket.nickname = idusu;
+
+    io.emit('users-post', { id: idusu, user: nickname, photo: photo, event: 'connect', evets: notification, urls: url, types: types });
+
+
+
+  });
+
+
 
 
 });
@@ -59,6 +84,6 @@ console.log(socket.nickname );
 
 var port = process.env.PORT || 3001;
 
-http.listen(port, function(){
-   console.log('listening in http://localhost:' + port);
+http.listen(port, function () {
+  console.log('listening in http://localhost:' + port);
 });

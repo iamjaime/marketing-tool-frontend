@@ -4,7 +4,9 @@ import { SocialUser } from "angular4-social-login";
 import { Login } from '../repositories/login/login';
 import { User } from '../repositories/user/user';
 import { FacebookRepository as Facebook } from '../repositories/facebook/facebook';
-
+import * as io from 'socket.io-client';
+import {environment } from '../../environments/environment';
+ 
 
 @Component({
     selector: 'app-login',
@@ -16,9 +18,12 @@ export class LoginComponent implements OnInit {
     private user: SocialUser;
     private loggedIn: boolean;
     sperson: any
+    private socket: io.Socket;
+ 
 
     constructor(private FB: Facebook, public router: Router, private _loginService: Login, private _userService: User) {
-
+ 
+      this.socket = io(environment.urls);
     }
 
     ngOnInit() {
@@ -42,6 +47,7 @@ export class LoginComponent implements OnInit {
      */
     navigateToStart() {
         this.router.navigate(['/starter']);
+        this.socket.emit('set-conection', sessionStorage.getItem('name'),sessionStorage.getItem('photo') );
     }
 
     /**
@@ -59,7 +65,7 @@ export class LoginComponent implements OnInit {
              sessionStorage.setItem('name', res.name);
              sessionStorage.setItem('email', res.email);
              sessionStorage.setItem('photo', res.picture.data.url);
-
+            
             this.navigateToStart();
           });
         }else{
@@ -73,9 +79,10 @@ export class LoginComponent implements OnInit {
                   sessionStorage.setItem('token', res.id);
                   sessionStorage.setItem('name', res.name);
                   sessionStorage.setItem('email', res.email);
-                  sessionStorage.setItem('photo', res.picture.data.url);
-
+                  sessionStorage.setItem('photo', res.picture.data.url); 
+                 
                   this.navigateToStart();
+                   
                 });
               }
 
