@@ -44,7 +44,7 @@ io.on('connection', (socket) => {
 
   }); 
 
-discon
+
   socket.on('set-nickname', (idusu, nickname, photo, notification, url, types) => {
     socket.nickname = idusu;
 
@@ -56,10 +56,10 @@ discon
 
 
 
-  socket.on('notification', (idusu, nickname, emails, photos) => {
+  socket.on('notification', (idusu, nickname, emails, photos,friends) => {
     socket.nickname = idusu;
 
-    io.emit('users-notification', { id: idusu, user: nickname, email: emails, photo: photos });
+    io.emit('users-notification', { id: idusu, user: nickname, email: emails, photo: photos ,friends:friends});
 
 
 

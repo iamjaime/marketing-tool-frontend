@@ -26,8 +26,8 @@ export class LoginService {
       username : username,
       password :password
     };
-
-    return this.http.post(this.url+'/oauth/token', postData);
+ 
+    return this.http.post(this.url+'/oauth/token', postData );
     
     }
 }

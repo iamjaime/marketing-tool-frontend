@@ -46,7 +46,7 @@ export class NavigationComponent implements AfterViewInit {
           }
         });
 
-      this.socket.emit('notification',user,sessionStorage.getItem('name'), sessionStorage.getItem('email'), sessionStorage.getItem('photo'));
+      this.socket.emit('notification',user,sessionStorage.getItem('name'), sessionStorage.getItem('email'), sessionStorage.getItem('photo'),sessionStorage.getItem('friends'));
     }
 
 

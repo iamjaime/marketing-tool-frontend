@@ -15,7 +15,7 @@ export class FacebookRepository implements FacebookInterface{
   private init(){
 
     let initParams: InitParams = {
-        appId: '531968097138866',
+        appId: '308199743010770',
         status: true,
         cookie: true,
         xfbml: true,
@@ -76,9 +76,9 @@ export class FacebookRepository implements FacebookInterface{
    * @returns {Promise<any>}
    */
   public getUser(userId){
-    return this.api('/' + userId, 'get', { "fields": "name,email,picture,first_name,last_name" });
+    return this.api('/' + userId, 'get', { "fields": "name,email,picture,first_name,last_name,friends" });
   }
-
+ 
   /**
    * Handles Getting Facebook Likes
    * @param id

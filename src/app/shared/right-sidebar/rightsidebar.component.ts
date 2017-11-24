@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as io from 'socket.io-client';
+import { environment } from '../../../environments/environment';
 import swal from 'sweetalert2';
 import { FacebookRepository as Facebook } from '../../repositories/facebook/facebook';
-import { environment } from '../../../environments/environment';
+ 
 
 @Component({
 	selector: 'ap-rightsidebar',
@@ -14,6 +15,7 @@ export class RightSidebarComponent {
 	userName = sessionStorage.getItem('name');
 	userEmail = sessionStorage.getItem('email');
 	photo = sessionStorage.getItem('photo');
+ 
 	public informationSocket: any;
 	public like: any;
 	public userOnline: any;
@@ -27,7 +29,7 @@ export class RightSidebarComponent {
 			if (data.id === sessionStorage.getItem('name')) {
 				console.log(data);
 				swal({
-					title: data.id,
+					title: data.user,
 					text: 'do the job correctly',
 					imageUrl: data.photo,
 					imageWidth: 400,
@@ -35,9 +37,7 @@ export class RightSidebarComponent {
 					imageAlt: 'Custom image',
 					animation: false
 				})
-			}
-
-
+			} 
 		});
 		this.socket.emit('set-nickname', sessionStorage.getItem('name'), sessionStorage.getItem('email'), sessionStorage.getItem('photo'));
 		this.socket.on('users-changed', (data) => {

@@ -6,6 +6,7 @@ import { User } from '../repositories/user/user';
 import { FacebookRepository as Facebook } from '../repositories/facebook/facebook';
 import * as io from 'socket.io-client';
 import {environment } from '../../environments/environment';
+
  
 
 @Component({
@@ -47,53 +48,6 @@ export class LoginComponent implements OnInit {
      */
     navigateToStart() {
         this.router.navigate(['/starter']);
-        this.socket.emit('set-conection', sessionStorage.getItem('name'),sessionStorage.getItem('photo') );
-    }
-
-    /**
-     * login  for facebook
-     */
-    loginSocialFacebook() {
-
-      this.FB.getLoginStatus().then((response) => {
-        console.log(response);
-        if(response.status == "connected"){
-          sessionStorage.setItem('id', response.authResponse.accessToken);
-
-          this.FB.getUser(response.authResponse.userID).then((res) => {
-            sessionStorage.setItem('token', res.id);
-             sessionStorage.setItem('name', res.name);
-             sessionStorage.setItem('email', res.email);
-             sessionStorage.setItem('photo', res.picture.data.url);
-            
-            this.navigateToStart();
-          });
-        }else{
-          this.FB.login()
-            .then((response) => {
-              console.log(response);
-              if(response.status == "connected"){
-                sessionStorage.setItem('id', response.authResponse.accessToken);
-                sessionStorage.setItem('loggedInType', 'facebook');
-                this.FB.getUser(response.authResponse.userID).then((res) => {
-                  sessionStorage.setItem('token', res.id);
-                  sessionStorage.setItem('name', res.name);
-                  sessionStorage.setItem('email', res.email);
-                  sessionStorage.setItem('photo', res.picture.data.url); 
-                 
-                  this.navigateToStart();
-                   
-                });
-              }
-
-            })
-            .catch(e => console.error('Error logging in'));
-        }
-      });
-
-    }
-
-
-
-
+ 
+    } 
 }
