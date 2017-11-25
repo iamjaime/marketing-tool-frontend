@@ -3,7 +3,8 @@ import { FacebookRepository as Facebook } from '../../repositories/facebook/face
 import { Router } from '@angular/router';
 @Component({
   selector: 'ap-sidebar',
-  templateUrl: './sidebar.component.html'
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements AfterViewInit {
 
@@ -34,6 +35,9 @@ export class SidebarComponent implements AfterViewInit {
 
             (<any>$('#sidebarnav')).metisMenu();
         });
+
+        //Check if already logged in to facebook
+        this.checkIfLoggedInToFacebook();
     }
 
 
@@ -61,13 +65,36 @@ export class SidebarComponent implements AfterViewInit {
      * login  for facebook
      */
     loginSocialFacebook() {
+      this.FB.login()
+        .then((response) => {
+          if(response.status == "connected"){
+            this.FB.getUser(response.authResponse.userID).then((res) => {
 
+              var facebookData = {
+                'id' : res.id,
+                'name' : res.name,
+                'email' : res.email,
+                'photo' : res.picture.data.url,
+                'friends_count' : res.friends.summary.total_count
+              };
+              sessionStorage.setItem('facebook', JSON.stringify(facebookData));
+              this.navigateToStart();
+            });
+          }
+
+        })
+        .catch(e => console.error('Error logging in'));
+    }
+
+
+  /**
+   * Handles Checking if the User is logged in to facebook.
+   */
+  checkIfLoggedInToFacebook() {
       this.FB.getLoginStatus().then((response) => {
-        console.log(response);
-        if(response.status == "connected"){
-          //sessionStorage.setItem('id', response.authResponse.accessToken);
+
+        if(response.status == "connected" && this.facebook === {}){
           this.FB.getUser(response.authResponse.userID).then((res) => {
-            console.log(res);
 
             var facebookData = {
               'id' : res.id,
@@ -79,32 +106,8 @@ export class SidebarComponent implements AfterViewInit {
 
             sessionStorage.setItem('facebook', JSON.stringify(facebookData));
             this.navigateToStart();
-
           });
-        }else{
-          this.FB.login()
-            .then((response) => {
-              console.log(response);
-              if(response.status == "connected"){
-              //  sessionStorage.setItem('id', response.authResponse.accessToken);
-                this.FB.getUser(response.authResponse.userID).then((res) => {
-                  console.log(res);
-                  var facebookData = {
-                    'id' : res.id,
-                    'name' : res.name,
-                    'email' : res.email,
-                    'photo' : res.picture.data.url,
-                    'friends_count' : res.friends.summary.total_count
-                  };
-                  sessionStorage.setItem('facebook', JSON.stringify(facebookData));
-                  this.navigateToStart();
-                });
-              }
-
-            })
-            .catch(e => console.error('Error logging in'));
         }
       });
-
     }
 }

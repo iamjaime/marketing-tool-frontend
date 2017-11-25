@@ -22,27 +22,41 @@
         <!--<li>-->
           <!--<a  ><i class="mdi mdi-gauge"></i><span class="hide-menu">Starter Page</span></a>-->
         <!--</li>-->
-        <li class="user-profile" 	*ngIf="facebook.id" >
-            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><img src="{{ facebook.photo }}" alt="user" /><span class="hide-menu">{{ facebook.name }}</span></a>
-            <ul aria-expanded="false" class="collapse">
+        <li class="user-profile" *ngIf="facebook.id" >
+
+          <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+            <i class="fa fa-facebook-square" style="color:#4267b2"></i> <span class="hide-menu">Facebook </span></a>
+
+            <!--<a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><img src="{{ facebook.photo }}" alt="user" /><span class="hide-menu">{{ facebook.name }}</span></a>-->
+
+          <ul aria-expanded="false" class="collapse social-module">
               <!--<li><a href="javascript:void()">My Profile </a></li>-->
               <!--<li><a href="javascript:void()">My Balance</a></li>-->
               <!--<li><a href="javascript:void()">Inbox</a></li>-->
               <!--<li><a href="javascript:void()">Account Setting</a></li>-->
+            <li class="nav-devider"></li>
+            <li class="user-profile">
+                  <!--<a routerLink="/facebook"  [routerLinkActive]="['router-link-active']">-->
+                      <!--<i class="fa fa-facebook-square" style="color:#4267b2"></i> Facebook </a>-->
+
+                <a href="#" aria-expanded="false"><img src="{{ facebook.photo }}" alt="user" /><span class="hide-menu">{{ facebook.name }}</span></a>
+
+              </li>
               <li>
-                  <a routerLink="/facebook"  [routerLinkActive]="['router-link-active']">
-                      <i class="fa fa-facebook-square" style="color:#4267b2"></i> Facebook </a>
+                <a routerLink="/facebook"  [routerLinkActive]="['router-link-active']">
+                  <i class="fa fa-share" style="color:#4267b2"></i>
+                  Shares </a>
               </li>
               <li>
                   <a routerLink="/jobprocess"  [routerLinkActive]="['router-link-active']">
                     <i class="fa fa-line-chart" style="color:#b26542"></i>
-                    Job Process </a>
+                    Jobs </a>
               </li>
               <li><a routerLink="/starter"   (click)="logoutFacebook()" ><i class="fa fa-power-off" aria-hidden="true" style="color:#eb240a"></i> Logout Facebook </a></li>
             </ul>
           </li>
         <li *ngIf="facebook.id == Null" >
-            <a (click)="loginSocialFacebook()">
+            <a href="javascript:void()" (click)="loginSocialFacebook()">
               <i class="fa fa-facebook-square" style="color:#4267b2"></i>
               <span class="hide-menu">Facebook</span></a>
         </li>
