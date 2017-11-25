@@ -8,7 +8,7 @@ io.on('connection', (socket) => {
 
 
   /**
-   * desconection 
+   * disconnect
    */
   socket.on('disconnect', function () {
     io.emit('users-changed', { user: socket.nickname, event: 'disconnect' });
@@ -16,22 +16,22 @@ io.on('connection', (socket) => {
 
   });
   /**
-   * conection 
+   * connection
    */
-  socket.on('set-conection', (idusu, nickname, photo, notification, url, types) => {
+  socket.on('set-connection', (idusu, nickname, photo, notification, url, types) => {
     socket.nickname = idusu;
     socket.photo = photo;
     var userss = (idusu);
     users.push(userss);
 
-    io.emit('get-conection', { id: idusu, user: nickname, photo: photo, event: 'connect', evets: notification, urls: url, types: types, s: users });
+    io.emit('get-connection', { id: idusu, user: nickname, photo: photo, event: 'connect', evets: notification, urls: url, types: types, s: users });
 
     console.log(users);
 
   });
-  
+
 /**
-   * discon 
+   * discon
    */
   socket.on('set-discon', (idusu, nickname, photo, notification, url, types) => {
     socket.nickname = idusu;
@@ -42,7 +42,7 @@ io.on('connection', (socket) => {
 
 
 
-  }); 
+  });
 
 
   socket.on('set-nickname', (idusu, nickname, photo, notification, url, types) => {

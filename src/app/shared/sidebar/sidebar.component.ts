@@ -6,15 +6,14 @@ import { Router } from '@angular/router';
   templateUrl: './sidebar.component.html'
 })
 export class SidebarComponent implements AfterViewInit {
-    userName= sessionStorage.getItem('name');
-    userEmail= sessionStorage.getItem('email');
-    photo= sessionStorage.getItem('photo');
 
-	tokenF= sessionStorage.getItem('ftoken');
-	fname=sessionStorage.getItem('fname' );
-	femail= sessionStorage.getItem('femail' );
-	fphoto=sessionStorage.getItem('fphoto' );
-	friends=sessionStorage.getItem('ffriends' ); 
+  name = sessionStorage.getItem('name');
+  email = sessionStorage.getItem('email');
+  photo = sessionStorage.getItem('photo');
+
+  //If we don't have facebook sessionStorage then empty object. Else JSON.parse the facebook object in storage.
+  facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
+
 	constructor(private FB: Facebook, public router: Router, ){}
 
     ngAfterViewInit() {
@@ -36,14 +35,17 @@ export class SidebarComponent implements AfterViewInit {
             (<any>$('#sidebarnav')).metisMenu();
         });
     }
-    logoutFacebook(){
-         sessionStorage.removeItem('ftoken');
-       sessionStorage.removeItem('fname' );
-        sessionStorage.removeItem('femail' );
-        sessionStorage.removeItem('fphoto' );
-         sessionStorage.removeItem('ffriends' ); 
-         this.router.navigate(['/login']);
 
+
+  /**
+   * Handles logging out of facebook and also the facebook module
+   * on our system
+   */
+  logoutFacebook(){
+       this.FB.logout().then((res) => {
+         sessionStorage.removeItem('facebook');
+         this.router.navigate(['/login']);
+       });
     }
 
 
@@ -52,7 +54,7 @@ export class SidebarComponent implements AfterViewInit {
      */
     navigateToStart() {
         this.router.navigate(['/login']);
- 
+
     }
 
     /**
@@ -63,31 +65,39 @@ export class SidebarComponent implements AfterViewInit {
       this.FB.getLoginStatus().then((response) => {
         console.log(response);
         if(response.status == "connected"){
-          sessionStorage.setItem('id', response.authResponse.accessToken);
+          //sessionStorage.setItem('id', response.authResponse.accessToken);
+          this.FB.getUser(response.authResponse.userID).then((res) => {
+            console.log(res);
 
-          this.FB.getUser(response.authResponse.userID).then((res) => { 
-            sessionStorage.setItem('ftoken', res.id);
-             sessionStorage.setItem('fname', res.name);
-             sessionStorage.setItem('femail', res.email);
-             sessionStorage.setItem('fphoto', res.picture.data.url);
-             sessionStorage.setItem('ffriends', res.friends.summary.total_count ); 
-             this. navigateToStart();
+            var facebookData = {
+              'id' : res.id,
+              'name' : res.name,
+              'email' : res.email,
+              'photo' : res.picture.data.url,
+              'friends_count' : res.friends.summary.total_count
+            };
+
+            sessionStorage.setItem('facebook', JSON.stringify(facebookData));
+            this.navigateToStart();
+
           });
         }else{
           this.FB.login()
             .then((response) => {
               console.log(response);
               if(response.status == "connected"){
-                sessionStorage.setItem('id', response.authResponse.accessToken);
-                sessionStorage.setItem('loggedInType', 'facebook');
+              //  sessionStorage.setItem('id', response.authResponse.accessToken);
                 this.FB.getUser(response.authResponse.userID).then((res) => {
-                  sessionStorage.setItem('ftoken', res.id);
-                  sessionStorage.setItem('fname', res.name);
-                  sessionStorage.setItem('femail', res.email);
-                  sessionStorage.setItem('fphoto', res.picture.data.url); 
-                  sessionStorage.setItem('ffriends', res.friends.summary.total_count );
-                  this. navigateToStart();
-                   
+                  console.log(res);
+                  var facebookData = {
+                    'id' : res.id,
+                    'name' : res.name,
+                    'email' : res.email,
+                    'photo' : res.picture.data.url,
+                    'friends_count' : res.friends.summary.total_count
+                  };
+                  sessionStorage.setItem('facebook', JSON.stringify(facebookData));
+                  this.navigateToStart();
                 });
               }
 
@@ -96,5 +106,5 @@ export class SidebarComponent implements AfterViewInit {
         }
       });
 
-    } 
+    }
 }

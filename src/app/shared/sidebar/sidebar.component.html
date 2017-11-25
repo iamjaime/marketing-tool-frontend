@@ -8,7 +8,7 @@
     <nav class="sidebar-nav">
       <ul id="sidebarnav">
         <li class="user-profile">
-          <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><img src="{{photo}}" alt="user" /><span class="hide-menu">{{userName}}</span></a>
+          <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><img src="{{photo}}" alt="user" /><span class="hide-menu">{{name}}</span></a>
           <ul aria-expanded="false" class="collapse">
             <!--<li><a href="javascript:void()">My Profile </a></li>-->
             <!--<li><a href="javascript:void()">My Balance</a></li>-->
@@ -22,8 +22,8 @@
         <!--<li>-->
           <!--<a  ><i class="mdi mdi-gauge"></i><span class="hide-menu">Starter Page</span></a>-->
         <!--</li>-->
-        <li class="user-profile" 	*ngIf="tokenF " >
-            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><img src="{{fphoto}}" alt="user" /><span class="hide-menu">{{fname}}</span></a>
+        <li class="user-profile" 	*ngIf="facebook.id" >
+            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><img src="{{ facebook.photo }}" alt="user" /><span class="hide-menu">{{ facebook.name }}</span></a>
             <ul aria-expanded="false" class="collapse">
               <!--<li><a href="javascript:void()">My Profile </a></li>-->
               <!--<li><a href="javascript:void()">My Balance</a></li>-->
@@ -41,12 +41,12 @@
               <li><a routerLink="/starter"   (click)="logoutFacebook()" ><i class="fa fa-power-off" aria-hidden="true" style="color:#eb240a"></i> Logout Facebook </a></li>
             </ul>
           </li>
-        <li *ngIf="tokenF == Null" >
+        <li *ngIf="facebook.id == Null" >
             <a (click)="loginSocialFacebook()">
               <i class="fa fa-facebook-square" style="color:#4267b2"></i>
               <span class="hide-menu">Facebook</span></a>
         </li>
-        
+
         <!--<li>-->
           <!--<a class="has-arrow" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-bullseye"></i><span class="hide-menu">Component</span></a>-->
           <!--<ul aria-expanded="false" class="collapse">-->

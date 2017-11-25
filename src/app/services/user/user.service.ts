@@ -14,9 +14,9 @@ export class UserService {
 
    /**
     * should create new user process
-    * @param username 
-    * @param useremail 
-    * @param userpassword 
+    * @param username
+    * @param useremail
+    * @param userpassword
     */
    create(username,useremail,userpassword) {
      let postData = {
@@ -25,9 +25,7 @@ export class UserService {
       grant_type : environment.baseApiGrantType,
       name : username,
       email: useremail,
-      password :userpassword,
-      provider : "system",
-      provider_id : 1
+      password :userpassword
      };
 
      const headers = new Headers();
@@ -37,12 +35,25 @@ export class UserService {
      return this.http.post( this.url+'/users', { data : postData },options);
     }
 
+  /**
+   * Handles getting authenticated user's info
+   * @returns {Observable<Response>}
+   */
+  getUserInfo(token) {
+      const headers = new Headers();
+      headers.append('Content-Type', 'application/json; charset=utf-8');
+      headers.append('Authorization', 'Bearer ' + token);
+      headers.append('Access-Control-Allow-Origin', '*');
+      let options = new RequestOptions({ headers: headers });
+      return this.http.get( this.url+'/users', options).map(res => res.json()).toPromise();
+    }
+
 
       /**
     * should create new user for social process
-    * @param username 
-    * @param useremail 
-    * @param provider 
+    * @param username
+    * @param useremail
+    * @param provider
     */
     createSocial(username,useremail,provider) {
       console.log('servicio',username,useremail,provider);

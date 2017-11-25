@@ -1,6 +1,6 @@
 import { FacebookInterface } from '../../contracts/facebook/facebook';
 import { Injectable } from '@angular/core';
-import { FacebookService, UIParams, UIResponse, InitParams } from 'ngx-facebook';
+import { FacebookService, UIParams, UIResponse, InitParams, LoginOptions } from 'ngx-facebook';
 
 @Injectable()
 export class FacebookRepository implements FacebookInterface{
@@ -30,7 +30,14 @@ export class FacebookRepository implements FacebookInterface{
    * @returns {Promise<LoginResponse>}
    */
   public login() {
-    return this.fb.login();
+
+    const options: LoginOptions = {
+       scope: 'public_profile,user_friends,email,pages_show_list',
+       return_scopes: true,
+       enable_profile_selector: true
+    };
+
+    return this.fb.login(options);
   }
 
   /**
@@ -78,7 +85,7 @@ export class FacebookRepository implements FacebookInterface{
   public getUser(userId){
     return this.api('/' + userId, 'get', { "fields": "name,email,picture,first_name,last_name,friends" });
   }
- 
+
   /**
    * Handles Getting Facebook Likes
    * @param id

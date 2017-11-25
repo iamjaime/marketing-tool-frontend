@@ -102,7 +102,7 @@ export class NavigationComponent implements AfterViewInit {
         this.socket.on('get-discon', (data) => {
             console.log(data);
         });
-        if(sessionStorage.getItem('loggedInType') == 'facebook'){
+        if(sessionStorage.getItem('facebook')){
           this.FB.logout().then((response) => {
             console.log(response);
             sessionStorage.clear();
