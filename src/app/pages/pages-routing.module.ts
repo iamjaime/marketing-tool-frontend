@@ -27,7 +27,8 @@ const routes: Routes = [
             { path: 'material', loadChildren: './icons/material/material.module#MaterialComponentModule' },
             { path: 'basicform', loadChildren: './form/basic/basic.module#BasicFormModule' },
             { path: 'wizard', loadChildren: './form/wizard/wizard.module#WizardFormModule' },
-            { path: 'basictable', loadChildren: './table/basic/basic.module#BasicTableModule' }
+            { path: 'basictable', loadChildren: './table/basic/basic.module#BasicTableModule' },
+            { path: 'profile', loadChildren: './profile/profile.module#ProfileModule' }
         ]
     }
 ];
