@@ -12,10 +12,14 @@
     <div class="r-panel-body">
       <ul class="chatonline" *ngFor="let user of userOnline ">
         <li>
-          <a>
-            <b><i class="fa fa-user" aria-hidden="true" style="color:#5bc526"></i>   {{user }}</b> 
-             
-             
+          <!--<a>-->
+            <!--<b><i class="fa fa-user" aria-hidden="true" style="color:#5bc526"></i>   {{user }}</b>-->
+          <!--</a>-->
+          <a href="javascript:void(0)" class="b-b">
+            <img src="assets/images/users/1.jpg" alt="user-img" class="img-circle">
+            <span> {{ user }}
+              <small class="text-success">online - <i class="fa fa-facebook-square"></i> <i class="fa fa-instagram"></i></small>
+            </span>
           </a>
         </li>
       </ul>
