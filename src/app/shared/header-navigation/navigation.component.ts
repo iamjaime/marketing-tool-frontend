@@ -115,4 +115,5 @@ export class NavigationComponent implements AfterViewInit {
           this.router.navigate(['/login']);
         }
     }
+    
 }

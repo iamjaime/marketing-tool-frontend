@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './profile.component';
 import { Routes, RouterModule } from '@angular/router';
-
+import { TagInputModule } from 'ng4-tag-input';
 const routes: Routes = [{
   path: '',
   data: {

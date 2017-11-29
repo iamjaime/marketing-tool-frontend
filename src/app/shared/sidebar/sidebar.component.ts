@@ -1,5 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { FacebookRepository as Facebook } from '../../repositories/facebook/facebook';
+import { FacebookRepository as Facebook } from '../../repositories/facebook/facebook'; 
+import { User } from '../../repositories/user/user'; 
 import { Router } from '@angular/router';
 @Component({
   selector: 'ap-sidebar',
@@ -11,11 +12,11 @@ export class SidebarComponent implements AfterViewInit {
   name = sessionStorage.getItem('name');
   email = sessionStorage.getItem('email');
   photo = sessionStorage.getItem('photo');
-
+  token= sessionStorage.getItem('token');  
   //If we don't have facebook sessionStorage then empty object. Else JSON.parse the facebook object in storage.
   facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
 
-	constructor(private FB: Facebook, public router: Router, ){}
+	constructor(private FB: Facebook, public router: Router ,private user:User){}
 
     ngAfterViewInit() {
         $(function () {
@@ -57,8 +58,9 @@ export class SidebarComponent implements AfterViewInit {
      * session start navigation
      */
     navigateToStart() {
+      this.user.createUserSocial();
         this.router.navigate(['/login']);
-
+        
     }
 
     /**
@@ -69,7 +71,9 @@ export class SidebarComponent implements AfterViewInit {
         .then((response) => {
           if(response.status == "connected"){
             this.FB.getUser(response.authResponse.userID).then((res) => {
-
+               console.log(res 
+                
+               );
               var facebookData = {
                 'id' : res.id,
                 'name' : res.name,
@@ -78,6 +82,7 @@ export class SidebarComponent implements AfterViewInit {
                 'friends_count' : res.friends.summary.total_count
               };
               sessionStorage.setItem('facebook', JSON.stringify(facebookData));
+              
               this.navigateToStart();
             });
           }
@@ -105,6 +110,7 @@ export class SidebarComponent implements AfterViewInit {
             };
 
             sessionStorage.setItem('facebook', JSON.stringify(facebookData));
+        
             this.navigateToStart();
           });
         }

@@ -8,4 +8,9 @@ export interface UserInterface {
    * Handles create new User Social
    */
   createUserSocial(username,useremail,provider);
+
+   /**
+   * Handles Update User
+   */
+  updateUser(username,useremail,password,city,country);
 }

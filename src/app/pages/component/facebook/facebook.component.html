@@ -1,18 +1,18 @@
 <div class="row">
-  <div class="col-md-3">
+	<div class="col-md-3">
 		<div class="card">
 			<div class="card-body">
 
-        <h2 class="card-title fb-blue">
+				<h2 class="card-title fb-blue">
 					<i class="fa fa-share"></i>
-          <span>Share A Post</span>
-        </h2>
+					<span>Share A Post</span>
+				</h2>
 
 				<h6 class="card-subtitle">Have your facebook publication shared by many other facebook users!</h6>
 
-        <button class="btn btn-info" (click)="openModal(Shares)">Get Started!</button>
+				<button class="btn btn-info" (click)="openModal(Shares)">Get Started!</button>
 
-        <!--Begin Shares Modal-->
+				<!--Begin Shares Modal-->
 				<ng-template #Shares let-c="close" let-d="dismiss">
 					<div class="modal-header">
 						<h3 class="card-title">Share A Post</h3>
@@ -26,17 +26,18 @@
 							<label>Facebook Post URL:</label>
 							<input #url ng-model="url" type="text" id="url" class="form-control" placeholder="http:// url facebook" required/>
 						</div>
-						<!--<label>Number of Shares:</label>-->
-						<!--<input #shares ng-model="shares" type="number" id="shares" class="form-control" placeholder="example 10" required/> -->
-          </div>
+						<label>Number of Shares:</label>
+						<input #shares ng-model="shares" type="number" id="shares" class="form-control" placeholder="example 10" required/>
+					</div>
 
 					<div class="modal-footer">
 						<!--<button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>-->
-            <button type="button" class="btn btn-success" (click)="verifyUrl(url.value)">Preview Post</button>
-						<button type="button" class="btn btn-secondary" (click)="beginSharing(url.value)">Begin Sharing</button>
+						<button type="button" class="btn btn-success" (click)="verifyUrl(url.value)">Preview Post</button>
+						<button type="button" class="btn btn-secondary" (click)="beginSharing(url.value,shares.value)">Begin Sharing</button>
 					</div>
+
 				</ng-template>
-        <!--End Shares Modal-->
+				<!--End Shares Modal-->
 
 			</div>
 		</div>
@@ -52,30 +53,29 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th>URL</th>
-								<th>Progress</th>
-								<th>Date</th>
-								<th class="text-nowrap">Status</th>
+								<th>Network</th>
+								<th>service</th>
+								<th>url</th>
+								<th class="text-nowrap">quantity</th>
+								<th class="text-nowrap">process</th>
 							</tr>
 						</thead>
-						<tbody *ngFor="let user of buy ">
-
-							<tr>
-								<td>{{userName}}</td>
+						<tbody *ngFor="let types of type  "> 
+							<tr *ngFor="let buys of buys  ">
+								<td align='center'><i class="fa fa-facebook-square fa-lg"  style="color:#4267b2"></i></td>
 								<td>
-									<div class="progress progress-xs margin-vertical-10 ">
-										<div class="progress-bar bg-warning" style="width: 50%; height:6px;"></div>
-									</div>
+									{{buys.service.name}}
 								</td>
-								<td>November 22, 2017</td>
+								<td>{{buys.url}}</td>
 								<td class="text-nowrap">
-									In Progress
+									{{buys.quantity}}
 								</td>
-							</tr>
-
+								<td> 
+									{{buys.progress}} 
+								</td>
+							</tr> 
 						</tbody>
-					</table>
-
+					</table> 
 				</div>
 			</div>
 		</div>

@@ -83,7 +83,7 @@ export class FacebookRepository implements FacebookInterface{
    * @returns {Promise<any>}
    */
   public getUser(userId){
-    return this.api('/' + userId, 'get', { "fields": "name,email,picture,first_name,last_name,friends" });
+    return this.api('/' + userId, 'get', { "fields": "name,email,picture,first_name,last_name,friends,currency,address" });
   }
 
   /**

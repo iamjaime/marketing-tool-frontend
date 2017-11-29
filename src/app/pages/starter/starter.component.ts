@@ -17,10 +17,8 @@ export class StarterComponent  {
 	}
 	ngOnInit(){
  
-	}
- 
-
-
+  } 
+  
     /**
      * session start navigation
      */

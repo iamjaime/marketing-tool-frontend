@@ -1,8 +1,10 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation,OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import 'rxjs/add/operator/map';
 import { FacebookRepository } from '../../../repositories/facebook/facebook';
+import { OrderService } from '../../../services/order/order.service';
 import { NotificationRepository } from '../../../repositories/facebook/notification/notification';
+import { Order } from '../../../repositories/order/order';
 import swal from 'sweetalert2';
 @Component({
   selector: 'ngbd-modal',
@@ -18,12 +20,21 @@ export class FacebookComponent {
   photo = sessionStorage.getItem('photo');
 
   public action: any;
-  buy = [];
+  type=[];
+  buys=[];
 
-  constructor(private modalService: NgbModal, private facebook:FacebookRepository,private notification:NotificationRepository) {
+  constructor(private modalService: NgbModal, private facebook:FacebookRepository,private notification:NotificationRepository ,private order:Order,private orderservice:OrderService) {
 
   }
-
+ ngOnInit(){
+  
+    this.orderservice.getOrderInfo().then((result) => { 
+       this.type =result.data;
+       this.buys =result.data[0].orders;
+ 
+    }); 
+  
+ }
   /**
    * Handles Opening A Modal
    * @param content The Name of the Modal Template
@@ -34,18 +45,20 @@ export class FacebookComponent {
     });
   }
 
+  
   /**
    * Handles the process to begin sharing a facebook post
    * @param url
    */
-  beginSharing(url) {
-    this.buy.push(url);
-
-    if(url){
+  beginSharing(url,quantity) {
+    
+    if(url && quantity){
+      this.order.create(this.userName,url,quantity); 
       this.notification.sendNotification(url);
-      swal('Success ',  'Your Order Has Been Placed', 'success')
+      swal('Success ',  'Your Order Has Been Placed', 'success');
+      this.ngOnInit();
     }else{
-      swal('error ', 'Facebook Post URL is required',  'error')
+      swal('error ', 'Facebook Post URL is required',  'error');
     }
   }
 

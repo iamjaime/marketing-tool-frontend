@@ -24,7 +24,10 @@
             "../node_modules/bootstrap/dist/css/bootstrap.min.css",
             "../src/assets/css/steps.css",
             "../src/assets/css/style.css",
-            "../src/assets/css/colors/default-dark.css"
+            "../src/assets/css/colors/default-dark.css" , 
+            "../node_modules/ngx-toastr/toastr.css"
+
+              
         ],
         "scripts": [
             "../node_modules/jquery/dist/jquery.min.js",
@@ -37,7 +40,14 @@
             "../src/assets/js/jquery.validate.min.js",
             "../src/assets/sweet/sweetalert2.all.min.js", 
             "../src/assets/sweet/sweetalert2.js",
-            "../src/assets/sweet/sweetalert2.min.js" 
+            "../src/assets/sweet/sweetalert2.min.js",
+
+            "../src/assets/plugins/perfect-scrollbar.jquery.min.js", 
+            "../src/assets/plugins/bootstrap-tagsinput.min.js"  ,
+            "../src/assets/plugins/jquery.toast.js", 
+            "../src/assets/plugins/toastr.js"     
+          
+   
         ],
         "environmentSource": "environments/environment.ts",
         "environments":

@@ -4,7 +4,7 @@ export const environment = {
   baseApiUrl: 'http://localhost:8000',
   baseApiPrefix : 'api',
    baseApiVersion: 'v1',
-   baseApiClientId : 6,
-   baseApiClientSecret: 'hkCd3B6uOElvkclVE4BVYAN5X4gyUlrRzXysmA1H',
+   baseApiClientId : 1,
+   baseApiClientSecret: 'wXmqPDhLOOJBQm7stRNGOqJiws8gjcmt5YBmB5NK',
    baseApiGrantType : 'password',
 };
