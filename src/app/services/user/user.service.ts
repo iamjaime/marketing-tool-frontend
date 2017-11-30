@@ -8,42 +8,45 @@ export class UserService {
   url = environment.baseApiUrl + '/' + environment.baseApiPrefix + '/' + environment.baseApiVersion;
   result: any;
   smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
-  facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
 
   constructor(private http: Http) {
 
   }
 
   /**
-   * should create new user process
-   * @param username
-   * @param useremail
-   * @param userpassword
+   * Handles creating a new user.
+   *
+   * @param {object} data  The data object
+   * @returns {any}
    */
-  create(username, useremail, userpassword) {
+  create(data) {
     let postData = {
       client_id: environment.baseApiClientId,
       client_secret: environment.baseApiClientSecret,
       grant_type: environment.baseApiGrantType,
-      name: username,
-      email: useremail,
-      password: userpassword,
-      provider: 'system',
-      provider_id: 1
+      name: data.name,
+      email: data.email,
+      password: data.password
     };
 
     const headers = new Headers();
     headers.append('Content-Type', 'application/json; charset=utf-8');
     headers.append('Access-Control-Allow-Origin', '*');
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.url + '/users', { data: postData }, options);
+    return this.http.post(this.url + '/users', { data: postData }, options).map((res) => res.json()).toPromise();
   }
 
   /**
-   * Handles getting authenticated user's info
-   * @returns {Observable<Response>}
+   * Handles getting the authenticated user's info
+   * @returns {any}
    */
-  getUserInfo(token) {
+  getUserInfo() {
+
+    if(sessionStorage.getItem('token')){
+      this.smi.token = sessionStorage.getItem('token');
+      sessionStorage.removeItem('token');
+    }
+
     const headers = new Headers();
     headers.append('Content-Type', 'application/json; charset=utf-8');
     headers.append('Authorization', 'Bearer ' + this.smi.token);
@@ -52,57 +55,53 @@ export class UserService {
     return this.http.get(this.url + '/users', options).map(res => res.json()).toPromise();
   }
 
-
   /**
-  * should create new user for social process 
-  */
-  createSocial() {
-    console.log(this.facebook.friends_count);
-    
+   * Handles attaching a user to a social media network service provider.
+   *
+   * @param provider_id
+   * @param provider_account_id
+   * @param provider_traffic
+   * @returns {Promise<R>}
+   */
+  attachNetwork(provider_id, provider_account_id, provider_traffic) {
+
     let postData = {
-      provider_id: 1,
-      provider_account_id: this.facebook.id,
-      traffic: this.facebook.friends_count
+      provider_id: provider_id,
+      provider_account_id: provider_account_id,
+      traffic: provider_traffic
     };
 
     const headers = new Headers();
-
     headers.append('Access-Control-Allow-Origin', '*');
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.smi.token);
-
     let options = new RequestOptions({ headers: headers });
-    console.log(options);
-    console.log(postData);
-    return this.http.post(this.url + '/users/attach_to_service_provider', { data: postData }, options);
+    return this.http.post(this.url + '/users/attach_to_service_provider', { data: postData }, options).map((res) => res.json()).toPromise();
   }
 
   /**
-   * should Update   user  Data
-   * @param username 
-   * @param useremail 
-   * @param password 
-   * @param city 
-   * @param country 
+   * Handles Updating the user
+   *
+   * @param data
+   * @returns {any}
    */
-  updateUser(username, useremail, password,city,country) {
+  update(data) {
     let postData = {
-      name: username,
-      email: useremail,
-      password: password,
-      city:city,
-      country:country
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      city: data.city,
+      country: data.country
     };
 
     const headers = new Headers();
-    let access_token = sessionStorage.getItem('token');
-    let id = sessionStorage.getItem('id'); 
+    let id = sessionStorage.getItem('id');
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
-    headers.append('Authorization', 'Bearer ' + this.smi.token); 
+    headers.append('Authorization', 'Bearer ' + this.smi.token);
     let options = new RequestOptions({ headers: headers });
- 
-    return this.http.put(this.url + '/users/' + this.smi.id, { data: postData }, options);
+
+    return this.http.put(this.url + '/users/' + this.smi.id, { data: postData }, options).map(res => res.json()).toPromise();
   }
 
 }

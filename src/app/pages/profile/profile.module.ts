@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './profile.component';
 import { Routes, RouterModule } from '@angular/router';
 import { TagInputModule } from 'ng4-tag-input';
+import { FormsModule } from '@angular/forms';
+
 const routes: Routes = [{
   path: '',
   data: {
@@ -15,7 +17,8 @@ const routes: Routes = [{
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    FormsModule
   ],
   declarations: [ProfileComponent]
 })

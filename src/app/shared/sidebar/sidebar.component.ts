@@ -64,10 +64,30 @@ export class SidebarComponent implements AfterViewInit {
      * session start navigation
      */
     navigateToStart() {
-      this.user.createUserSocial();
-        this.router.navigate(['/login']);
-
+      this.router.navigate(['/login']);
     }
+
+
+  /**
+   * Handles attaching the facebook social account.
+   */
+  private attachFacebookSocialAccount(provider_id, provider_account_id, provider_traffic)
+  {
+    //Facebook is provider id 1 (for now)
+    this.user.attachNetwork(provider_id, provider_account_id, provider_traffic).then((res) => {
+      //Success!
+      this.user.getUserInfo().then((results) => {
+        results.data.token = this.smi.token;
+        if(!results.data.avatar) {
+          results.data.avatar = 'assets/images/users/1.jpg';
+        }
+        sessionStorage.setItem('smi', JSON.stringify(results.data));
+      });
+
+    }, (err) => {
+      //console.log(err);
+    });
+  }
 
     /**
      * login  for facebook
@@ -88,7 +108,7 @@ export class SidebarComponent implements AfterViewInit {
                 'friends_count' : res.friends.summary.total_count
               };
               sessionStorage.setItem('facebook', JSON.stringify(facebookData));
-
+              this.attachFacebookSocialAccount(1,facebookData.id, facebookData.friends_count);
               this.navigateToStart();
             });
           }

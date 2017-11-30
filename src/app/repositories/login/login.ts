@@ -26,8 +26,11 @@ export class Login  implements LoginInterface {
     */
     public login(Email,Password) {
       this.loginService.Auth(Email,Password).then((res) => {
+
         this.token = res.access_token;
-        this.userService.getUserInfo(this.token).then((result) => {
+        sessionStorage.setItem('token', this.token);
+
+        this.userService.getUserInfo().then((result) => {
           console.log(result.data);
           this.assignSession(result.data);
           this.toastr.success ('   you are welcome'+result.data.name, '  successful ');
@@ -57,26 +60,5 @@ export class Login  implements LoginInterface {
     navigateToStart(){
         this.socket.emit('set-connection', this.smi.name, this.smi.avatar);
         this.router.navigate(['/starter']);
-    }
-
-    /**
-     * session assign session by Update
-     */
-    getInfoUser(token){
-      this.userService.getUserInfo(token).then((result) => {
-        sessionStorage.setItem('token',  token);
-        sessionStorage.setItem('id', result.data.id);
-        sessionStorage.setItem('name', result.data.name);
-        sessionStorage.setItem('email', result.data.email);
-        sessionStorage.setItem('city', result.data.city );
-        sessionStorage.setItem('country', result.data.country);
-        if(!result.data.avatar) {
-          sessionStorage.setItem('photo', 'assets/images/users/1.jpg');
-        }else{
-          sessionStorage.setItem('photo', result.data.avatar);
-        }
-        this.toastr.success ('   update  '+result.data.name, '  successful ');
-        return result;
-      });
     }
 }

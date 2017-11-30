@@ -7,7 +7,7 @@ export interface UserInterface {
    /**
    * Handles create new User Social
    */
-  createUserSocial(username,useremail,provider);
+  attachNetwork(provider_id, provider_account_id, provider_traffic);
 
    /**
    * Handles Update User
