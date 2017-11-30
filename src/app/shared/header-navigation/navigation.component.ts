@@ -6,36 +6,56 @@ import * as io from 'socket.io-client';
 import { environment } from '../../../environments/environment';
 import { FacebookRepository as Facebook } from '../../repositories/facebook/facebook';
 import swal from 'sweetalert2';
+import { Helper } from '../../utils/helpers';
 
 @Component({
     selector: 'ap-navigation',
     templateUrl: './navigation.component.html'
 })
 export class NavigationComponent implements AfterViewInit {
-    name: string;
+
     showHide: boolean;
-    userName = sessionStorage.getItem('name');
-    userEmail = sessionStorage.getItem('email');
-    photo = sessionStorage.getItem('photo');
+    smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
+    facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
+
     private socket: io.Socket;
-    public informationSocket = [];
     userOnline = [];
 
-    constructor(private authService: AuthService, private router: Router, private FB: Facebook) {
+    constructor(private authService: AuthService, private router: Router, private FB: Facebook, private helper : Helper) {
         this.showHide = true;
         this.socket = io(environment.urls);
     }
 
     public ngOnInit() {
-        this.socket.emit('set-nickname', sessionStorage.getItem('name'), sessionStorage.getItem('email'), sessionStorage.getItem('photo'));
+        this.socket.emit('set-nickname', this.smi.name, this.smi.email, this.smi.photo);
         this.socket.on('users-changed', (data) => {
             if (data.evets === 'si') {
-                if (sessionStorage.getItem('name') != data.id) {
+                if (this.smi.name != data.id) {
                     this.userOnline.push(data);
                 }
             }
         });
     }
+
+
+  /**
+   * Handles getting a specific provider from array of networks.
+   *
+   * @param array  networks  The array of attached_networks
+   * @param string  provider  The provider name
+   * @returns {any}
+   */
+    private getProvider(networks, provider){
+      for(let i = 0; i < networks.length; i++){
+        if(networks[i].provider.name == provider){
+          return networks[i];
+        }
+      }
+      return false;
+    }
+
+
+
 
     actionFacebook(link,user){
       this.FB.ui({ method: 'share', href: link }).then((response) => {
@@ -46,7 +66,9 @@ export class NavigationComponent implements AfterViewInit {
           }
         });
 
-      this.socket.emit('notification',user,sessionStorage.getItem('name'), sessionStorage.getItem('email'), sessionStorage.getItem('photo'),sessionStorage.getItem('friends'));
+      var provider = this.getProvider(this.smi.attached_networks, 'Facebook');
+
+      this.socket.emit('notification',user,this.smi.name, this.smi.email, this.smi.photo, provider.traffic);
     }
 
 
@@ -98,22 +120,21 @@ export class NavigationComponent implements AfterViewInit {
 
 
     logout() {
-        this.socket.emit('set-discon', sessionStorage.getItem('name'));
+        this.socket.emit('set-discon', this.smi.name);
         this.socket.on('get-discon', (data) => {
             console.log(data);
         });
-        if(sessionStorage.getItem('facebook')){
+
+        if(!this.helper.isEmpty(this.facebook)){
           this.FB.logout().then((response) => {
             console.log(response);
-            sessionStorage.clear();
-            sessionStorage.removeItem('token');
+            sessionStorage.removeItem('smi');
             this.router.navigate(['/login']);
           });
         }else{
-          sessionStorage.clear();
-          sessionStorage.removeItem('token');
+          sessionStorage.removeItem('smi');
           this.router.navigate(['/login']);
         }
     }
-    
+
 }

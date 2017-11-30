@@ -13,7 +13,7 @@ export class Login  implements LoginInterface {
 
   result : any;
   token : string;
-
+  smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
   private socket: io.Socket;
 
 
@@ -42,17 +42,12 @@ export class Login  implements LoginInterface {
      */
     assignSession(sessionData){
       console.log(sessionData);
-      sessionStorage.setItem('token', this.token);
-      sessionStorage.setItem('name', sessionData.id);
-      sessionStorage.setItem('name', sessionData.name);
-      sessionStorage.setItem('email', sessionData.email);
-      sessionStorage.setItem('city', sessionData.city );
-      sessionStorage.setItem('country', sessionData.country);
-      if(!sessionData.avatar) {
-        sessionStorage.setItem('photo', 'assets/images/users/1.jpg');
-      }else{
-        sessionStorage.setItem('photo', sessionData.avatar);
-      }
+      sessionData.token = this.token;
+        if(!sessionData.avatar) {
+         sessionData.avatar = 'assets/images/users/1.jpg';
+        }
+      var smi = sessionData;
+      sessionStorage.setItem('smi', JSON.stringify(smi));
       this.navigateToStart();
     }
 
@@ -60,15 +55,15 @@ export class Login  implements LoginInterface {
      * session start navigation
      */
     navigateToStart(){
-        this.socket.emit('set-connection', sessionStorage.getItem('name'),sessionStorage.getItem('photo') );
+        this.socket.emit('set-connection', this.smi.name, this.smi.avatar);
         this.router.navigate(['/starter']);
     }
 
     /**
-     * session assign session by Update 
+     * session assign session by Update
      */
     getInfoUser(token){
-      this.userService.getUserInfo(token).then((result) => { 
+      this.userService.getUserInfo(token).then((result) => {
         sessionStorage.setItem('token',  token);
         sessionStorage.setItem('id', result.data.id);
         sessionStorage.setItem('name', result.data.name);
@@ -82,6 +77,6 @@ export class Login  implements LoginInterface {
         }
         this.toastr.success ('   update  '+result.data.name, '  successful ');
         return result;
-      }); 
-    } 
+      });
+    }
 }

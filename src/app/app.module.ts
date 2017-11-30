@@ -11,21 +11,21 @@ import { SocialLoginModule, AuthServiceConfig } from "angular4-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
 import { FacebookModule } from 'ngx-facebook';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
- 
+
 
 import { FacebookRepository } from './repositories/facebook/facebook';
 import { Order } from './repositories/order/order';
 import { NotificationRepository } from './repositories/facebook/notification/notification';
 import { User } from './repositories/user/user';
 import { Login } from './repositories/login/login';
- 
+
 import {  OrderService } from './services/order/order.service';
 import {  UserService } from './services/user/user.service';
 import {  LoginService } from './services/login/login.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
-
+import { Helper } from './utils/helpers';
 
 const config2: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
 let config = new AuthServiceConfig([
@@ -49,7 +49,7 @@ export function provideConfig() {
     AppComponent
   ],
   imports: [
-   
+
     BrowserModule,   BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
     FormsModule,
@@ -58,9 +58,9 @@ export function provideConfig() {
     AppRoutingModule,
     SocialLoginModule,
     FacebookModule.forRoot(),
-    SocketIoModule.forRoot(config2) 
+    SocketIoModule.forRoot(config2)
   ],
-  providers: [  Order, Login,User,FacebookRepository,NotificationRepository,UserService,LoginService,OrderService,
+  providers: [  Order, Login,User,FacebookRepository,NotificationRepository,UserService,LoginService,OrderService, Helper,
     {
     provide: AuthServiceConfig,
     useFactory: provideConfig,

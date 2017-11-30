@@ -3,7 +3,7 @@ import * as io from 'socket.io-client';
 import { environment } from '../../../environments/environment';
 import swal from 'sweetalert2';
 import { FacebookRepository as Facebook } from '../../repositories/facebook/facebook';
- 
+
 
 @Component({
 	selector: 'ap-rightsidebar',
@@ -12,10 +12,13 @@ import { FacebookRepository as Facebook } from '../../repositories/facebook/face
 
 export class RightSidebarComponent {
 	private socket: io.Socket;
-	userName = sessionStorage.getItem('name');
-	userEmail = sessionStorage.getItem('email');
-	photo = sessionStorage.getItem('photo');
- 
+  smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
+  facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
+
+	userName = this.smi.name;
+	userEmail = this.smi.email;
+	photo = this.smi.photo;
+
 	public informationSocket: any;
 	public like: any;
 	public userOnline: any;
@@ -37,9 +40,9 @@ export class RightSidebarComponent {
 					imageAlt: 'Custom image',
 					animation: false
 				})
-			} 
+			}
 		});
-		this.socket.emit('set-nickname', sessionStorage.getItem('name'), sessionStorage.getItem('email'), sessionStorage.getItem('photo'));
+		this.socket.emit('set-nickname', this.smi.name, this.smi.email, this.smi.photo);
 		this.socket.on('users-changed', (data) => {
 
 
@@ -51,7 +54,7 @@ export class RightSidebarComponent {
 			this.like = this.informationSocket.urls;
 			if (this.informationSocket.evets === 'si') {
 
-				if (sessionStorage.getItem('name') != this.informationSocket.id) {
+				if (this.smi.name != this.informationSocket.id) {
 
 					var d = this.like;
 					swal({

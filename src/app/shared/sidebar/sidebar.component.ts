@@ -1,7 +1,11 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { FacebookRepository as Facebook } from '../../repositories/facebook/facebook'; 
-import { User } from '../../repositories/user/user'; 
+import { FacebookRepository as Facebook } from '../../repositories/facebook/facebook';
+import { User } from '../../repositories/user/user';
 import { Router } from '@angular/router';
+import * as io from 'socket.io-client';
+import { environment } from '../../../environments/environment';
+import { Helper } from '../../utils/helpers';
+
 @Component({
   selector: 'ap-sidebar',
   templateUrl: './sidebar.component.html',
@@ -9,14 +13,16 @@ import { Router } from '@angular/router';
 })
 export class SidebarComponent implements AfterViewInit {
 
-  name = sessionStorage.getItem('name');
-  email = sessionStorage.getItem('email');
-  photo = sessionStorage.getItem('photo');
-  token= sessionStorage.getItem('token');  
+  smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
+
   //If we don't have facebook sessionStorage then empty object. Else JSON.parse the facebook object in storage.
   facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
 
-	constructor(private FB: Facebook, public router: Router ,private user:User){}
+  private socket: io.Socket;
+
+	constructor(private FB: Facebook, public router: Router ,private user:User, private helper: Helper){
+    this.socket = io(environment.urls);
+  }
 
     ngAfterViewInit() {
         $(function () {
@@ -60,7 +66,7 @@ export class SidebarComponent implements AfterViewInit {
     navigateToStart() {
       this.user.createUserSocial();
         this.router.navigate(['/login']);
-        
+
     }
 
     /**
@@ -71,8 +77,8 @@ export class SidebarComponent implements AfterViewInit {
         .then((response) => {
           if(response.status == "connected"){
             this.FB.getUser(response.authResponse.userID).then((res) => {
-               console.log(res 
-                
+               console.log(res
+
                );
               var facebookData = {
                 'id' : res.id,
@@ -82,7 +88,7 @@ export class SidebarComponent implements AfterViewInit {
                 'friends_count' : res.friends.summary.total_count
               };
               sessionStorage.setItem('facebook', JSON.stringify(facebookData));
-              
+
               this.navigateToStart();
             });
           }
@@ -110,10 +116,31 @@ export class SidebarComponent implements AfterViewInit {
             };
 
             sessionStorage.setItem('facebook', JSON.stringify(facebookData));
-        
+
             this.navigateToStart();
           });
         }
       });
     }
+
+  /**
+   * Handles logging out of system.
+   */
+  logout() {
+    this.socket.emit('set-discon', this.smi.name);
+    this.socket.on('get-discon', (data) => {
+      console.log(data);
+    });
+
+    if(!this.helper.isEmpty(this.facebook)){
+      this.FB.logout().then((response) => {
+        console.log(response);
+        sessionStorage.removeItem('smi');
+        this.router.navigate(['/login']);
+      });
+    }else{
+      sessionStorage.removeItem('smi');
+      this.router.navigate(['/login']);
+    }
+  }
 }

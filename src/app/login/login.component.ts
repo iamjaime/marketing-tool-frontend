@@ -7,7 +7,7 @@ import { FacebookRepository as Facebook } from '../repositories/facebook/faceboo
 import * as io from 'socket.io-client';
 import {environment } from '../../environments/environment';
 
- 
+
 
 @Component({
     selector: 'app-login',
@@ -16,19 +16,17 @@ import {environment } from '../../environments/environment';
 })
 export class LoginComponent implements OnInit {
     result: any;
-    private user: SocialUser;
-    private loggedIn: boolean;
-    sperson: any
+    smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
     private socket: io.Socket;
- 
+
 
     constructor(private FB: Facebook, public router: Router, private _loginService: Login, private _userService: User) {
- 
+
       this.socket = io(environment.urls);
     }
 
     ngOnInit() {
-        if (sessionStorage.getItem('token')) {
+        if (this.smi.token) {
             this.navigateToStart();
         }
     }
@@ -48,6 +46,6 @@ export class LoginComponent implements OnInit {
      */
     navigateToStart() {
         this.router.navigate(['/starter']);
- 
-    } 
+
+    }
 }

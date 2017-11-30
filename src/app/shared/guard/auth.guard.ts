@@ -5,10 +5,14 @@ import { Router } from '@angular/router';
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-    constructor(private router: Router) { }
+  smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
+
+  constructor(private router: Router) {
+
+    }
 
     canActivate() {
-        if (sessionStorage.getItem('token')) {
+        if (this.smi.token) {
             return true;
         }
 
