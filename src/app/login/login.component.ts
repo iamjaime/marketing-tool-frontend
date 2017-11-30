@@ -1,13 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SocialUser } from "angular4-social-login";
 import { Login } from '../repositories/login/login';
-import { User } from '../repositories/user/user';
-import { FacebookRepository as Facebook } from '../repositories/facebook/facebook';
 import * as io from 'socket.io-client';
 import {environment } from '../../environments/environment';
-
-
 
 @Component({
     selector: 'app-login',
@@ -20,7 +15,7 @@ export class LoginComponent implements OnInit {
     private socket: io.Socket;
 
 
-    constructor(private FB: Facebook, public router: Router, private _loginService: Login, private _userService: User) {
+    constructor(public router: Router, private _loginService: Login) {
 
       this.socket = io(environment.urls);
     }
@@ -46,6 +41,5 @@ export class LoginComponent implements OnInit {
      */
     navigateToStart() {
         this.router.navigate(['/starter']);
-
     }
 }
