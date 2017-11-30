@@ -9,13 +9,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent   {
-  token = sessionStorage.getItem('token');
-  userName = sessionStorage.getItem('name');
-  userEmail = sessionStorage.getItem('email');
-  photo = sessionStorage.getItem('photo'); 
-  Citys = sessionStorage.getItem('city');
-  Countrys = sessionStorage.getItem('country');
-  facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook')); 
+  smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
+  facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
   
   
   constructor( private user:User ,private login:Login,private router:Router) {
@@ -31,7 +26,7 @@ export class ProfileComponent   {
    */
   updateUser(username,useremail,password,city,country) {
     this.user.updateUser(username,useremail,password,city,country);
-    this.login.getInfoUser(this.token);
+    this.login.getInfoUser(this.smi.token);
     this.router.navigate(['/starter']);
   } 
   

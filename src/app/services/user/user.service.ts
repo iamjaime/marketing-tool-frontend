@@ -7,7 +7,7 @@ export class UserService {
 
   url = environment.baseApiUrl + '/' + environment.baseApiPrefix + '/' + environment.baseApiVersion;
   result: any;
-  token = sessionStorage.getItem('token');
+  smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
   facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
 
   constructor(private http: Http) {
@@ -46,7 +46,7 @@ export class UserService {
   getUserInfo(token) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json; charset=utf-8');
-    headers.append('Authorization', 'Bearer ' + token);
+    headers.append('Authorization', 'Bearer ' + this.smi.token);
     headers.append('Access-Control-Allow-Origin', '*');
     let options = new RequestOptions({ headers: headers });
     return this.http.get(this.url + '/users', options).map(res => res.json()).toPromise();
@@ -58,7 +58,7 @@ export class UserService {
   */
   createSocial() {
     console.log(this.facebook.friends_count);
-    let access_token = sessionStorage.getItem('token');
+    
     let postData = {
       provider_id: 1,
       provider_account_id: this.facebook.id,
@@ -69,7 +69,7 @@ export class UserService {
 
     headers.append('Access-Control-Allow-Origin', '*');
     headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', 'Bearer ' + access_token);
+    headers.append('Authorization', 'Bearer ' + this.smi.token);
 
     let options = new RequestOptions({ headers: headers });
     console.log(options);
@@ -99,10 +99,10 @@ export class UserService {
     let id = sessionStorage.getItem('id'); 
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
-    headers.append('Authorization', 'Bearer ' + access_token); 
+    headers.append('Authorization', 'Bearer ' + this.smi.token); 
     let options = new RequestOptions({ headers: headers });
  
-    return this.http.put(this.url + '/users/' + id, { data: postData }, options);
+    return this.http.put(this.url + '/users/' + this.smi.id, { data: postData }, options);
   }
 
 }
