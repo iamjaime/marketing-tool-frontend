@@ -18,4 +18,14 @@ export class Helper {
     return true;
   }
 
+  /**
+   * Handles parsing the error responses from the server
+   * @param err
+   */
+  parseError(err){
+    for(var key in err.data) {
+      return err.data[key][0];
+    }
+  }
+
 }

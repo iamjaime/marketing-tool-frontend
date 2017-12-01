@@ -31,7 +31,6 @@ export class SignupComponent implements OnInit  {
       * @param userpassword
       */
      createUser() {
-       console.log(this.userData);
        let data = this.userData;
        this.user.create(data);
       }

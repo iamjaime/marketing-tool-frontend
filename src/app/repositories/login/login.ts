@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import * as io from 'socket.io-client';
 import { environment } from '../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import { Helper } from '../../utils/helpers';
 
 @Injectable()
 
@@ -17,7 +18,7 @@ export class Login implements LoginInterface {
   private socket: io.Socket;
 
 
-  public constructor(private loginService: LoginService, private router: Router, private userService: UserService, private toastr: ToastrService) {
+  public constructor(private loginService: LoginService, private router: Router, private userService: UserService, private toastr: ToastrService, private helper : Helper) {
     this.socket = io(environment.urls);
   }
 
@@ -38,6 +39,9 @@ export class Login implements LoginInterface {
       }
       );
 
+    }, (err) => {
+      let error = err.json();
+      this.toastr.error(error.message, 'Error');
     });
   }
 

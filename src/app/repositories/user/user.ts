@@ -4,12 +4,13 @@ import { UserService } from '../../services/user/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Login } from '../../repositories/login/login';
 import { Router } from '@angular/router';
+import { Helper } from '../../utils/helpers';
 
 @Injectable()
 export class User implements UserInterface {
 
     smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
-    public constructor(public user: UserService, private toastr: ToastrService, private login : Login, private router:Router) {
+    public constructor(public user: UserService, private toastr: ToastrService, private login : Login, private router:Router, private helper: Helper) {
 
     }
 
@@ -22,7 +23,9 @@ export class User implements UserInterface {
           this.login.login(data);
       },
       (err) => {
-          this.toastr.error('Error', '  There was an error registering the account.');
+          let error = err.json();
+          let errorString = this.helper.parseError(error);
+          this.toastr.error(errorString, 'Error');
       });
     }
 
@@ -59,12 +62,12 @@ export class User implements UserInterface {
   getUserInfo(){
      return this.user.getUserInfo();
   }
-   
+
   refreshInformation(){
     this.user.getUserInfo().then((result) => {
         console.log(result.data);
         this.assignSession(result.data);
-       
+
       }
        );
   }
@@ -73,7 +76,7 @@ export class User implements UserInterface {
      *  Handles assign session by Email autentication
      */
     assignSession(sessionData){
-     
+
         sessionData.token = this.smi.token;
           if(!sessionData.avatar) {
            sessionData.avatar = 'assets/images/users/1.jpg';
@@ -81,8 +84,8 @@ export class User implements UserInterface {
         var smi = sessionData;
         sessionStorage.setItem('smi', JSON.stringify(smi));
         console.log(  sessionStorage.getItem('smi'));
-   
+
         setTimeout('document.location.reload()',1000);
-   
+
       }
 }
