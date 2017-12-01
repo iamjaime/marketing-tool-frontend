@@ -35,7 +35,7 @@ export class Login implements LoginInterface {
       this.userService.getUserInfo().then((result) => {
         console.log(result.data);
         this.assignSession(result.data);
-        this.toastr.success('   you are welcome' + result.data.name, '  successful ');
+        this.toastr.success(result.data.name + '!', 'Welcome Back');
       }
       );
 

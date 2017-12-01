@@ -19,7 +19,7 @@ export class User implements UserInterface {
      */
     public create(data) {
       this.user.create(data).then((res) => {
-          this.toastr.success('Successful', '  You have successfully registered');
+          this.toastr.success('You have successfully registered', 'Success');
           this.login.login(data);
       },
       (err) => {
@@ -46,7 +46,7 @@ export class User implements UserInterface {
    */
   updateUser(data) {
       this.user.update(data).then((res) => {
-        this.toastr.success('Successful', ' update');
+        this.toastr.success('You have successfully updated your details', 'Success');
           this.refreshInformation();
       },
 
