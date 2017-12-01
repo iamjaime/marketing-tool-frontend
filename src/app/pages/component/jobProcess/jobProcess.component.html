@@ -25,7 +25,7 @@
                         <tbody *ngFor="let types of type  ">
                             <tr *ngFor="let buys of buys  ">
 
-                                <td align='center'>   {{ buys.buyer.name }} </td>
+                                <td align='center'> <img src="{{ buys.buyer.avatar  }}" alt="user" />  {{ buys.buyer.name }} </td>
                                 <td> <i class="fa fa-facebook-square fa-lg" style="color:#4267b2"></i>  {{ buys.service.name }}  </td>
                                 <td>{{ buys.created_at }}</td>
                                 <td>
@@ -34,7 +34,7 @@
                                 </td>
                                 <td> {{ buys.quantity }}</td>
                                 <td class="text-nowrap">  {{ buys.progress }}    </td>
-                                <td> <button class="label label-info" (click)="actionFacebook(buys.url)" >   To Job </button> </td>
+                                <td> <button class="label label-info" (click)="actionFacebook(buys.url,buys.id)" >   To Job </button> </td>
                             </tr>
                         </tbody>
                     </table>

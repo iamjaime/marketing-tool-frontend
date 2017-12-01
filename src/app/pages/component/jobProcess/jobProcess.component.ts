@@ -25,30 +25,34 @@ export class JobProcess {
       
          this.type =result.data;
          this.buys =result.data[0].orders;
-         console.log( this.type);
+       console.log(this.type );
         
       }); 
     
    }
 
-   actionFacebook(link,user){
-    this.FB.ui({ method: 'share', href: link }).then((response) => {
-      var PostData={
-        order_id : 1,
-        provider_id : 1,
-        provider_account_id:1945778402415038 
-      }
+   actionFacebook(url,id){
+  
+    this.FB.ui({ method: 'share', href: url }).then((response) => {
+     
         if (response.error_message) {
           swal('Cancelled', 'Canceled job ', 'error');
         } else {
           swal('Successful!', 'Successful work, thank you for your trust', 'success');
-          this.orderservice.responOrder();
+          var PostData: any= {
+            order_id :id,
+            provider_id : 1,
+            provider_account_id:this.facebook.id 
+          }
+        
+          this.order.responOrder(PostData);
+          var provider = this.getProvider(this.smi.attached_networks, 'Facebook'); 
+           this.socket.emit('notification',this.smi.name, this.smi.email, this.smi.photo, provider.traffic);
+           
         }
       });
-
-    var provider = this.getProvider(this.smi.attached_networks, 'Facebook');
-
-    this.socket.emit('notification',user,this.smi.name, this.smi.email, this.smi.photo, provider.traffic);
+      
+ 
   }
 
   /**

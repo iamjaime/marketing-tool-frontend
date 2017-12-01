@@ -13,17 +13,7 @@ export class User implements UserInterface {
   public constructor(public user: UserService, private toastr: ToastrService, private login: Login, private router: Router, private helper: Helper) {
 
   }
-
-<<<<<<< HEAD
-  /**
-   * Handles Creating a new user
-   */
-  public create(data) {
-    this.user.create(data).then((res) => {
-      this.toastr.success('Successful', '  You have successfully registered');
-      this.login.login(data);
-    },
-=======
+ 
     /**
      * Handles Creating a new user
      */
@@ -32,7 +22,7 @@ export class User implements UserInterface {
           this.toastr.success('You have successfully registered', 'Success');
           this.login.login(data);
       },
->>>>>>> 91dc8e135db9a992cee41b773aea9f20c7e5b372
+ 
       (err) => {
         let error = err.json();
         let errorString = this.helper.parseError(error);
@@ -55,19 +45,11 @@ export class User implements UserInterface {
    * Handles updating a user account
    * @param data
    */
-  updateUser(data) {
-<<<<<<< HEAD
-    this.user.update(data).then((res) => {
-      this.toastr.success('Successful', ' update');
-      this.refreshInformation();
-    },
-=======
+  updateUser(data) { 
       this.user.update(data).then((res) => {
         this.toastr.success('You have successfully updated your details', 'Success');
           this.refreshInformation();
-      },
->>>>>>> 91dc8e135db9a992cee41b773aea9f20c7e5b372
-
+      }, 
       (err) => {
         return err;
       });

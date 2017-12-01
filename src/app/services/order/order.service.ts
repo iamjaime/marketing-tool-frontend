@@ -62,10 +62,11 @@ export class OrderService {
    * should respon orders 
    */
   responOrder(data) {
+    console.log('repositorio orden');
     let postData = { 
-      order_id : 2,
-      provider_id : 1,
-      provider_account_id : 2
+      order_id : data.order_id,
+      provider_id : data.provider_id,
+      provider_account_id : data.provider_account_id
     };
 
     const headers = new Headers(); 

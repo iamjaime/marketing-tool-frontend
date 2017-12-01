@@ -35,12 +35,13 @@ export class Order implements OrderInterface {
    */
   public responOrder(data) { 
     this.orderService.responOrder(data).subscribe((response  )=> {
-        this.result = response.json(); 
-        this.toastr.success('Successful', ' Orders'); 
+        //this.result = response.json(); 
+        //this.toastr.success('Successful', ' Orders'); 
+        console.log(response);
     },
     err => {
-        this.result =err.json();
-        this.toastr.error ('Error', '  Orders '); 
+       // this.result =err.json();
+        //this.toastr.error ('Error', '  Orders '); 
     }); 
   } 
  
