@@ -38,7 +38,7 @@ export class OrderService {
    * Handles getting order info
    * @returns {Observable<Response>}
    */
-  getOrderInfo( ) {
+  getOrderInfoAll( ) {
     const headers = new Headers(); 
     headers.append('Content-Type', 'application/json; charset=utf-8');
     headers.append('Authorization', 'Bearer ' + this.smi.token);
@@ -47,4 +47,32 @@ export class OrderService {
     
     return this.http.get(this.url + '/orders/service-provider/1', options).map(res => res.json()).toPromise();
   } 
+  getOrderInfo( ) {
+    const headers = new Headers(); 
+    headers.append('Content-Type', 'application/json; charset=utf-8');
+    headers.append('Authorization', 'Bearer ' + this.smi.token);
+    headers.append('Access-Control-Allow-Origin', '*');
+    let options = new RequestOptions({ headers: headers });
+    
+    return this.http.get(this.url + '/orders/service-provider/1/owned', options).map(res => res.json()).toPromise();
+  } 
+
+
+   /**
+   * should respon orders 
+   */
+  responOrder(data) {
+    let postData = { 
+      order_id : 2,
+      provider_id : 1,
+      provider_account_id : 2
+    };
+
+    const headers = new Headers(); 
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    headers.append('Authorization', 'Bearer ' + this.smi.token);
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(this.url + '/orders/fill', { data: postData }, options);
+  }
 }

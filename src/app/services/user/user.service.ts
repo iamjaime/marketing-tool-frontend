@@ -42,7 +42,7 @@ export class UserService {
    */
   getUserInfo() {
 
-    if(sessionStorage.getItem('token')){
+    if (sessionStorage.getItem('token')) {
       this.smi.token = sessionStorage.getItem('token');
       sessionStorage.removeItem('token');
     }
@@ -86,24 +86,24 @@ export class UserService {
    * @returns {any}
    */
   update(data) {
-    var postData : any ={
-      name: data.name, 
+    var postData: any = {
+      name: data.name,
       city: data.city,
-      province:data.province,
-      postal_code:data.postal_code,
+      province: data.province,
+      postal_code: data.postal_code,
       country: data.country
-    };  
-    
-      if( data.email  === this.smi.email || data.email === ''  ){    
-      }else{
-       postData.email = data.email; 
-      }
-   
-      if( data.password === ""){ 
-      }else{
-       postData.password = data.password; 
-      } 
-      
+    };
+
+    if (data.email === this.smi.email || data.email === '') {
+    } else {
+      postData.email = data.email;
+    }
+
+    if (data.password === "") {
+    } else {
+      postData.password = data.password;
+    }
+
     const headers = new Headers();
     let id = sessionStorage.getItem('id');
     headers.append('Content-Type', 'application/json');

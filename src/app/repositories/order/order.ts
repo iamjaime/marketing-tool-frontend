@@ -27,5 +27,21 @@ export class Order implements OrderInterface {
         }); 
       } 
      
+      /**
+   *  Handles Ceate new Order   
+   * @param userName 
+   * @param userEmail 
+   * @param userPassword 
+   */
+  public responOrder(data) { 
+    this.orderService.responOrder(data).subscribe((response  )=> {
+        this.result = response.json(); 
+        this.toastr.success('Successful', ' Orders'); 
+    },
+    err => {
+        this.result =err.json();
+        this.toastr.error ('Error', '  Orders '); 
+    }); 
+  } 
  
 }

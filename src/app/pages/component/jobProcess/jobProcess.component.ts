@@ -1,27 +1,69 @@
 import { Component,} from '@angular/core';
 import * as io from 'socket.io-client';
 import { environment } from '../../../../environments/environment';
-
+import { OrderService } from '../../../services/order/order.service';
+import { Order } from '../../../repositories/order/order';
+import { FacebookRepository as Facebook } from '../../../repositories/facebook/facebook';
+import swal from 'sweetalert2';
 @Component({
   selector: 'app-basic',
   templateUrl: './jobProcess.component.html'
 })
 export class JobProcess { 
   private socket: io.Socket;
-  public dataNotification=[];
-  constructor( ) {
+  smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
+  facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
+  type=[];
+  buys=[];
+  constructor(private order:Order,private orderservice:OrderService,private FB:Facebook ) {
 		this.socket = io(environment.urls);
-	}
-  public ngOnInit() {
-	this.socket.on('users-notification', (data) => {
-    console.log('proceso');
-    console.log(data);
-      this.dataNotification.push( data);
-      
-    
+  }
   
+  ngOnInit(){
+    
+      this.orderservice.getOrderInfoAll().then((result) => { 
+      
+         this.type =result.data;
+         this.buys =result.data[0].orders;
+         console.log( this.type);
+        
+      }); 
+    
+   }
 
+   actionFacebook(link,user){
+    this.FB.ui({ method: 'share', href: link }).then((response) => {
+      var PostData={
+        order_id : 1,
+        provider_id : 1,
+        provider_account_id:1945778402415038 
+      }
+        if (response.error_message) {
+          swal('Cancelled', 'Canceled job ', 'error');
+        } else {
+          swal('Successful!', 'Successful work, thank you for your trust', 'success');
+          this.orderservice.responOrder();
+        }
+      });
 
-  });
-}
+    var provider = this.getProvider(this.smi.attached_networks, 'Facebook');
+
+    this.socket.emit('notification',user,this.smi.name, this.smi.email, this.smi.photo, provider.traffic);
+  }
+
+  /**
+   * Handles getting a specific provider from array of networks.
+   *
+   * @param array  networks  The array of attached_networks
+   * @param string  provider  The provider name
+   * @returns {any}
+   */
+  private getProvider(networks, provider){
+    for(let i = 0; i < networks.length; i++){
+      if(networks[i].provider.name == provider){
+        return networks[i];
+      }
+    }
+    return false;
+  }
 }
