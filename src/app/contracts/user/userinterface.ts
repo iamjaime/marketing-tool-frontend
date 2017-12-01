@@ -12,5 +12,5 @@ export interface UserInterface {
    /**
    * Handles Update User
    */
-  updateUser(username,useremail,password,city,country);
+  updateUser( data);
 }

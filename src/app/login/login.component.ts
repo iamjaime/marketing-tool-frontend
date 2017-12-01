@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Login } from '../repositories/login/login';
 import * as io from 'socket.io-client';
 import {environment } from '../../environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-login',
@@ -10,12 +11,12 @@ import {environment } from '../../environments/environment';
     styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-    result: any;
+    userData : any = { };
     smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
     private socket: io.Socket;
 
 
-    constructor(public router: Router, private _loginService: Login) {
+    constructor(public router: Router, private _loginService: Login, private alert:ToastrService) {
 
       this.socket = io(environment.urls);
     }
@@ -30,8 +31,13 @@ export class LoginComponent implements OnInit {
      * @param Email
      * @param Password
      */
-    login(Email, Password) {
-        this._loginService.login(Email, Password);
+    login( ) {
+        if(this.userData.email && this.userData.password){
+            this._loginService.login(this.userData);
+        }else{
+            this.alert.error( 'empty data','error');
+        }
+        
     }
 
 

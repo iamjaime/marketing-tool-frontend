@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Login } from '../../repositories/login/login';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class User implements UserInterface {
 
-
-    public constructor(public user: UserService, private toastr: ToastrService, private login : Login) {
+    smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
+    public constructor(public user: UserService, private toastr: ToastrService, private login : Login, private router:Router) {
 
     }
 
@@ -18,7 +19,7 @@ export class User implements UserInterface {
     public create(data) {
       this.user.create(data).then((res) => {
           this.toastr.success('Successful', '  You have successfully registered');
-          this.login.login(data.email, data.password);
+          this.login.login(data);
       },
       (err) => {
           this.toastr.error('Error', '  There was an error registering the account.');
@@ -42,7 +43,8 @@ export class User implements UserInterface {
    */
   updateUser(data) {
       this.user.update(data).then((res) => {
-          this.toastr.success('Successful', ' update');
+        this.toastr.success('Successful', ' update');
+          this.refreshInformation();
       },
 
       (err) => {
@@ -57,4 +59,30 @@ export class User implements UserInterface {
   getUserInfo(){
      return this.user.getUserInfo();
   }
+   
+  refreshInformation(){
+    this.user.getUserInfo().then((result) => {
+        console.log(result.data);
+        this.assignSession(result.data);
+       
+      }
+       );
+  }
+
+   /**
+     *  Handles assign session by Email autentication
+     */
+    assignSession(sessionData){
+     
+        sessionData.token = this.smi.token;
+          if(!sessionData.avatar) {
+           sessionData.avatar = 'assets/images/users/1.jpg';
+          }
+        var smi = sessionData;
+        sessionStorage.setItem('smi', JSON.stringify(smi));
+        console.log(  sessionStorage.getItem('smi'));
+   
+        setTimeout('document.location.reload()',1000);
+   
+      }
 }

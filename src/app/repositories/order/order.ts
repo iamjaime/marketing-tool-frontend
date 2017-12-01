@@ -18,15 +18,12 @@ export class Order implements OrderInterface {
    */
   public create( userName,userEmail,userPassword) { 
         this.orderService.create(userName,userEmail,userPassword).subscribe((response  )=> {
-            this.result = response.json();
-            console.log(this.result);
-            this.toastr.success('Successful', ' Orders');
-            return this.result ;
+            this.result = response.json(); 
+            this.toastr.success('Successful', ' Orders'); 
         },
         err => {
             this.result =err.json();
-            this.toastr.error ('Error', '  Orders ');
-            return this.result  ;
+            this.toastr.error ('Error', '  Orders '); 
         }); 
       } 
      

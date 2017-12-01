@@ -19,7 +19,9 @@ export class ProfileComponent   {
     city : this.smi.city,
     province : this.smi.province,
     postal_code : this.smi.postal_code,
-    country : this.smi.country
+    country : this.smi.country,
+    email: this.smi.email,
+ 
   };
 
   constructor( private user:User ,private login:Login,private router:Router) {
@@ -39,18 +41,24 @@ export class ProfileComponent   {
      city : this.userData.city,
      province : this.userData.province,
      postal_code : this.userData.postal_code,
-     country : this.userData.country
+     country : this.userData.country,
+ 
+    
    };
-
-   if(this.userData.email != "" && this.smi.email == this.userData.email){
-     postData.email = this.userData.email;
+ 
+   if( this.userData.email  === this.smi.email || this.userData.email === ''  ){
+  console.log('email igual o vasio ');   
+   }else{
+    postData.email = this.userData.email; 
    }
 
-   if(this.userData.password != ""){
-     postData.password = this.userData.password;
+   if( this.userData.password === ""){
+    console.log('password igual o vasio ');  
+   }else{
+    postData.password = this.userData.password; 
    }
-
-    this.user.updateUser(postData);
+console.log(postData);
+  this.user.updateUser(postData);
   }
 
 

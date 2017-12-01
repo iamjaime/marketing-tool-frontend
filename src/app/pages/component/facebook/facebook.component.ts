@@ -29,6 +29,7 @@ export class FacebookComponent {
  ngOnInit(){
   
     this.orderservice.getOrderInfo().then((result) => { 
+      console.log(result);
        this.type =result.data;
        this.buys =result.data[0].orders;
  

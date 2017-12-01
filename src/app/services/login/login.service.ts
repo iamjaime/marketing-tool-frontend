@@ -18,13 +18,14 @@ export class LoginService {
     * @param username
     * @param password
     */
-   Auth(username, password) {
+   Auth(data) {
+    console.log(data);
     let postData = {
       client_id : environment.baseApiClientId ,
       client_secret :environment.baseApiClientSecret,
       grant_type : environment.baseApiGrantType,
-      username : username,
-      password :password
+      username : data.email,
+      password :data.password
     };
 
     return this.http.post(this.url+'/oauth/token', postData ).map(res => res.json()).toPromise();

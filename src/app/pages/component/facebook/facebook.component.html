@@ -55,6 +55,7 @@
 							<tr>
 								<th>Network</th>
 								<th>service</th>
+								<th>date</th>
 								<th>url</th>
 								<th class="text-nowrap">quantity</th>
 								<th class="text-nowrap">process</th>
@@ -66,12 +67,13 @@
 								<td>
 									{{buys.service.name}}
 								</td>
+								<td>{{buys.created_at}}</td>
 								<td>{{buys.url}}</td>
 								<td class="text-nowrap">
 									{{buys.quantity}}
 								</td>
-								<td> 
-									{{buys.progress}} 
+								<td>   
+									<p><ngb-progressbar type="info"   [value]="buys.progress" [striped]="true" [animated]="true"><i>{{buys.progress}}</i></ngb-progressbar></p>
 								</td>
 							</tr> 
 						</tbody>

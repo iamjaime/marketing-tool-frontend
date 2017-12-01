@@ -13,7 +13,7 @@ export class NotificationRepository implements notificationInterface {
     informationSocket: any;
     like: any;
     userOnlines = [];
-
+    smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
     public constructor(private FB: Facebook) {
         this.socket = io(environment.urls);
     }
@@ -23,7 +23,7 @@ export class NotificationRepository implements notificationInterface {
      * @param url
      */
     public sendNotification(url) {
-        this.socket.emit('set-nickname', sessionStorage.getItem('name'), sessionStorage.getItem('name'), sessionStorage.getItem('photo'), 'si', url, "like");
+        this.socket.emit('set-nickname',this.smi.name,this.smi.name,this.smi.avatar, 'si', url, "like");
         this.socket.on('users-changed', (data) => { this.data = data; console.log(this.data); });
     }
 
@@ -32,7 +32,7 @@ export class NotificationRepository implements notificationInterface {
      * @param url
      */
     public userOnline() {
-        this.socket.emit('set-nickname', sessionStorage.getItem('name'), sessionStorage.getItem('email'), sessionStorage.getItem('photo'));
+        this.socket.emit('set-nickname',this.smi.name,this.smi.email,this.smi.avatar);
         this.socket.on('users-changed', (data) => {
             this.userOnlines.push(data);
 

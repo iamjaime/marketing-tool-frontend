@@ -5,10 +5,9 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 @Injectable()
 export class OrderService {
 
-  url = environment.baseApiUrl + '/' + environment.baseApiPrefix + '/' + environment.baseApiVersion;
-  result: any;
-  token = sessionStorage.getItem('token');
+  url = environment.baseApiUrl + '/' + environment.baseApiPrefix + '/' + environment.baseApiVersion; 
   facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
+  smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
 
   constructor(private http: Http) { 
   }
@@ -27,11 +26,10 @@ export class OrderService {
       url:url 
     };
 
-    const headers = new Headers();
-    let access_token = sessionStorage.getItem('token');
+    const headers = new Headers(); 
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
-    headers.append('Authorization', 'Bearer ' + access_token); 
+    headers.append('Authorization', 'Bearer ' + this.smi.token);
     let options = new RequestOptions({ headers: headers });
     return this.http.post(this.url + '/orders', { data: postData }, options);
   }
@@ -41,12 +39,9 @@ export class OrderService {
    * @returns {Observable<Response>}
    */
   getOrderInfo( ) {
-    const headers = new Headers();
-    let token = sessionStorage.getItem('token');
-    let id = sessionStorage.getItem('id');
-    console.log(id);
+    const headers = new Headers(); 
     headers.append('Content-Type', 'application/json; charset=utf-8');
-    headers.append('Authorization', 'Bearer ' + token);
+    headers.append('Authorization', 'Bearer ' + this.smi.token);
     headers.append('Access-Control-Allow-Origin', '*');
     let options = new RequestOptions({ headers: headers });
     
