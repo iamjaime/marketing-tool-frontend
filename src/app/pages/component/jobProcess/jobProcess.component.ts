@@ -28,7 +28,7 @@ export class JobProcess {
        console.log(this.type );
         
       }); 
-    
+     
    }
 
    actionFacebook(url,id){
@@ -44,15 +44,15 @@ export class JobProcess {
             provider_id : 1,
             provider_account_id:this.facebook.id 
           }
-        
-          this.order.responOrder(PostData);
-          var provider = this.getProvider(this.smi.attached_networks, 'Facebook'); 
-           this.socket.emit('notification',this.smi.name, this.smi.email, this.smi.photo, provider.traffic);
            
+          this.order.responOrder(PostData);
+        //this.ngOnInit();
         }
       });
       
- 
+      var provider = this.getProvider(this.smi.attached_networks, 'Facebook'); 
+      
+    this.socket.emit('notification',this.smi.name,this.smi.name, this.smi.email, this.smi.photo, provider.traffic);
   }
 
   /**

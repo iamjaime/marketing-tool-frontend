@@ -88,4 +88,6 @@ export class User implements UserInterface {
     setTimeout('document.location.reload()', 1000);
 
   }
+
+  
 }

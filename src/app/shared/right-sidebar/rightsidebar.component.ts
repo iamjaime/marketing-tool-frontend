@@ -29,7 +29,7 @@ export class RightSidebarComponent {
 
 	public ngOnInit() {
 		this.socket.on('users-notification', (data) => {
-			if (data.id === sessionStorage.getItem('name')) {
+		 
 				console.log(data);
 				swal({
 					title: data.user,
@@ -40,7 +40,7 @@ export class RightSidebarComponent {
 					imageAlt: 'Custom image',
 					animation: false
 				})
-			}
+		 
 		});
 		this.socket.emit('set-nickname', this.smi.name, this.smi.email, this.smi.photo);
 		this.socket.on('users-changed', (data) => {
