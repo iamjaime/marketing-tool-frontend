@@ -6,6 +6,10 @@ import { OrderService } from '../../../services/order/order.service';
 import { NotificationRepository } from '../../../repositories/facebook/notification/notification';
 import { Order } from '../../../repositories/order/order';
 import swal from 'sweetalert2';
+import * as io from 'socket.io-client';
+import { environment } from '../../../../environments/environment';
+import { User } from '../../../repositories/user/user';
+
 @Component({
   selector: 'ngbd-modal',
   templateUrl: './facebook.component.html',
@@ -18,22 +22,26 @@ export class FacebookComponent {
   userName = sessionStorage.getItem('name');
   userEmail = sessionStorage.getItem('email');
   photo = sessionStorage.getItem('photo');
-
+  private socket: io.Socket;
   public action: any;
   type=[];
   buys=[];
-
-  constructor(private modalService: NgbModal, private facebook:FacebookRepository,private notification:NotificationRepository ,private order:Order,private orderservice:OrderService) {
-
+  myUser:any;
+  constructor(private modalService: NgbModal, private facebook:FacebookRepository,private notification:NotificationRepository ,private order:Order,private orderservice:OrderService,private user:User) {
+		this.socket = io(environment.urls);
   }
  ngOnInit(){
-  
+ 
     this.orderservice.getOrderInfo().then((result) => { 
       console.log(result);
        this.type =result.data;
        this.buys =result.data[0].orders;
  
     }); 
+    this.user.getUserInfo().then((result)=>{ 
+      console.log(result.data.credits);
+      this.myUser = result.data.credits;
+    });
   
  }
   /**
@@ -57,7 +65,8 @@ export class FacebookComponent {
       this.order.create(this.userName,url,quantity); 
       this.notification.sendNotification(url);
       swal('Success ',  'Your Order Has Been Placed', 'success');
-      this.ngOnInit();
+      this.socket.emit('set-refresh-data','refres');
+      //this.ngOnInit();
     }else{
       swal('error ', 'Facebook Post URL is required',  'error');
     }

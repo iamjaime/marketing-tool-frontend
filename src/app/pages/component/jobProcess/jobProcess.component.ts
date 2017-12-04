@@ -5,6 +5,7 @@ import { OrderService } from '../../../services/order/order.service';
 import { Order } from '../../../repositories/order/order';
 import { FacebookRepository as Facebook } from '../../../repositories/facebook/facebook';
 import swal from 'sweetalert2';
+
 @Component({
   selector: 'app-basic',
   templateUrl: './jobProcess.component.html'

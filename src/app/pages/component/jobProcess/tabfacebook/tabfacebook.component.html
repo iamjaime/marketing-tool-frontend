@@ -1,11 +1,11 @@
 <div class="row"> 
     <div class="col-12">
+      
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Responsive Table </h4>
-                <h6 class="card-subtitle">Create responsive tables by wrapping any
-                    <code>.table</code> in
-                    <code>.table-responsive </code>
+                <h4 class="card-title"> Available Jobs </h4>
+                <h6 class="card-subtitle"> 
+                 
                 </h6>
                
                 <div class="table-responsive">
@@ -24,7 +24,7 @@
                         <tbody *ngFor="let types of type  ">
                             <tr *ngFor="let buys of buys  ">
 
-                                <td align='center'> {{ types.name }} </td>
+                                <td align='center'> {{ buys.name }} </td>
                                 <td> <i class="fa fa-facebook-square fa-lg" style="color:#4267b2"></i>  {{ buys.service.name }}  </td>
                                 <td>{{ buys.created_at }}</td>
                                 <td>

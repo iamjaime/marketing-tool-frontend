@@ -1,8 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+ 
+import { Component, AfterViewInit } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
+import { AuthService } from "angular4-social-login";
 import * as io from 'socket.io-client';
 import { environment } from '../../../environments/environment';
+import { FacebookRepository } from '../../repositories/facebook/facebook';
 import swal from 'sweetalert2';
-import { FacebookRepository as Facebook } from '../../repositories/facebook/facebook';
+import { Helper } from '../../utils/helpers';
 
 
 @Component({
@@ -23,7 +28,7 @@ export class RightSidebarComponent {
 	public like: any;
 	public userOnline: any;
 
-	constructor(private FB: Facebook) {
+	constructor(private FB: FacebookRepository) {
 		this.socket = io(environment.urls);
 	}
 
@@ -43,67 +48,26 @@ export class RightSidebarComponent {
 		 
 		});
 		this.socket.emit('set-nickname', this.smi.name, this.smi.email, this.smi.photo);
-		this.socket.on('users-changed', (data) => {
-
-
-
-			this.userOnline = data.s;
-			console.log(this.userOnline);
+		this.socket.on('users-changed', (data) => { 
 
 			this.informationSocket = data;
 			this.like = this.informationSocket.urls;
+			 
 			if (this.informationSocket.evets === 'si') {
 
 				if (this.smi.name != this.informationSocket.id) {
 
 					var d = this.like;
-					swal({
-
-						html: '<h1> new Job</h1>' + '<br>  <img src="' + this.informationSocket.photo
-						+ '"  style="width: 30px; height: 30px; border-radius: 150px; -webkit-border-radius: 150px; -moz-border-radius: 150px;" /><b> ' +
-						this.informationSocket.user + '</b> <br>requested  1 ' + this.informationSocket.type
-						+ ' for $ 1 dollar',
-						showCancelButton: true,
-						confirmButtonColor: '#3085d6',
-						cancelButtonColor: '#d33',
-						confirmButtonText: 'yes',
-						cancelButtonText: 'No ',
-						confirmButtonClass: 'btn btn-success',
-						cancelButtonClass: 'btn btn-danger',
-						buttonsStyling: false
-					}).then(function (result) {
-						if (result.value) {
-							/*	FB.ui({
-									method: 'share_open_graph',
-									action_type: 'og.shares',
-									action_properties: JSON.stringify({
-										object: {
-											'og:url': d,
-											'og:title': 'facbook hakeado  ',
-											'og:description': 'sigues tu  :) ',
-											'og:image': 'http://queandandiciendo.com/wp-content/uploads/3CF5F32D00000578-4203818-image-a-30_1486562764357.jpg'
-										}
-									})
-								}, */
-							this.FB.ui(
-								{
-									method: 'share',
-									href: d,
-								},
-
-								function (response) {
-									if (response.error_message) {
-										swal('Cancelled', 'Canceled job ', 'error')
-									} else {
-
-										swal('Successful!', 'Successful work, thank you for your trust', 'success')
-									}
-								});
-						} else if (result.dismiss === 'cancel') {
-							swal('Cancelled', 'canceled job', 'error'
-							)
-						}
-					})
+					
+					this.FB.ui({ method: 'share', href: d }).then((response) => {
+						
+						   if (response.error_message) {
+							 swal('Cancelled', 'Canceled job ', 'error');
+						   } else {
+							 swal('Successful!', 'Successful work, thank you for your trust', 'success');
+							 
+						   }
+						 });
 				}
 			}
 		});

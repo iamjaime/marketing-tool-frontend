@@ -10,7 +10,9 @@
 
 				<h6 class="card-subtitle">Have your facebook publication shared by many other facebook users!</h6>
 
-				<button class="btn btn-info" (click)="openModal(Shares)">Get Started!</button>
+				<button  *ngIf="myUser > 0" class="btn btn-info" (click)="openModal(Shares)">Get Started!</button>
+
+				<button  *ngIf="myUser == 0" class="btn btn-danger"  >Buy Credits</button>
 
 				<!--Begin Shares Modal-->
 				<ng-template #Shares let-c="close" let-d="dismiss">

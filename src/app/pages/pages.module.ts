@@ -6,7 +6,7 @@ import { PageComponent } from './pages.component';
 import { SIDEBAR_TOGGLE_DIRECTIVES } from '../shared/sidebar.directive';
 import { NAV_DROPDOWN_DIRECTIVES } from '../shared/nav-dropdown.directive';
 import { NavigationComponent } from '../shared/header-navigation/navigation.component';
-import { tabfacebookComponent } from '../shared/tabfacebook/tabfacebook.component';
+ 
 import { SidebarComponent } from '../shared/sidebar/sidebar.component';
 import { RightSidebarComponent } from '../shared/right-sidebar/rightsidebar.component';
  
@@ -23,8 +23,7 @@ import { PricingComponent } from '../pages/pricing/pricing.component';
         NavigationComponent,
         BreadcrumbComponent,
         SidebarComponent,
-        RightSidebarComponent,
-        tabfacebookComponent,
+        RightSidebarComponent, 
         SIDEBAR_TOGGLE_DIRECTIVES,
         NAV_DROPDOWN_DIRECTIVES,
         PricingComponent
