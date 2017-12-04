@@ -1,44 +1,4 @@
-<div class="row">
-
+ 
+        <ap-rightsidebar3></ap-rightsidebar3>
     <!-- column -->
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Responsive Table </h4>
-                <h6 class="card-subtitle">Create responsive tables by wrapping any
-                    <code>.table</code> in
-                    <code>.table-responsive </code>
-                </h6>
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th> publisher</th>
-                                <th>network</th>
-                                <th>Date</th>
-                                <th>Status</th>
-                                <th>Quantity</th>
-                                <th>Progress</th>
-                                <th>shared</th>
-                            </tr>
-                        </thead>
-                        <tbody *ngFor="let types of type  ">
-                            <tr *ngFor="let buys of buys  ">
-
-                                <td align='center'> {{ buys.name }} </td>
-                                <td> <i class="fa fa-facebook-square fa-lg" style="color:#4267b2"></i>  {{ buys.service.name }}  </td>
-                                <td>{{ buys.created_at }}</td>
-                                <td>
-                                    <span  *ngIf=" buys.is_complete === 0" class="label label-success">Pending</span>
-                                    <span *ngIf=" buys.is_complete === 1" class="label label-danger">Full</span>
-                                </td>
-                                <td> {{ buys.quantity }}</td>
-                                <td class="text-nowrap">  {{ buys.progress }}    </td>
-                                <td> <button class="label label-info" (click)="actionFacebook(buys.url,buys.id)" >   To Job </button> </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+     

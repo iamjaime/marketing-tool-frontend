@@ -13,7 +13,7 @@ const routes: Routes = [
             { path: 'datepicker', loadChildren: './component/datepicker/datepicker.module#DatepickerModule' },
             { path: 'dropdown', loadChildren: './component/dropdown-collapse/dropdown-collapse.module#DropdownModule' },
             { path: 'modal', loadChildren: './component/modal/modal.module#ModalModule' },
-            { path: 'jobprocess', loadChildren: './component/jobProcess/jobProcess.module#JobModule' },
+            { path: 'jobprocess', loadChildren: './component/jobProcess/jobProcess.module#JobModule' }, 
             { path: 'facebook', loadChildren: './component/facebook/facebook.module#ModalFacebook' },
             { path: 'pagination', loadChildren: './component/pagination/pagination.module#paginationModule' },
             { path: 'poptool', loadChildren: './component/popover-tooltip/popover-tooltip.module#PopoverTooltipModule' },

@@ -77,6 +77,15 @@ io.on('connection', (socket) => {
   });
 
 
+  socket.on('set-refresh-data', (refres) => { 
+
+    io.emit('get-refresh-data', { data: refres  });
+
+
+
+  });
+
+  
 
 
 });

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
 import { JobProcess } from './jobProcess.component';
+import { tabfacebookComponent } from './tabfacebook/tabfacebook.component';
 
 
 const routes: Routes = [{
@@ -19,6 +20,6 @@ const routes: Routes = [{
     	CommonModule, 
     	RouterModule.forChild(routes)
     ],
-	declarations: [JobProcess]
+	declarations: [JobProcess,tabfacebookComponent]
 })
 export class JobModule { }

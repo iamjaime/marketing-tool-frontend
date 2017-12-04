@@ -25,7 +25,7 @@ export class JobProcess {
       
          this.type =result.data;
          this.buys =result.data[0].orders;
-       console.log(this.type );
+       console.log(result );
         
       }); 
      
