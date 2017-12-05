@@ -14,7 +14,7 @@ import { User } from '../repositories/user/user';
 export class SignupComponent implements OnInit  {
 
   result : any;
-  userData = {};
+  userData : any = {};
 
     constructor( private router :Router, private user :User) {
 
