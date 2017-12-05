@@ -3,7 +3,7 @@ export interface notificationInterface {
         /**
         * Handles send Notification 
         */
-        sendNotification(url); 
+        sendNotification(url,id); 
 
         /**
         * Handles get user online

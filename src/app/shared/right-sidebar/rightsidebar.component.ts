@@ -1,15 +1,11 @@
- 
-import { Component, AfterViewInit } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { Router } from '@angular/router';
-import { AuthService } from "angular4-social-login";
+import { Component, OnInit } from '@angular/core';
 import * as io from 'socket.io-client';
 import { environment } from '../../../environments/environment';
-import { FacebookRepository } from '../../repositories/facebook/facebook';
+import { Order } from '../../repositories/order/order'; 
+import { FacebookRepository as Facebook } from '../../repositories/facebook/facebook';
 import swal from 'sweetalert2';
-import { Helper } from '../../utils/helpers';
 
-
+//declare const FB:any;
 @Component({
 	selector: 'ap-rightsidebar',
 	templateUrl: './rightsidebar.component.html'
@@ -28,7 +24,7 @@ export class RightSidebarComponent {
 	public like: any;
 	public userOnline: any;
 
-	constructor(private FB: FacebookRepository) {
+	constructor(private FB: Facebook,private order:Order) {
 		this.socket = io(environment.urls);
 	}
 
@@ -48,28 +44,72 @@ export class RightSidebarComponent {
 		 
 		});
 		this.socket.emit('set-nickname', this.smi.name, this.smi.email, this.smi.photo);
-		this.socket.on('users-changed', (data) => { 
+		this.socket.on('users-changed', (data) => {
+console.log(data);
+
+
+			this.userOnline = data.s;
+			 
 
 			this.informationSocket = data;
 			this.like = this.informationSocket.urls;
-			 
 			if (this.informationSocket.evets === 'si') {
 
-				if (this.smi.name != this.informationSocket.id) {
-
+				if (this.smi.name != this.informationSocket.id) { 
 					var d = this.like;
-					
-					this.FB.ui({ method: 'share', href: d }).then((response) => {
-						
-						   if (response.error_message) {
-							 swal('Cancelled', 'Canceled job ', 'error');
-						   } else {
-							 swal('Successful!', 'Successful work, thank you for your trust', 'success');
+					var id = this.informationSocket;
+				 	swal({
+
+
+						title: ' apply for new job?',
+						text: "solicitor:" + id.user , 
+						imageUrl: id.photo ,
+						imageWidth: 150,
+						imageHeight: 100, 
+						confirmButtonText: 'accept',
+						showCancelButton: true,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33'
+					 
+					}).then((result) => {
+						if (result) {
+							this.SharedFacebook(d,id.types);
 							 
-						   }
-						 });
+						}else{
+							swal('Cancelled', 'Canceled job ', 'error')
+						}
+					})
 				}
 			}
 		});
 	}
+
+
+	SharedFacebook(d,id) {
+		this.FB.ui(
+			{
+				method: 'share',
+				href: d,
+			}
+			).then((res )=>{
+				if (res.error_message) {
+					swal('Cancelled', 'Canceled job ', 'error')
+				} else {
+
+					swal('Successful!', 'Successful work, thank you for your trust', 'success');
+					var PostData: any= {
+						order_id :id,
+						provider_id : 1,
+						provider_account_id:this.facebook.id 
+					  }
+					   
+					  this.order.responOrder(PostData); 
+					  this.socket.emit('set-refresh-data','refres'); 
+					
+				}
+			});
+					 
+		 
+	}
+	 
 }

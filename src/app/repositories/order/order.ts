@@ -17,14 +17,7 @@ export class Order implements OrderInterface {
    * @param userPassword 
    */
   public create( userName,userEmail,userPassword) { 
-        this.orderService.create(userName,userEmail,userPassword).subscribe((response  )=> {
-            this.result = response.json(); 
-            this.toastr.success('Successful', ' Orders'); 
-        },
-        err => {
-            this.result =err.json();
-            this.toastr.error ('Error', '  Orders '); 
-        }); 
+       return this.orderService.create(userName,userEmail,userPassword);
       } 
      
       /**
@@ -34,14 +27,13 @@ export class Order implements OrderInterface {
    * @param userPassword 
    */
   public responOrder(data) { 
-    this.orderService.responOrder(data).subscribe((response  )=> {
-        this.result = response.json(); 
-        this.toastr.success('Successful', ' Orders'); 
-    },
-    err => {
-        this.result =err.json();
-        this.toastr.error ('Error', '  Orders '); 
-    }); 
+    return this.orderService.responOrder(data) ;
   } 
+
+
+  
+  getinfOrden(){
+      return this.orderService.getOrderInfoAll();
+  }
  
 }

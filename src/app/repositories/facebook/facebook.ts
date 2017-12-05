@@ -15,7 +15,7 @@ export class FacebookRepository implements FacebookInterface{
   private init(){
 
     let initParams: InitParams = {
-        appId: '308199743010770',
+        appId: '531968097138866',
         status: true,
         cookie: true,
         xfbml: true,

@@ -1,10 +1,11 @@
-import { Component, ViewEncapsulation,OnInit } from '@angular/core';
+import { Component, ViewEncapsulation,OnInit,AfterContentInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import 'rxjs/add/operator/map';
+import { Order } from '../../../repositories/order/order';
 import { FacebookRepository } from '../../../repositories/facebook/facebook';
 import { OrderService } from '../../../services/order/order.service';
 import { NotificationRepository } from '../../../repositories/facebook/notification/notification';
-import { Order } from '../../../repositories/order/order';
+import { ToastrService } from 'ngx-toastr';
 import swal from 'sweetalert2';
 import * as io from 'socket.io-client';
 import { environment } from '../../../../environments/environment';
@@ -27,23 +28,24 @@ export class FacebookComponent {
   type=[];
   buys=[];
   myUser:any;
-  constructor(private modalService: NgbModal, private facebook:FacebookRepository,private notification:NotificationRepository ,private order:Order,private orderservice:OrderService,private user:User) {
+  constructor(private toastr : ToastrService , private modalService: NgbModal, private facebook:FacebookRepository,private notification:NotificationRepository ,private order:Order,private orderservice:OrderService,private user:User) {
 		this.socket = io(environment.urls);
   }
  ngOnInit(){
- 
-    this.orderservice.getOrderInfo().then((result) => { 
+  this.user.getUserInfo().then((result)=>{ 
+    console.log(result.data.credits);
+    this.myUser = result.data.credits;
+  });
+    this.order.getinfOrden().then((result) => {  
       console.log(result);
        this.type =result.data;
        this.buys =result.data[0].orders;
  
-    }); 
-    this.user.getUserInfo().then((result)=>{ 
-      console.log(result.data.credits);
-      this.myUser = result.data.credits;
-    });
-  
+    });  
+ 
+
  }
+
   /**
    * Handles Opening A Modal
    * @param content The Name of the Modal Template
@@ -62,11 +64,20 @@ export class FacebookComponent {
   beginSharing(url,quantity) {
     
     if(url && quantity){
-      this.order.create(this.userName,url,quantity); 
-      this.notification.sendNotification(url);
+      this.order.create(this.userName,url,quantity).then((res  )=> {
+        var idOrden = res.data.id; 
+        this.notification.sendNotification(url,idOrden);
+         this.toastr.success('Successful', ' Orders');  
+         this.ngOnInit();
+    },
+    err => {
+        //this.result =err.json();
+        this.toastr.error ('Error', '  Orders '); 
+    }); 
+     // this.notification.sendNotification(url);
       swal('Success ',  'Your Order Has Been Placed', 'success');
       this.socket.emit('set-refresh-data','refres');
-      //this.ngOnInit();
+      this.ngOnInit();
     }else{
       swal('error ', 'Facebook Post URL is required',  'error');
     }

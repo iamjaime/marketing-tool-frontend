@@ -53,10 +53,10 @@ export class SidebarComponent implements AfterViewInit {
    * on our system
    */
   logoutFacebook(){
-       this.FB.logout().then((res) => {
+   
          sessionStorage.removeItem('facebook');
          this.router.navigate(['/login']);
-       });
+     
     }
 
 
@@ -95,19 +95,23 @@ export class SidebarComponent implements AfterViewInit {
     loginSocialFacebook() {
       this.FB.login()
         .then((response) => {
+          console.log('login facebook');
+       var tokenFace = response.authResponse.accessToken;
+         sessionStorage.setItem(  'token', tokenFace);
           if(response.status == "connected"){
             this.FB.getUser(response.authResponse.userID).then((res) => {
-               console.log(res
-
-               );
+             
               var facebookData = {
                 'id' : res.id,
                 'name' : res.name,
                 'email' : res.email,
                 'photo' : res.picture.data.url,
                 'friends_count' : res.friends.summary.total_count
+               
               };
               sessionStorage.setItem('facebook', JSON.stringify(facebookData));
+            
+             
               this.attachFacebookSocialAccount(1,facebookData.id, facebookData.friends_count);
               this.navigateToStart();
             });
@@ -148,19 +152,12 @@ export class SidebarComponent implements AfterViewInit {
    */
   logout() {
     this.socket.emit('set-discon', this.smi.name);
-    this.socket.on('get-discon', (data) => {
-      console.log(data);
+    this.socket.on('get-discon', (data) => { 
     });
-
-    if(!this.helper.isEmpty(this.facebook)){
-      this.FB.logout().then((response) => {
-        console.log(response);
-        sessionStorage.removeItem('smi');
-        this.router.navigate(['/login']);
-      });
-    }else{
+  
       sessionStorage.removeItem('smi');
+      sessionStorage.removeItem('facebook');
       this.router.navigate(['/login']);
-    }
+
   }
 }

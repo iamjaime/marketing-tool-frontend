@@ -13,5 +13,6 @@ export const environment = {
     baseApiVersion: 'v1',
     baseApiClientId : 1,
     baseApiClientSecret: 'Yhx4tpgK32vDvN4mNqbwkv3eLcf08pFq3iZrp10z',
+    
     baseApiGrantType : 'password'
 };

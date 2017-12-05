@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { JobProcess } from './jobProcess.component';
 import { tabfacebookComponent } from './tabfacebook/tabfacebook.component';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const routes: Routes = [{
 	path: '',
@@ -17,7 +18,8 @@ const routes: Routes = [{
 
 @NgModule({
 	imports: [
-    	CommonModule, 
+		CommonModule, 
+		NgbModule.forRoot(),
     	RouterModule.forChild(routes)
     ],
 	declarations: [JobProcess,tabfacebookComponent]

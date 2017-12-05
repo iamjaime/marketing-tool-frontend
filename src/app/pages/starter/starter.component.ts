@@ -14,9 +14,8 @@ export class StarterComponent  {
 
 	}
 	ngOnInit(){
-		this.user.getUserInfo().then((result)=>{ 
-			this.myUser = result.data;
-		});
+	 
+		 
   } 
 
 }

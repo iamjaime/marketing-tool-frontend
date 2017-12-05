@@ -31,7 +31,7 @@ export class OrderService {
     headers.append('Accept', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.smi.token);
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.url + '/orders', { data: postData }, options);
+    return this.http.post(this.url + '/orders', { data: postData }, options).map(res => res.json()).toPromise();
   }
 
   /**
@@ -47,6 +47,9 @@ export class OrderService {
     
     return this.http.get(this.url + '/orders/service-provider/1', options).map(res => res.json()).toPromise();
   } 
+
+
+
   getOrderInfo( ) {
     const headers = new Headers(); 
     headers.append('Content-Type', 'application/json; charset=utf-8');
@@ -74,6 +77,6 @@ export class OrderService {
     headers.append('Accept', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.smi.token);
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.url + '/orders/fill', { data: postData }, options);
+    return this.http.post(this.url + '/orders/fill', { data: postData }, options).map(res => res.json()).toPromise();
   }
 }
