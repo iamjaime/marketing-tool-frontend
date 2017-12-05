@@ -1,5 +1,5 @@
 export const environment = {
-  urls :'http://socialmediaincome:3001',
+  urls :'http://socialmediaincome.com:3001',
   production: true,
   baseApiUrl: 'http://api.socialmediaincome.com',
   baseApiPrefix : 'api',
