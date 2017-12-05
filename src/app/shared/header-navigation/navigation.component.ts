@@ -5,6 +5,7 @@ import { AuthService } from "angular4-social-login";
 import * as io from 'socket.io-client';
 import { environment } from '../../../environments/environment';
 import { FacebookRepository as Facebook } from '../../repositories/facebook/facebook';
+import { User } from '../../repositories/user/user';
 import swal from 'sweetalert2';
 import { Helper } from '../../utils/helpers';
 
@@ -17,16 +18,23 @@ export class NavigationComponent implements AfterViewInit {
     showHide: boolean;
     smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
     facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
-
+    myData:any;
     private socket: io.Socket;
     userOnline = [];
 
-    constructor(private authService: AuthService, private router: Router, private FB: Facebook, private helper : Helper) {
+    constructor(private authService: AuthService, private router: Router, private FB: Facebook, private helper : Helper, private  user: User) {
         this.showHide = true;
         this.socket = io(environment.urls);
     }
 
     public ngOnInit() {
+        //this.user.refreshInformation() ;
+        this.socket.on('get-refresh-data', (data) => {
+			if (data.data === 'refres') {
+                this.user.refreshInformation();
+                 
+        }});
+
         this.socket.emit('set-nickname', this.smi.name, this.smi.email, this.smi.photo);
         this.socket.on('users-changed', (data) => {
             if (data.evets === 'si') {

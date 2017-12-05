@@ -46,7 +46,7 @@ export class UserService {
       this.smi.token = sessionStorage.getItem('token');
       sessionStorage.removeItem('token');
     }
-
+ 
     const headers = new Headers();
     headers.append('Content-Type', 'application/json; charset=utf-8');
     headers.append('Authorization', 'Bearer ' + this.smi.token);

@@ -49,6 +49,7 @@ export class User implements UserInterface {
       this.user.update(data).then((res) => {
         this.toastr.success('You have successfully updated your details', 'Success');
           this.refreshInformation();
+          setTimeout('document.location.reload()', 1000);
       }, 
       (err) => {
         return err;
@@ -85,7 +86,7 @@ export class User implements UserInterface {
     sessionStorage.setItem('smi', JSON.stringify(smi));
     console.log(sessionStorage.getItem('smi'));
 
-    setTimeout('document.location.reload()', 1000);
+    
 
   }
 

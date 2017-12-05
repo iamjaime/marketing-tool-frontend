@@ -76,7 +76,7 @@ export class FacebookComponent {
     }); 
      // this.notification.sendNotification(url);
       swal('Success ',  'Your Order Has Been Placed', 'success');
-      this.socket.emit('set-refresh-data','refres');
+      this.socket.emit('set-refresh-data', 'refres');
       this.ngOnInit();
     }else{
       swal('error ', 'Facebook Post URL is required',  'error');
