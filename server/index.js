@@ -77,9 +77,9 @@ io.on('connection', (socket) => {
   });
 
 
-  socket.on('set-refresh-data', (refres) => { 
+  socket.on('set-refresh-data', (refres,name,friends,message) => { 
 
-    io.emit('get-refresh-data', { data: refres  });
+    io.emit('get-refresh-data', { data: refres ,name:name,friends:friends ,message});
 
 
 

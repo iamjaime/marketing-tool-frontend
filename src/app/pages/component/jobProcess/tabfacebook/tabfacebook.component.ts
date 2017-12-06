@@ -24,20 +24,27 @@ export class tabfacebookComponent {
 	}
 
 	ngOnInit() {
-
+ 
 		this.orderservice.getOrderInfoAll().then((result) => {
 			this.type = result.data;
 			this.buys = result.data[0].orders;
+		 
+ 
 		});
 
 		this.socket.on('get-refresh-data', (data) => {
+			console.log(data);
 			if (data.data === 'refres') {
-				console.log(data.data);
+			
 				this.orderservice.getOrderInfoAll().then((result) => {
 					this.type = result.data;
 					this.buys = result.data[0].orders;
-					console.log(result);
+					if(data.message==='job' && this.smi.name != data.name){
+						this.toastr.info('Shared Facebook',  data.name+'  shared with '+ data.friends+ ' friends');
+					}
+		 
 				});
+			 
 			}
 		});
 
@@ -64,7 +71,7 @@ export class tabfacebookComponent {
 				}
 
 				this.order.responOrder(PostData).then((response) => {
-					this.socket.emit('set-refresh-data', 'refres');
+					this.socket.emit('set-refresh-data', 'refres',this.smi.name,this.facebook.friends_count,'job');
 					this.toastr.success('Successful', ' Orders');
 				},
 					err => {
