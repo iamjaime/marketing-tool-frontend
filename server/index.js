@@ -45,10 +45,10 @@ io.on('connection', (socket) => {
   });
 
 
-  socket.on('set-nickname', (idusu, nickname, photo, notification, url, types) => {
+  socket.on('set-nickname', (idemit,idusu, nickname, photo, notification, url, types) => {
     socket.nickname = idusu;
 
-    io.emit('users-changed', { id: idusu, user: nickname, photo: photo, event: 'connect', evets: notification, urls: url, types: types, s: users });
+    io.emit('users-changed', { idemit:idemit,id: idusu, user: nickname, photo: photo, event: 'connect', evets: notification, urls: url, types: types, s: users });
 
 
 
@@ -77,9 +77,9 @@ io.on('connection', (socket) => {
   });
 
 
-  socket.on('set-refresh-data', (refres,name,friends,message) => { 
+  socket.on('set-refresh-data', (refres,name,friends,user,message) => { 
 
-    io.emit('get-refresh-data', { data: refres ,name:name,friends:friends ,message});
+    io.emit('get-refresh-data', { data: refres ,name:name,friends:friends ,user:user,message:message});
 
 
 

@@ -7,6 +7,8 @@ import { OrderService } from '../../../../services/order/order.service';
 import { Order } from '../../../../repositories/order/order';
 import { ToastrService } from 'ngx-toastr'; 
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'; 
+
+
 @Component({
 	selector: 'ap-rightsidebar3',
 	templateUrl: './tabfacebook.component.html'
@@ -26,6 +28,7 @@ export class tabfacebookComponent {
 	ngOnInit() {
  
 		this.orderservice.getOrderInfoAll().then((result) => {
+			console.log(result);
 			this.type = result.data;
 			this.buys = result.data[0].orders;
 		 
@@ -38,11 +41,7 @@ export class tabfacebookComponent {
 			
 				this.orderservice.getOrderInfoAll().then((result) => {
 					this.type = result.data;
-					this.buys = result.data[0].orders;
-					if(data.message==='job' && this.smi.name != data.name){
-						this.toastr.info('Shared Facebook',  data.name+'  shared with '+ data.friends+ ' friends');
-					}
-		 
+					this.buys = result.data[0].orders; 
 				});
 			 
 			}
@@ -56,7 +55,7 @@ export class tabfacebookComponent {
 	 * @param url 
 	 * @param id 
 	 */
-	actionFacebook(url, id) {
+	actionFacebook(url, id,user) {
 
 		this.FB.ui({ method: 'share', href: url }).then((response) => {
 
@@ -71,7 +70,7 @@ export class tabfacebookComponent {
 				}
 
 				this.order.responOrder(PostData).then((response) => {
-					this.socket.emit('set-refresh-data', 'refres',this.smi.name,this.facebook.friends_count,'job');
+					this.socket.emit('set-refresh-data', 'refres',this.smi.name,this.facebook.friends_count,user,'job');
 					this.toastr.success('Successful', ' Orders');
 				},
 					err => {

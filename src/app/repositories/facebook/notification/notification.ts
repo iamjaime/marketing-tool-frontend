@@ -22,8 +22,8 @@ export class NotificationRepository implements notificationInterface {
      * Handles send notification process
      * @param url
      */
-    public sendNotification(url,id) {
-        this.socket.emit('set-nickname',this.smi.name,this.smi.name,this.smi.avatar, 'si', url,id);
+    public sendNotification(url,id,idemit) {
+        this.socket.emit('set-nickname',idemit,this.smi.name,this.smi.name,this.smi.avatar, 'si', url,id);
         this.socket.on('users-changed', (data) => { this.data = data; console.log(this.data); });
     }
 

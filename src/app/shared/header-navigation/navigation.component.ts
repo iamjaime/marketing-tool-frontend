@@ -18,7 +18,7 @@ export class NavigationComponent implements AfterViewInit {
     showHide: boolean;
     smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
     facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
-    myData:any;
+    myUser=[];
     private socket: io.Socket;
     userOnline = [];
 
@@ -29,9 +29,17 @@ export class NavigationComponent implements AfterViewInit {
 
     public ngOnInit() {
         //this.user.refreshInformation() ;
+        this.user.getUserInfo().then((result)=>{ 
+            console.log(result.data.credits);
+            this.myUser = result.data.credits;
+          });
         this.socket.on('get-refresh-data', (data) => {
 			if (data.data === 'refres') {
                 this.user.refreshInformation();
+                this.user.getUserInfo().then((result)=>{ 
+                    console.log(result.data.credits);
+                    this.myUser = result.data.credits;
+                  });
                  
         }});
 

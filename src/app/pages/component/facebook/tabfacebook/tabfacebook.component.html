@@ -5,11 +5,12 @@
     
                     <h2 class="card-title fb-blue">
                         <i class="fa fa-share"></i>
-                        <span>Share A Post</span>
+                        <span>Share A Post  </span>
+
                     </h2>
     
                     <h6 class="card-subtitle">Have your facebook publication shared by many other facebook users!</h6>
-    
+                    <span>Total Credits: {{myUser}}</span><br>
                     <button  *ngIf="myUser > 0" class="btn btn-info" (click)="openModal(Shares)">Get Started!</button>
     
                     <div  *ngIf="myUser == 0"   ><i class="mdi mdi-cash-multiple fa-2x" style="color: rgb(38, 184, 15)"></i><b>Buy Credits</b> </div>
@@ -17,7 +18,7 @@
                     <!--Begin Shares Modal-->
                     <ng-template #Shares let-c="close" let-d="dismiss">
                         <div class="modal-header">
-                            <h3 class="card-title">Share A Post</h3>
+                            <h3 class="card-title">Share A Post </h3>
                             <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -65,16 +66,16 @@
                             </thead>
                             <tbody *ngFor="let types of type  "> 
                                 <tr *ngFor="let buys of buys  ">
-                                    <td align='center'><i class="fa fa-facebook-square fa-lg"  style="color:#4267b2"></i></td>
-                                    <td>
+                                    <td align='center' *ngIf="buys.buyer.id == smi.id" ><i class="fa fa-facebook-square fa-lg"  style="color:#4267b2"></i></td>
+                                    <td  *ngIf="buys.buyer.id == smi.id" >
                                         {{buys.service.name}}
                                     </td>
-                                    <td>{{buys.created_at}}</td>
+                                    <td  *ngIf="buys.buyer.id == smi.id" >{{buys.created_at}}</td>
                                     <!--<td>{{buys.url}}</td>-->
-                                    <td class="text-nowrap">
+                                    <td class="text-nowrap"  *ngIf="buys.buyer.id == smi.id" >
                                         {{buys.quantity}}
                                     </td>
-                                    <td>   
+                                    <td  *ngIf="buys.buyer.id == smi.id" >   
                                         <p><ngb-progressbar type="info"   [value]="(buys.progress * 100 ) / buys.quantity" [striped]="true" [animated]="true"><i>{{buys.progress}}</i></ngb-progressbar></p>
                                     </td>
                                 </tr> 

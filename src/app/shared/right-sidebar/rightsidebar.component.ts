@@ -3,7 +3,9 @@ import * as io from 'socket.io-client';
 import { environment } from '../../../environments/environment';
 import { Order } from '../../repositories/order/order'; 
 import { FacebookRepository as Facebook } from '../../repositories/facebook/facebook';
-import swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr'; 
+import swal from 'sweetalert2'; 
+
 
 //declare const FB:any;
 @Component({
@@ -24,14 +26,26 @@ export class RightSidebarComponent {
 	public like: any;
 	public userOnline: any;
 
-	constructor(private FB: Facebook,private order:Order) {
+	constructor(private FB: Facebook,private order:Order,private toastr:ToastrService) {
 		this.socket = io(environment.urls);
 	}
 
 	public ngOnInit() {
+
+		this.socket.on('get-refresh-data', (data) => {
+		 
+			 
+			 
+					if(data.user === this.smi.id){
+						this.toastr.info('Shared Facebook',  data.name+'  shared with '+ data.friends+ ' friends');
+					}
+		 
+				 
+			 
+		});
 		this.socket.on('users-notification', (data) => {
 		 
-				console.log(data);
+			 
 				swal({
 					title: data.user,
 					text: 'do the job correctly',
@@ -45,8 +59,8 @@ export class RightSidebarComponent {
 		});
 		this.socket.emit('set-nickname', this.smi.name, this.smi.email, this.smi.photo);
 		this.socket.on('users-changed', (data) => {
-console.log(data);
 
+console.log(data);
 
 			this.userOnline = data.s;
 			 
@@ -73,7 +87,7 @@ console.log(data);
 					 
 					}).then((result) => {
 						if (result) {
-							this.SharedFacebook(d,id.types);
+							this.SharedFacebook(d,id.types,this.informationSocket.idemit);
 							 
 						}else{
 							swal('Cancelled', 'Canceled job ', 'error')
@@ -85,7 +99,7 @@ console.log(data);
 	}
 
 
-	SharedFacebook(d,id) {
+	SharedFacebook(d,id,idemit) {
 		this.FB.ui(
 			{
 				method: 'share',
@@ -104,7 +118,7 @@ console.log(data);
 					  }
 					   
 					  this.order.responOrder(PostData); 
-					  this.socket.emit('set-refresh-data','refres'); 
+					  this.socket.emit('set-refresh-data','refres',this.smi.name,this.facebook.friends_count,idemit,'job'); 
 					
 				}
 			});

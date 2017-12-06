@@ -27,7 +27,7 @@ export class tabfacebookComponent {
   public action: any;
   type=[];
   buys=[];
-  myUser:any;
+  myUser=[];
   constructor(private router:Router,private toastr : ToastrService , private modalService: NgbModal   ,private notification:NotificationRepository ,private order:Order,private orderservice:OrderService,private user:User) {
 		this.socket = io(environment.urls);
   }
@@ -40,7 +40,8 @@ export class tabfacebookComponent {
       this.order.getinfOrden().then((result) => {  
         console.log(result);
          this.type =result.data;
-         this.buys =result.data[0].orders;
+		 this.buys =result.data[0].orders;
+		 console.log(this.type);
    
 	  });
 	  
@@ -88,7 +89,7 @@ export class tabfacebookComponent {
     if(url && quantity){
       this.order.create(this.userName,url,quantity).then((res  )=> {
         var idOrden = res.data.id; 
-        this.notification.sendNotification(url,idOrden);
+        this.notification.sendNotification(url,idOrden,this.smi.id);
          this.toastr.success('Successful', ' Orders');  
          this.ngOnInit();
     },

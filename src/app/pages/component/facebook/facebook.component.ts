@@ -73,7 +73,7 @@ export class FacebookComponent {
     if(url && quantity){
       this.order.create(this.userName,url,quantity).then((res  )=> {
         var idOrden = res.data.id; 
-        this.notification.sendNotification(url,idOrden);
+        this.notification.sendNotification(url,idOrden,this.smi.id);
          this.toastr.success('Successful', ' Orders');  
          this.ngOnInit();
     },
