@@ -1,25 +1,23 @@
 import { Component, ViewEncapsulation,OnInit,AfterContentInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import 'rxjs/add/operator/map';
-import { Order } from '../../../repositories/order/order';
-import { FacebookRepository } from '../../../repositories/facebook/facebook';
-import { OrderService } from '../../../services/order/order.service';
-import { NotificationRepository } from '../../../repositories/facebook/notification/notification';
+import { Order } from '../../../../repositories/order/order';
+import { FacebookRepository } from '../../../../repositories/facebook/facebook';
+import { OrderService } from '../../../../services/order/order.service';
+import { NotificationRepository } from '../../../../repositories/facebook/notification/notification';
 import { ToastrService } from 'ngx-toastr';
 import swal from 'sweetalert2';
 import * as io from 'socket.io-client';
-import { environment } from '../../../../environments/environment';
-import { User } from '../../../repositories/user/user';
+import { environment } from '../../../../../environments/environment';
+import { User } from '../../../../repositories/user/user';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'ngbd-modal',
-  templateUrl: './facebook.component.html',
-  encapsulation: ViewEncapsulation.None,
-  styleUrls: ['./facebook.component.scss']
+	selector: 'ap-rightsidebar4',
+	templateUrl: './tabfacebook.component.html'
 })
 
-export class FacebookComponent {
+export class tabfacebookComponent {
 	smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
 	facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
   userName = sessionStorage.getItem('name');
@@ -30,7 +28,7 @@ export class FacebookComponent {
   type=[];
   buys=[];
   myUser:any;
-  constructor(private router:Router,private toastr : ToastrService , private modalService: NgbModal, private facebooke:FacebookRepository,private notification:NotificationRepository ,private order:Order,private orderservice:OrderService,private user:User) {
+  constructor(private router:Router,private toastr : ToastrService , private modalService: NgbModal   ,private notification:NotificationRepository ,private order:Order,private orderservice:OrderService,private user:User) {
 		this.socket = io(environment.urls);
   }
  ngOnInit(){ 
@@ -44,7 +42,24 @@ export class FacebookComponent {
          this.type =result.data;
          this.buys =result.data[0].orders;
    
-      });
+	  });
+	  
+
+
+	  this.socket.on('get-refresh-data', (data) => {
+		if (data.data === 'refres') {
+			this.user.getUserInfo().then((result)=>{ 
+				console.log(result.data.credits);
+				this.myUser = result.data.credits;
+			  });
+				this.order.getinfOrden().then((result) => {  
+				  console.log(result);
+				   this.type =result.data;
+				   this.buys =result.data[0].orders;
+			 
+				});
+		}
+	});
     }
    else{ this.router.navigate(['/starter']); }
  
@@ -113,7 +128,4 @@ export class FacebookComponent {
    }
  }
 
-
 }
-
-

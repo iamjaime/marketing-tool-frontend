@@ -4,10 +4,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { FacebookComponent } from './facebook.component';
+import { tabfacebookComponent } from './tabfacebook/tabfacebook.component';
 
-
-
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; 
 
 const routes: Routes = [{
 	path: '',
@@ -26,6 +25,6 @@ const routes: Routes = [{
       NgbModule.forRoot(),
     	RouterModule.forChild(routes)
     ],
-	declarations: [FacebookComponent]
+	declarations: [FacebookComponent,tabfacebookComponent]
 })
 export class ModalFacebook { }

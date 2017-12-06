@@ -1,6 +1,7 @@
 import { FacebookInterface } from '../../contracts/facebook/facebook';
 import { Injectable } from '@angular/core';
 import { FacebookService, UIParams, UIResponse, InitParams, LoginOptions } from 'ngx-facebook';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class FacebookRepository implements FacebookInterface{
@@ -15,7 +16,7 @@ export class FacebookRepository implements FacebookInterface{
   private init(){
 
     let initParams: InitParams = {
-        appId: '531968097138866',
+        appId: environment.facebookID,
         status: true,
         cookie: true,
         xfbml: true,
