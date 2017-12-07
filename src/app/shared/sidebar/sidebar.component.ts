@@ -14,8 +14,8 @@ import { Helper } from '../../utils/helpers';
 export class SidebarComponent implements AfterViewInit {
 
   smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
-  myUser=[];
-  photo:any;
+  myUser : any=[];
+  photo:any =[];
   //If we don't have facebook sessionStorage then empty object. Else JSON.parse the facebook object in storage.
   facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
 

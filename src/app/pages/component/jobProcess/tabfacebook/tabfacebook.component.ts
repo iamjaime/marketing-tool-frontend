@@ -19,8 +19,8 @@ export class tabfacebookComponent {
 	smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
 	facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
 	result: any;
-	type = [];
-	buys = [];
+	type : any = [];
+	buys : any = [];
 	constructor(private order: Order, private orderservice: OrderService, private FB: Facebook, private toastr: ToastrService) {
 		this.socket = io(environment.urls);
 	}

@@ -26,9 +26,9 @@ export class tabfacebookComponent {
   photo = sessionStorage.getItem('photo');
   private socket: io.Socket;
   public action: any;
-  type=[];
-  buys=[];
-  myUser=[];
+  type: any =[];
+  buys: any =[];
+  myUser: any =[];
   constructor(private router:Router,private toastr : ToastrService , private modalService: NgbModal   ,private notification:NotificationRepository ,private order:Order,private orderservice:OrderService,private user:User) {
 		this.socket = io(environment.urls);
   }
