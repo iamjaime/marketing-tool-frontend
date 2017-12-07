@@ -11,21 +11,23 @@
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
-                            <tr>
+                            <tr><th>#</th>
                                 <th>Publisher</th>
                                 <th>network</th>
                                 <th>Date</th>
                                 <th>Status</th>
                                 <th>Quantity</th>
                                 <th>Progress</th>
+                                <th>Preview</th>
                                 <th>shared</th>
                             </tr>
                         </thead>
                         <tbody *ngFor="let types of type  ">
                           
                             <tr *ngFor="let buys of buys  "      >
-                               
-                                <td *ngIf="buys.buyer.id != smi.id">{{ buys.buyer.name}}</td>
+                                    <td align="center" *ngIf="buys.buyer.id != smi.id"  >  <span  class="round">{{ buys.buyer.name.slice(0, 1)  }} </span> </td>
+                                <td align="center" *ngIf="buys.buyer.id != smi.id"><div *ngIf=" buys.buyer.avatar " ><img src="{{ buys.buyer.avatar  }}" alt="user" height="30" width="30" /> </div> 
+                                    <div *ngIf=" !buys.buyer.avatar " ><img src="assets/images/users/1.jpg" alt="user" height="30" width="30" /> </div>{{ buys.buyer.name }}</td>
                                 <td *ngIf="buys.buyer.id != smi.id">  <i class="fa fa-facebook-square fa-lg" style="color:#4267b2"></i>  {{ buys.service.name }}  </td>
                                 <td *ngIf="buys.buyer.id != smi.id">{{ buys.created_at }}</td>
                                 <td *ngIf="buys.buyer.id != smi.id"> 
@@ -36,7 +38,12 @@
                                 <td align="center" *ngIf="buys.buyer.id != smi.id"> {{ buys.quantity }}</td>
                                 <td *ngIf="buys.buyer.id != smi.id" >  <p><ngb-progressbar type="info"   [value]="(buys.progress * 100 ) / buys.quantity" [striped]="true" [animated]="true"><i>{{buys.progress}}</i></ngb-progressbar></p>    </td>
                                 
+                                <td *ngIf="buys.buyer.id != smi.id">  
+                                        
+                                    <button type="button" class="btn btn-outline-success" (click)="verifyUrl(buys.url)" >  Preview </button>
                                
+
+                                </td>
                                     <td *ngIf="buys.buyer.id != smi.id">  
                                         
                                     <button type="button" class="btn btn-outline-info" (click)="actionFacebook(buys.url,buys.id,buys.buyer.id)" >   To Job </button>

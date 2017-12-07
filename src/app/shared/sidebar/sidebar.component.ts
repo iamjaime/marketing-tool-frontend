@@ -14,7 +14,8 @@ import { Helper } from '../../utils/helpers';
 export class SidebarComponent implements AfterViewInit {
 
   smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
-
+  myUser=[];
+  photo:any;
   //If we don't have facebook sessionStorage then empty object. Else JSON.parse the facebook object in storage.
   facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
 
@@ -23,7 +24,36 @@ export class SidebarComponent implements AfterViewInit {
 	constructor(private FB: Facebook, public router: Router ,private user:User, private helper: Helper){
     this.socket = io(environment.urls);
   }
+ngOnInit(){
+  this.user.getUserInfo().then((result) => {
+    console.log(result.data);
+    this.myUser = result.data;
+    if (result.data.avatar) {
+        
+      this.photo = result.data.avatar;
+    }
+    else {
+      this.photo = 'assets/images/users/1.jpg';
+    }
+  });
+  this.socket.on('get-refresh-data', (data) => {
+    if (data.data === 'refres') {
+      this.user.refreshInformation();
+      this.user.getUserInfo().then((result) => {
+        console.log(result.data);
+        this.myUser = result.data;
+        if (result.data.avatar) {
 
+          this.photo = result.data.avatar;
+        }
+        else {
+          this.photo = 'assets/images/users/1.jpg';
+        }
+      });
+
+    }
+  });
+}
     ngAfterViewInit() {
         $(function () {
             var url = window.location.toString();

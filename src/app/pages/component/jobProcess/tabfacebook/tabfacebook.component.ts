@@ -100,4 +100,24 @@ export class tabfacebookComponent {
 		}
 		return false;
 	}
+
+/**
+  * Handles the process to buy shares package
+  * @param url
+  * @param quantity
+  */
+	verifyUrl(url) {
+		if(url){
+			swal({
+				html:'<iframe src="https://www.facebook.com/plugins/post.php?href=' +
+				url+ '&width=500&show_text=false& = &height=497' +
+				'"  width="100%"height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>' ,
+ 
+				confirmButtonText: 'ok',
+ 
+				showLoaderOnConfirm: true,
+			})
+		}
+	}
+
 }

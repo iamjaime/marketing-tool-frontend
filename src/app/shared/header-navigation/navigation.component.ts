@@ -21,27 +21,44 @@ export class NavigationComponent implements AfterViewInit {
     myUser=[];
     private socket: io.Socket;
     userOnline = [];
+    photo:any;
 
     constructor(private authService: AuthService, private router: Router, private FB: Facebook, private helper : Helper, private  user: User) {
         this.showHide = true;
+        
         this.socket = io(environment.urls);
     }
 
     public ngOnInit() {
         //this.user.refreshInformation() ;
-        this.user.getUserInfo().then((result)=>{ 
-            console.log(result.data.credits);
-            this.myUser = result.data.credits;
+        this.user.getUserInfo().then((result) => {
+            console.log(result.data);
+            this.myUser = result.data;
+            if (result.data.avatar) {
+                
+              this.photo = result.data.avatar;
+            }
+            else {
+              this.photo = 'assets/images/users/1.jpg';
+            }
           });
-        this.socket.on('get-refresh-data', (data) => {
-			if (data.data === 'refres') {
-                this.user.refreshInformation();
-                this.user.getUserInfo().then((result)=>{ 
-                    console.log(result.data.credits);
-                    this.myUser = result.data.credits;
-                  });
-                 
-        }});
+          this.socket.on('get-refresh-data', (data) => {
+            if (data.data === 'refres') {
+              this.user.refreshInformation();
+              this.user.getUserInfo().then((result) => {
+                console.log(result.data);
+                this.myUser = result.data;
+                if (result.data.avatar) {
+
+                  this.photo = result.data.avatar;
+                }
+                else {
+                  this.photo = 'assets/images/users/1.jpg';
+                }
+              });
+      
+            }
+          });
 
         this.socket.emit('set-nickname', this.smi.name, this.smi.email, this.smi.photo);
         this.socket.on('users-changed', (data) => {

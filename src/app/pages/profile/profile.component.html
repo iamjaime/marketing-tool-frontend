@@ -35,9 +35,9 @@
 
     <div class="card">
       <div class="card-body little-profile text-center">
-        <div class="pro-img m-t-20"><img src="{{smi.avatar}}" alt="user"></div>
-        <h3 class="m-b-0">{{ smi.name }}</h3>
-        <h6 class="text-muted" > {{smi.city}} / {{smi.country}}  </h6>
+        <div class="pro-img m-t-20"><img src="{{photo}}" alt="user"></div>
+        <h3 class="m-b-0">{{ myUser.name }}</h3>
+        <h6 class="text-muted" > {{myUser.city}} / {{myUser.country}}  </h6>
         <ul class="list-inline soc-pro m-t-30">
           <li><span class="label label-info">  English</span></li>
           <li><span class="label label-light-inverse"> Spanish</span></li>
@@ -79,9 +79,31 @@
       <ul class="nav nav-tabs profile-tab" role="tablist">
         <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#settings" role="tab">Settings</a> </li>
         <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#income" role="tab">Income</a> </li>
+        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#incomeChar" role="tab">Income char</a> </li>
       </ul>
       <!-- Tab panes -->
       <div class="tab-content">
+          <div class="tab-pane" id="incomeChar" role="tabpanel">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex">
+                    <div>
+                      <h4 class="card-title"><span class="lstick"></span>Earnings This Month</h4></div>
+                    <div class="ml-auto">
+                      <select class="custom-select b-0">
+                        <option selected="">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="table-responsive m-t-20 no-wrap">
+                      <canvas id="myChart" width="400" height="400"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
         <div class="tab-pane" id="income" role="tabpanel">
           <div class="card">
             <div class="card-body">

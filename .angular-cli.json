@@ -45,7 +45,8 @@
             "../src/assets/plugins/perfect-scrollbar.jquery.min.js", 
             "../src/assets/plugins/bootstrap-tagsinput.min.js"  ,
             "../src/assets/plugins/jquery.toast.js", 
-            "../src/assets/plugins/toastr.js"     
+            "../src/assets/plugins/toastr.js" ,
+            "path/to/chartjs/dist/Chart.js"   
           
    
         ],

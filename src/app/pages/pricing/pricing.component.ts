@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr'; 
 
 @Component({
   selector: 'app-pricing',
@@ -7,17 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PricingComponent implements OnInit {
 
-  constructor() { }
+  constructor(public toastr: ToastrService) { }
 
   ngOnInit() {
   }
   openCheckout(money){
-    
+ 
      var handler = (<any>window).StripeCheckout.configure({
        key: 'pk_test_xVm9D2LoAEUtBlNADEqA5ctt',
        locale: 'auto',
-       token: function (token: any) {
+       token:   function (token: any) {
            console.log(token);
+          
+         
+            
         
        }
      });
@@ -33,5 +37,8 @@ export class PricingComponent implements OnInit {
      });
  
    }
+  public aler(){
+    this.toastr.info('successful purchase','money: '  );
+  }
 
 }

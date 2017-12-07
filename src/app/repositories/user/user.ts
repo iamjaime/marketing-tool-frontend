@@ -6,6 +6,7 @@ import { Login } from '../../repositories/login/login';
 import { Router } from '@angular/router';
 import { Helper } from '../../utils/helpers';
 
+
 @Injectable()
 export class User implements UserInterface {
 
@@ -49,7 +50,8 @@ export class User implements UserInterface {
       this.user.update(data).then((res) => {
         this.toastr.success('You have successfully updated your details', 'Success');
           this.refreshInformation();
-          setTimeout('document.location.reload()', 1000);
+          //setTimeout('document.location.reload()', 1000);
+         
       }, 
       (err) => {
         return err;
@@ -84,7 +86,7 @@ export class User implements UserInterface {
     }
     var smi = sessionData;
     sessionStorage.setItem('smi', JSON.stringify(smi));
-    console.log(sessionStorage.getItem('smi'));
+   
 
     
 
