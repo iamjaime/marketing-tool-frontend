@@ -75,6 +75,20 @@ export class User implements UserInterface {
     );
   }
 
+
+
+
+   /**
+   * Handles getting the authenticated user's info.
+   * @returns {any}
+   */
+  getUserInfoafter() {
+    return this.user. getUserInfoafter();
+  }
+
+   
+ 
+
   /**
     *  Handles assign session by Email autentication
     */

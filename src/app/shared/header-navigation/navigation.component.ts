@@ -16,7 +16,7 @@ import { Helper } from '../../utils/helpers';
 export class NavigationComponent implements AfterViewInit {
 
     showHide: boolean;
-    smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
+    smi =  JSON.parse(sessionStorage.getItem('smi'));
     facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
     myUser: any =[];
     private socket: io.Socket;

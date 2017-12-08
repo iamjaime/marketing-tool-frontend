@@ -106,16 +106,28 @@ ngOnInit(){
     //Facebook is provider id 1 (for now)
     this.user.attachNetwork(provider_id, provider_account_id, provider_traffic).then((res) => {
       //Success!
-      this.user.getUserInfo().then((results) => {
+      console.log(res);
+      this.user.getUserInfoafter().then((results) => {
+        console.log(results);
         results.data.token = this.smi.token;
         if(!results.data.avatar) {
           results.data.avatar = 'assets/images/users/1.jpg';
         }
-        sessionStorage.setItem('smi', JSON.stringify(results.data));
+        console.log(results);
+      sessionStorage.setItem('smi', JSON.stringify(results.data));
       });
 
     }, (err) => {
       //console.log(err);
+      this.user.getUserInfoafter().then((results) => {
+        console.log(results);
+        results.data.token = this.smi.token;
+        if(!results.data.avatar) {
+          results.data.avatar = 'assets/images/users/1.jpg';
+        }
+        console.log(results);
+        sessionStorage.setItem('smi', JSON.stringify(results.data));
+      });
     });
   }
 
@@ -125,8 +137,9 @@ ngOnInit(){
     loginSocialFacebook() {
       this.FB.login()
         .then((response) => {
-          console.log('login facebook');
+          console.log(response);
        var tokenFace = response.authResponse.accessToken;
+       
          sessionStorage.setItem(  'token', tokenFace);
           if(response.status == "connected"){
             this.FB.getUser(response.authResponse.userID).then((res) => {
@@ -139,16 +152,18 @@ ngOnInit(){
                 'friends_count' : res.friends.summary.total_count
                
               };
+             
+              console.log(facebookData);
               sessionStorage.setItem('facebook', JSON.stringify(facebookData));
             
              
-              this.attachFacebookSocialAccount(1,facebookData.id, facebookData.friends_count);
+             this.attachFacebookSocialAccount('1',facebookData.id, facebookData.friends_count);
               this.navigateToStart();
             });
           }
 
         })
-        .catch(e => console.error('Error logging in'));
+       // .catch(e => console.error('Error logging in'));
     }
 
 

@@ -43,10 +43,7 @@ export class UserService {
    */
   getUserInfo() {
 
-    if (sessionStorage.getItem('token')) {
-      this.smi.token = sessionStorage.getItem('token');
-      sessionStorage.removeItem('token');
-    }
+    
 
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -56,6 +53,22 @@ export class UserService {
     let options = new RequestOptions({ headers: headers });
     return this.http.get(this.url + '/users', options).map(res => res.json()).toPromise();
   }
+
+
+  /**
+   * Handles getting the authenticated user's info
+   * @returns {any}
+   */
+  getUserInfoafter() { 
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.smi.token);
+        headers.append('Access-Control-Allow-Origin', '*');
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get(this.url + '/users', options).map(res => res.json()).toPromise();
+      }
+
 
   /**
    * Handles attaching a user to a social media network service provider.

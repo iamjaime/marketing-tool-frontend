@@ -14,7 +14,7 @@ export class Login implements LoginInterface {
 
   result: any;
   token: string;
-  smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
+  smi =  JSON.parse(sessionStorage.getItem('smi'));
   private socket: io.Socket;
 
 
@@ -57,6 +57,7 @@ export class Login implements LoginInterface {
     }
     var smi = sessionData;
     sessionStorage.setItem('smi', JSON.stringify(smi));
+    sessionStorage.setItem('sm', JSON.stringify(smi));
     this.navigateToStart();
   }
 

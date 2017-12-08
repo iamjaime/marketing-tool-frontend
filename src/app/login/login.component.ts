@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.smi.token) {
+        if (this.smi) {
             this.navigateToStart();
         }
     }
