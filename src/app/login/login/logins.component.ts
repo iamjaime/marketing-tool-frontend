@@ -1,18 +1,18 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Login } from '../repositories/login/login';
+import { Login } from '../../repositories/login/login';
 import * as io from 'socket.io-client';
-import {environment } from '../../environments/environment';
+import {environment } from '../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+    selector: 'app-logis',
+    templateUrl: './logins.component.html',
+    styleUrls: ['../login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginsComponent implements OnInit {
     userData : any = { };
-    smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
+    smi = (  JSON.parse(sessionStorage.getItem('smi')));
     private socket: io.Socket;
 
 
@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
+  
         if (this.smi.token) {
             this.navigateToStart();
         }
@@ -34,6 +35,8 @@ export class LoginComponent implements OnInit {
     login( ) {
         if(this.userData.email && this.userData.password){
             this._loginService.login(this.userData);
+            console.log('router1');
+            this.ngOnInit();
             this.navigateToStart();
         }else{
             this.alert.error( 'empty data','error');
@@ -47,6 +50,7 @@ export class LoginComponent implements OnInit {
      * session start navigation
      */
     navigateToStart() {
+      console.log('router2');
         this.router.navigate(['/starter']);
     }
 }

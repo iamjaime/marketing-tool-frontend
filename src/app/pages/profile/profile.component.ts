@@ -14,7 +14,7 @@ import Chart from 'chart.js';
 })
 export class ProfileComponent {
   smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
-  facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
+  facebook = (  JSON.parse(sessionStorage.getItem('facebook')));
   myUser : any = [];
   photo: any =[];
   private socket: io.Socket;

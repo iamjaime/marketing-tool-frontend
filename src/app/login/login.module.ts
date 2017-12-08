@@ -7,13 +7,14 @@ import { AuthService ,AuthServiceConfig} from "angular4-social-login";
 import { SocialLoginModule } from "angular4-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
 import { FormsModule } from '@angular/forms';
+import { LoginsComponent} from './login/logins.component'
 
 @NgModule({
     imports: [
         CommonModule,FormsModule,
         LoginRoutingModule,NgbModule.forRoot ()
     ],
-    declarations: [LoginComponent]
+    declarations: [LoginComponent,LoginsComponent]
 })
 export class LoginModule {
 }

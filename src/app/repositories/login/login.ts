@@ -36,6 +36,7 @@ export class Login implements LoginInterface {
         console.log(result.data);
         this.assignSession(result.data);
         this.toastr.success(result.data.name + '!', 'Welcome Back');
+        this.navigateToStart();
       }
       );
 
