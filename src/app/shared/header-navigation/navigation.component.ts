@@ -18,10 +18,10 @@ export class NavigationComponent implements AfterViewInit {
     showHide: boolean;
     smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
     facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
-    myUser=[];
+    myUser: any =[];
     private socket: io.Socket;
-    userOnline = [];
-    photo:any;
+    userOnline: any = [];
+    photo:any =[];
 
     constructor(private authService: AuthService, private router: Router, private FB: Facebook, private helper : Helper, private  user: User) {
         this.showHide = true;
@@ -35,7 +35,7 @@ export class NavigationComponent implements AfterViewInit {
             console.log(result.data);
             this.myUser = result.data;
             if (result.data.avatar) {
-                
+
               this.photo = result.data.avatar;
             }
             else {
@@ -155,12 +155,12 @@ export class NavigationComponent implements AfterViewInit {
     logout() {
         this.socket.emit('set-discon', this.smi.name);
         this.socket.on('get-discon', (data) => {
-            console.log(data);
+           
         });
 
         if(!this.helper.isEmpty(this.facebook)){
           this.FB.logout().then((response) => {
-            console.log(response);
+             
             sessionStorage.removeItem('smi');
             this.router.navigate(['/login']);
           });

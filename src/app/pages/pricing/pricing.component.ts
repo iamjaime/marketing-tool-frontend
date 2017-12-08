@@ -18,11 +18,7 @@ export class PricingComponent implements OnInit {
        key: 'pk_test_xVm9D2LoAEUtBlNADEqA5ctt',
        locale: 'auto',
        token:   function (token: any) {
-           console.log(token);
-          
-         
-            
-        
+           console.log(token); 
        }
      });
  
