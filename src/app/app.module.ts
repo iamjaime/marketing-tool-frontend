@@ -22,7 +22,7 @@ import { Login } from './repositories/login/login';
 import {  OrderService } from './services/order/order.service';
 import {  UserService } from './services/user/user.service';
 import {  LoginService } from './services/login/login.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 import { ToastrModule } from 'ngx-toastr';
 import { Helper } from './utils/helpers';
@@ -51,7 +51,7 @@ export function provideConfig() {
   ],
   imports: [
 
-    BrowserModule,   BrowserAnimationsModule, // required animations module
+    BrowserModule,   // required animations module
     ToastrModule.forRoot(), // ToastrModule added
     FormsModule,
     ReactiveFormsModule,
