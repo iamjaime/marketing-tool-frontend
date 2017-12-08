@@ -30,7 +30,8 @@ export class UserService {
     };
 
     const headers = new Headers();
-    headers.append('Content-Type', 'application/json; charset=utf-8');
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
     headers.append('Access-Control-Allow-Origin', '*');
     let options = new RequestOptions({ headers: headers });
     return this.http.post(this.url + '/users', { data: postData }, options).map((res) => res.json()).toPromise();
@@ -46,9 +47,10 @@ export class UserService {
       this.smi.token = sessionStorage.getItem('token');
       sessionStorage.removeItem('token');
     }
- 
+
     const headers = new Headers();
-    headers.append('Content-Type', 'application/json; charset=utf-8');
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.smi.token);
     headers.append('Access-Control-Allow-Origin', '*');
     let options = new RequestOptions({ headers: headers });
