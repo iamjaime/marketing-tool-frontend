@@ -38,7 +38,7 @@
     "jquery": "^3.2.1",
     "metismenu": "^2.7.0",
     "ng-form-group": "^1.4.0",
-    "ng-socket-io": "^0.1.11",
+    "ng-socket-io": "^0.2.0",
     "ng2-notifications": "^0.3.0",
     "ng2-toastr": "^4.1.2",
     "ng4-tag-input": "^1.0.5",
@@ -51,6 +51,7 @@
     "rxjs": "5.5.2",
     "sweetalert": "^2.0.8",
     "toastr": "^2.1.2",
+    "typescript": "^2.4.2",
     "zone.js": "^0.8.16"
   },
   "devDependencies": {
