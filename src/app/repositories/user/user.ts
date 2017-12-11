@@ -14,7 +14,7 @@ export class User implements UserInterface {
   public constructor(public user: UserService, private toastr: ToastrService, private login: Login, private router: Router, private helper: Helper) {
 
   }
- 
+
     /**
      * Handles Creating a new user
      */
@@ -23,7 +23,7 @@ export class User implements UserInterface {
           this.toastr.success('You have successfully registered', 'Success');
           this.login.login(data);
       },
- 
+
       (err) => {
         let error = err.json();
         let errorString = this.helper.parseError(error);
@@ -46,13 +46,13 @@ export class User implements UserInterface {
    * Handles updating a user account
    * @param data
    */
-  updateUser(data) { 
+  updateUser(data) {
       this.user.update(data).then((res) => {
         this.toastr.success('You have successfully updated your details', 'Success');
           this.refreshInformation();
           //setTimeout('document.location.reload()', 1000);
-         
-      }, 
+
+      },
       (err) => {
         return err;
       });
@@ -68,9 +68,8 @@ export class User implements UserInterface {
 
   refreshInformation() {
     this.user.getUserInfo().then((result) => {
-      console.log(result.data);
+      console.log(result);
       this.assignSession(result.data);
-
     }
     );
   }
@@ -86,8 +85,8 @@ export class User implements UserInterface {
     return this.user. getUserInfoafter();
   }
 
-   
- 
+
+
 
   /**
     *  Handles assign session by Email autentication
@@ -100,11 +99,11 @@ export class User implements UserInterface {
     }
     var smi = sessionData;
     sessionStorage.setItem('smi', JSON.stringify(smi));
-   
 
-    
+
+
 
   }
 
-  
+
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+//import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class UserService {
@@ -9,7 +10,7 @@ export class UserService {
   result: any;
   smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
 
   }
 
@@ -29,12 +30,16 @@ export class UserService {
       password: data.password
     };
 
-    const headers = new Headers();
+    const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
     headers.append('Access-Control-Allow-Origin', '*');
-    let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.url + '/users', { data: postData }, options).map((res) => res.json()).toPromise();
+
+    let options = {
+      headers: headers
+    };
+
+    return this.http.post<any>(this.url + '/users', { data: postData }, options).toPromise();
   }
 
   /**
@@ -43,15 +48,17 @@ export class UserService {
    */
   getUserInfo() {
 
-    
-
-    const headers = new Headers();
+    const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.smi.token);
     headers.append('Access-Control-Allow-Origin', '*');
-    let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.url + '/users', options).map(res => res.json()).toPromise();
+
+    let options = {
+      headers: headers
+    };
+
+    return this.http.get<any>(this.url + '/users', options).toPromise();
   }
 
 
@@ -59,15 +66,20 @@ export class UserService {
    * Handles getting the authenticated user's info
    * @returns {any}
    */
-  getUserInfoafter() { 
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.smi.token);
-        headers.append('Access-Control-Allow-Origin', '*');
-        let options = new RequestOptions({ headers: headers });
-        return this.http.get(this.url + '/users', options).map(res => res.json()).toPromise();
-      }
+  getUserInfoafter() {
+
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    headers.append('Authorization', 'Bearer ' + this.smi.token);
+    headers.append('Access-Control-Allow-Origin', '*');
+
+    let options = {
+      headers: headers
+    };
+
+    return this.http.get<any>(this.url + '/users', options).toPromise();
+  }
 
 
   /**
@@ -86,12 +98,15 @@ export class UserService {
       traffic: provider_traffic
     };
 
-    const headers = new Headers();
+    const headers = new HttpHeaders();
     headers.append('Access-Control-Allow-Origin', '*');
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.smi.token);
-    let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.url + '/users/attach_to_service_provider', { data: postData }, options).map((res) => res.json()).toPromise();
+    let options = {
+      headers: headers
+    };
+
+    return this.http.post<any>(this.url + '/users/attach_to_service_provider', { data: postData }, options).toPromise();
   }
 
   /**
@@ -119,14 +134,16 @@ export class UserService {
       postData.password = data.password;
     }
 
-    const headers = new Headers();
+    const headers = new HttpHeaders();
     let id = sessionStorage.getItem('id');
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.smi.token);
-    let options = new RequestOptions({ headers: headers });
+    let options = {
+      headers: headers
+    };
 
-    return this.http.put(this.url + '/users/' + this.smi.id, { data: postData }, options).map(res => res.json()).toPromise();
+    return this.http.put<any> (this.url + '/users/' + this.smi.id, { data: postData }, options).toPromise();
   }
 
 }

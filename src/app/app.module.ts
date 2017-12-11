@@ -3,7 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+
+import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './interceptors/authInterceptor';
+
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './shared/guard/auth.guard';
 import { AppRoutingModule } from './app-routing.module';
@@ -29,7 +33,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { Helper } from './utils/helpers';
 import { environment } from '../environments/environment'
 
- 
+
 
 const config2: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
 let config = new AuthServiceConfig([
@@ -58,7 +62,7 @@ export function provideConfig() {
     ToastrModule.forRoot(), // ToastrModule added
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
+    HttpClientModule,
     AppRoutingModule,
     SocialLoginModule,
     FacebookModule.forRoot(),
@@ -68,7 +72,13 @@ export function provideConfig() {
     {
     provide: AuthServiceConfig,
     useFactory: provideConfig,
-  }, AuthGuard],
+  },
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

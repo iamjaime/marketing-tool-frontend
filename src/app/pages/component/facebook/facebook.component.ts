@@ -1,14 +1,11 @@
 import { Component, ViewEncapsulation,OnInit,AfterContentInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import 'rxjs/add/operator/map';
 import { Order } from '../../../repositories/order/order';
 import { FacebookRepository } from '../../../repositories/facebook/facebook';
 import { OrderService } from '../../../services/order/order.service';
 import { NotificationRepository } from '../../../repositories/facebook/notification/notification';
 import { ToastrService } from 'ngx-toastr';
 import swal from 'sweetalert2';
-import * as io from 'socket.io-client';
-import { environment } from '../../../../environments/environment';
 import { User } from '../../../repositories/user/user';
 import { Router } from '@angular/router';
 
@@ -33,23 +30,23 @@ export class FacebookComponent {
   constructor(private router:Router,private toastr : ToastrService , private modalService: NgbModal, private facebooke:FacebookRepository,private notification:NotificationRepository ,private order:Order,private orderservice:OrderService,private user:User) {
 	//	this.socket = io(environment.urls);
   }
- ngOnInit(){ 
-   if( this.facebook.id ){ 
-    this.user.getUserInfo().then((result)=>{ 
+ ngOnInit(){
+   if( this.facebook.id ){
+    this.user.getUserInfo().then((result)=>{
       console.log(result.data.credits);
       this.myUser = result.data.credits;
     });
-      this.order.getinfOrden().then((result) => {  
+      this.order.getinfOrden().then((result) => {
         console.log(result);
          this.type =result.data;
          this.buys =result.data[0].orders;
-   
+
       });
     }
    else{ this.router.navigate(['/starter']); }
- 
-  
- 
+
+
+
 
  }
 
@@ -63,24 +60,24 @@ export class FacebookComponent {
     });
   }
 
-  
+
   /**
    * Handles the process to begin sharing a facebook post
    * @param url
    */
   beginSharing(url,quantity) {
-    
+
     if(url && quantity){
       this.order.create(this.userName,url,quantity).then((res  )=> {
-        var idOrden = res.data.id; 
+        var idOrden = res.data.id;
         this.notification.sendNotification(url,idOrden,this.smi.id);
-         this.toastr.success('Successful', ' Orders');  
+         this.toastr.success('Successful', ' Orders');
          this.ngOnInit();
     },
     err => {
         //this.result =err.json();
-        this.toastr.error ('Error', '  Orders '); 
-    }); 
+        this.toastr.error ('Error', '  Orders ');
+    });
      // this.notification.sendNotification(url);
       swal('Success ',  'Your Order Has Been Placed', 'success');
       this.socket.emit('set-refresh-data', 'refres');

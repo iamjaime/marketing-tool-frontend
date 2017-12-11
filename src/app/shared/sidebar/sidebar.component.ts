@@ -29,7 +29,7 @@ ngOnInit(){
     console.log(result.data);
     this.myUser = result.data;
     if (result.data.avatar) {
-        
+
       this.photo = result.data.avatar;
     }
     else {
@@ -83,10 +83,10 @@ ngOnInit(){
    * on our system
    */
   logoutFacebook(){
-   
+
          sessionStorage.removeItem('facebook');
          this.router.navigate(['/login']);
-     
+
     }
 
 
@@ -139,24 +139,24 @@ ngOnInit(){
         .then((response) => {
           console.log(response);
        var tokenFace = response.authResponse.accessToken;
-       
+
          sessionStorage.setItem(  'token', tokenFace);
           if(response.status == "connected"){
             this.FB.getUser(response.authResponse.userID).then((res) => {
-             
+
               var facebookData = {
                 'id' : res.id,
                 'name' : res.name,
                 'email' : res.email,
                 'photo' : res.picture.data.url,
                 'friends_count' : res.friends.summary.total_count
-               
+
               };
-             
+
               console.log(facebookData);
               sessionStorage.setItem('facebook', JSON.stringify(facebookData));
-            
-             
+
+
              this.attachFacebookSocialAccount('1',facebookData.id, facebookData.friends_count);
               this.navigateToStart();
             });
@@ -197,9 +197,9 @@ ngOnInit(){
    */
   logout() {
     this.socket.emit('set-discon', this.smi.name);
-    this.socket.on('get-discon', (data) => { 
+    this.socket.on('get-discon', (data) => {
     });
-  
+
       sessionStorage.removeItem('smi');
       sessionStorage.removeItem('facebook');
       this.router.navigate(['/login']);

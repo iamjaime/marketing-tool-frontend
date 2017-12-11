@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Socket } from 'ng-socket-io';
 
 @Injectable()
@@ -10,7 +10,7 @@ export class LoginService {
   result: any;
   response: any;
 
-  constructor(private http: Http, private router: Router,private socket: Socket) {
+  constructor(private http: HttpClient, private router: Router,private socket: Socket) {
 
   }
 
@@ -19,7 +19,7 @@ export class LoginService {
    * @param username
    * @param password
    */
-  Auth(data) {
+  Auth(data){
     console.log(data);
     let postData = {
       client_id: environment.baseApiClientId,
@@ -29,7 +29,7 @@ export class LoginService {
       password: data.password
     };
 
-    return this.http.post(this.url + '/oauth/token', postData).map(res => res.json()).toPromise();
+    return this.http.post<any>(this.url + '/oauth/token', postData).toPromise();
 
   }
 

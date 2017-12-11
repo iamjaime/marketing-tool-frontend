@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 import { LoginService } from '../../services/login/login.service';
 import { UserService } from '../../services/user/user.service';
 import { Router } from '@angular/router';
-import * as io from 'socket.io-client';
-import { environment } from '../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { Helper } from '../../utils/helpers';
 
@@ -15,11 +13,9 @@ export class Login implements LoginInterface {
   result: any;
   token: string;
   smi =  JSON.parse(sessionStorage.getItem('smi'));
-  private socket: any;
-
 
   public constructor(private loginService: LoginService, private router: Router, private userService: UserService, private toastr: ToastrService, private helper : Helper) {
-   // this.socket = io(environment.urls);
+
   }
 
   /**
@@ -28,15 +24,16 @@ export class Login implements LoginInterface {
   public login(userData) {
 
     this.loginService.Auth(userData).then((res) => {
-
-      this.token = res.access_token;
+      console.log(res);
+      //this.token = res.access_token;
       sessionStorage.setItem('token', this.token);
 
       this.userService.getUserInfo().then((result) => {
-        console.log(result.data);
-        this.assignSession(result.data);
-        this.toastr.success(result.data.name + '!', 'Welcome Back');
-        this.navigateToStart();
+        console.log(result);
+        //console.log(result.data);
+        //this.assignSession(result.data);
+        //this.toastr.success(result.data.name + '!', 'Welcome Back');
+        //this.navigateToStart();
       }
       );
 
