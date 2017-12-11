@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
-import { Http, Headers, RequestOptions, Response } from '@angular/http'; 
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Socket } from 'ng-socket-io';
 
 @Injectable()
@@ -35,7 +35,7 @@ export class LoginService {
   /**
    * session start socket
    */
-  ConecteUserOnline(sessionData) {
+  conecteUserOnline(sessionData) {
     this.socket.emit('set-connection', sessionData.name, sessionData.avatar);
   }
 }

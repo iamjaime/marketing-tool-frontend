@@ -50,7 +50,7 @@ export class Login implements LoginInterface {
  *  Handles assign session by Email autentication
  */
   assignSession(sessionData) {
-    
+
     sessionData.token = this.token;
     if (!sessionData.avatar) {
       sessionData.avatar = 'assets/images/users/1.jpg';
@@ -59,7 +59,7 @@ export class Login implements LoginInterface {
     sessionStorage.setItem('smi', JSON.stringify(smi));
     sessionStorage.setItem('sm', JSON.stringify(smi));
     this.navigateToStart();
-    this.loginService.ConecteUserOnline(sessionData);
+    this.loginService.conecteUserOnline(sessionData);
   }
 
   /**
@@ -69,5 +69,5 @@ export class Login implements LoginInterface {
     this.router.navigate(['/starter']);
   }
 
-  
+
 }
