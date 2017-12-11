@@ -59,7 +59,7 @@ export class Login implements LoginInterface {
     sessionStorage.setItem('smi', JSON.stringify(smi));
     sessionStorage.setItem('sm', JSON.stringify(smi));
     this.navigateToStart();
-    this.loginService.conecteUserOnline(sessionData);
+    this.loginService.connectToSocket(sessionData);
   }
 
   /**

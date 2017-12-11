@@ -32,10 +32,12 @@ export class LoginService {
     return this.http.post(this.url + '/oauth/token', postData).map(res => res.json()).toPromise();
 
   }
+
   /**
-   * session start socket
+   * Handles connecting the user to the socket io main socket
+   * @param sessionData
    */
-  conecteUserOnline(sessionData) {
+  connectToSocket(sessionData) {
     this.socket.emit('set-connection', sessionData.name, sessionData.avatar);
   }
 }
