@@ -19,10 +19,10 @@ export class SidebarComponent implements AfterViewInit {
   //If we don't have facebook sessionStorage then empty object. Else JSON.parse the facebook object in storage.
   facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
 
-  private socket: io.Socket;
+  private socket: any;
 
 	constructor(private FB: Facebook, public router: Router ,private user:User, private helper: Helper){
-    this.socket = io(environment.urls);
+  //  this.socket = io(environment.urls);
   }
 ngOnInit(){
   this.user.getUserInfo().then((result) => {

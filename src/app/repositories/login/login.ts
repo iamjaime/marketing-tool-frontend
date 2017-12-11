@@ -15,11 +15,11 @@ export class Login implements LoginInterface {
   result: any;
   token: string;
   smi =  JSON.parse(sessionStorage.getItem('smi'));
-  private socket: io.Socket;
+  private socket: any;
 
 
   public constructor(private loginService: LoginService, private router: Router, private userService: UserService, private toastr: ToastrService, private helper : Helper) {
-    this.socket = io(environment.urls);
+   // this.socket = io(environment.urls);
   }
 
   /**
@@ -50,7 +50,7 @@ export class Login implements LoginInterface {
  *  Handles assign session by Email autentication
  */
   assignSession(sessionData) {
-    this.ConecteUserOnline(sessionData);
+    
     sessionData.token = this.token;
     if (!sessionData.avatar) {
       sessionData.avatar = 'assets/images/users/1.jpg';
@@ -59,6 +59,7 @@ export class Login implements LoginInterface {
     sessionStorage.setItem('smi', JSON.stringify(smi));
     sessionStorage.setItem('sm', JSON.stringify(smi));
     this.navigateToStart();
+    this.loginService.ConecteUserOnline(sessionData);
   }
 
   /**
@@ -68,10 +69,5 @@ export class Login implements LoginInterface {
     this.router.navigate(['/starter']);
   }
 
-  /**
-   * session start socket
-   */
-  ConecteUserOnline(sessionData) {
-    this.socket.emit('set-connection', sessionData.name, sessionData.avatar);
-  }
+  
 }

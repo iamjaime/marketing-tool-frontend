@@ -17,7 +17,7 @@ export class ProfileComponent {
   facebook = (  JSON.parse(sessionStorage.getItem('facebook')));
   myUser : any = [];
   photo: any =[];
-  private socket: io.Socket;
+  private socket: any;
 
   userData: any = {
     name: this.smi.name,
@@ -30,7 +30,7 @@ export class ProfileComponent {
   };
 
   constructor(private user: User, private login: Login, private router: Router) {
-    this.socket = io(environment.urls);
+    //this.socket = io(environment.urls);
   }
 
   ngOnInit() {

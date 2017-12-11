@@ -7,7 +7,7 @@ import {environment} from  '../../../../environments/environment';
 
 @Injectable()
 export class NotificationRepository implements notificationInterface {
-    private socket: io.Socket ;
+    private socket: any;
 
     data: any;
     informationSocket: any;
@@ -15,7 +15,7 @@ export class NotificationRepository implements notificationInterface {
     userOnlines = [];
     smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
     public constructor(private FB: Facebook) {
-        this.socket = io(environment.urls);
+       // this.socket = io(environment.urls);
     }
 
     /**

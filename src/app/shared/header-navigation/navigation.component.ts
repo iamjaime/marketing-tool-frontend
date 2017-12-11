@@ -19,14 +19,14 @@ export class NavigationComponent implements AfterViewInit {
     smi =  JSON.parse(sessionStorage.getItem('smi'));
     facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
     myUser: any =[];
-    private socket: io.Socket;
+    private socket: any;
     userOnline: any = [];
     photo:any =[];
 
     constructor(private authService: AuthService, private router: Router, private FB: Facebook, private helper : Helper, private  user: User) {
         this.showHide = true;
         
-        this.socket = io(environment.urls);
+       // this.socket = io(environment.urls);
     }
 
     public ngOnInit() {

@@ -15,14 +15,14 @@ import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-
 })
 
 export class tabfacebookComponent {
-	private socket: io.Socket;
+	private socket: any;
 	smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
 	facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
 	result: any;
 	type : any = [];
 	buys : any = [];
 	constructor(private order: Order, private orderservice: OrderService, private FB: Facebook, private toastr: ToastrService) {
-		this.socket = io(environment.urls);
+		//this.socket = io(environment.urls);
 	}
 
 	ngOnInit() {

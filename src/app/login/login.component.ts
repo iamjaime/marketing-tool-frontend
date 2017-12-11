@@ -13,12 +13,12 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent implements OnInit {
     userData : any = { };
     smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
-    private socket: io.Socket;
+    private socket: any;
 
 
     constructor(public router: Router, private _loginService: Login, private alert:ToastrService) {
 
-      this.socket = io(environment.urls);
+      //this.socket = io(environment.urls);
     }
 
     ngOnInit() {

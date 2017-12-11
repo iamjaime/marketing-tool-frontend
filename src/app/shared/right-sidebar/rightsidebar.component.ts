@@ -14,7 +14,7 @@ import swal from 'sweetalert2';
 })
 
 export class RightSidebarComponent {
-	private socket: io.Socket;
+	private socket: any;
   smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
   facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
 
@@ -27,7 +27,7 @@ export class RightSidebarComponent {
 	public userOnline: any;
 
 	constructor(private FB: Facebook,private order:Order,private toastr:ToastrService) {
-		this.socket = io(environment.urls);
+		//this.socket = io(environment.urls);
 	}
 
 	public ngOnInit() {

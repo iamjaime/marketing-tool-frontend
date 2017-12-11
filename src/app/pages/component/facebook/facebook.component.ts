@@ -25,13 +25,13 @@ export class FacebookComponent {
   userName = sessionStorage.getItem('name');
   userEmail = sessionStorage.getItem('email');
   photo = sessionStorage.getItem('photo');
-  private socket: io.Socket;
+  private socket: any;
   public action: any;
   type=[];
   buys=[];
   myUser:any;
   constructor(private router:Router,private toastr : ToastrService , private modalService: NgbModal, private facebooke:FacebookRepository,private notification:NotificationRepository ,private order:Order,private orderservice:OrderService,private user:User) {
-		this.socket = io(environment.urls);
+	//	this.socket = io(environment.urls);
   }
  ngOnInit(){ 
    if( this.facebook.id ){ 

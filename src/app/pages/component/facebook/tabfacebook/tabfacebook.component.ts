@@ -24,13 +24,13 @@ export class tabfacebookComponent {
   userName = sessionStorage.getItem('name');
   userEmail = sessionStorage.getItem('email');
   photo = sessionStorage.getItem('photo');
-  private socket: io.Socket;
+  private socket: any;
   public action: any;
   type: any =[];
   buys: any =[];
   myUser: any =[];
   constructor(private router:Router,private toastr : ToastrService , private modalService: NgbModal   ,private notification:NotificationRepository ,private order:Order,private orderservice:OrderService,private user:User) {
-		this.socket = io(environment.urls);
+	//	this.socket = io(environment.urls);
   }
  ngOnInit(){
 	 

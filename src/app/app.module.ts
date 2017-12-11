@@ -29,6 +29,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { Helper } from './utils/helpers';
 import { environment } from '../environments/environment'
 
+ 
+
 const config2: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
 let config = new AuthServiceConfig([
   {
