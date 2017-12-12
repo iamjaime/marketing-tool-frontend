@@ -11,7 +11,7 @@ import { Helper } from '../../utils/helpers';
 export class Login implements LoginInterface {
 
   result: any;
-  token: string;
+  token: any;
   smi =  JSON.parse(sessionStorage.getItem('smi'));
   data:any =[];
   datatoken:any;
