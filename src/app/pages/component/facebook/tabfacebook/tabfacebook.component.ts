@@ -38,8 +38,8 @@ export class tabfacebookComponent {
 	/////////////
    if( this.facebook.id ){ 
     this.user.getUserInfo().then((result)=>{ 
-      console.log(result.data.credits);
-      this.myUser = result.data.credits;
+      //console.log(result.data.credits);
+     // this.myUser = result.data.credits;
     });
       this.order.getinfOrden().then((result) => {  
         console.log(result);
@@ -54,8 +54,8 @@ export class tabfacebookComponent {
 	  this.socket.on('get-refresh-data', (data) => {
 		if (data.data === 'refres') {
 			this.user.getUserInfo().then((result)=>{ 
-				console.log(result.data.credits);
-				this.myUser = result.data.credits;
+			//	console.log(result.data.credits);
+			//	this.myUser = result.data.credits;
 			  });
 				this.order.getinfOrden().then((result) => {  
 				  console.log(result);

@@ -37,28 +37,28 @@ export class ProfileComponent {
 this.chart();
     //this.user.refreshInformation() ;
     this.user.getUserInfo().then((result) => {
-      console.log(result.data);
+     /* console.log(result.data);
       this.myUser = result.data;
       if (result.data.avatar) {
         this.photo = result.data.avatar;
       }
       else {
         this.photo = 'assets/images/users/1.jpg';
-      }
+      }*/
     });
     this.socket.on('get-refresh-data', (data) => {
       if (data.data === 'refres') {
         this.user.refreshInformation();
         this.chart();
         this.user.getUserInfo().then((result) => {
-          console.log(result.data);
+         /* console.log(result.data);
           this.myUser = result.data;
           if (result.data.avatar) {
             this.photo = result.data.avatar;
           }
           else {
             this.photo = 'assets/images/users/1.jpg';
-          }
+          }*/
         });
 
       }

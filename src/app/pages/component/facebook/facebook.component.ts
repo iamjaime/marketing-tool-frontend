@@ -33,8 +33,8 @@ export class FacebookComponent {
  ngOnInit(){
    if( this.facebook.id ){
     this.user.getUserInfo().then((result)=>{
-      console.log(result.data.credits);
-      this.myUser = result.data.credits;
+      //console.log(result.data.credits);
+      //this.myUser = result.data.credits;
     });
       this.order.getinfOrden().then((result) => {
         console.log(result);

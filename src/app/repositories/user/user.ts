@@ -69,7 +69,7 @@ export class User implements UserInterface {
   refreshInformation() {
     this.user.getUserInfo().then((result) => {
       console.log(result);
-      this.assignSession(result.data);
+     // this.assignSession(result.data);
     }
     );
   }

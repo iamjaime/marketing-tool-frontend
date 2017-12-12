@@ -32,7 +32,7 @@ export class NavigationComponent implements AfterViewInit {
     public ngOnInit() {
         //this.user.refreshInformation() ;
         this.user.getUserInfo().then((result) => {
-            console.log(result.data);
+          /*  console.log(result.data);
             this.myUser = result.data;
             if (result.data.avatar) {
 
@@ -40,13 +40,13 @@ export class NavigationComponent implements AfterViewInit {
             }
             else {
               this.photo = 'assets/images/users/1.jpg';
-            }
+            }*/
           });
           this.socket.on('get-refresh-data', (data) => {
             if (data.data === 'refres') {
               this.user.refreshInformation();
               this.user.getUserInfo().then((result) => {
-                console.log(result.data);
+               /* console.log(result.data);
                 this.myUser = result.data;
                 if (result.data.avatar) {
 
@@ -54,7 +54,7 @@ export class NavigationComponent implements AfterViewInit {
                 }
                 else {
                   this.photo = 'assets/images/users/1.jpg';
-                }
+                }*/
               });
       
             }

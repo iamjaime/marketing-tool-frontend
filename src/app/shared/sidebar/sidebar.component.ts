@@ -26,7 +26,7 @@ export class SidebarComponent implements AfterViewInit {
   }
 ngOnInit(){
   this.user.getUserInfo().then((result) => {
-    console.log(result.data);
+    /*console.log(result.data);
     this.myUser = result.data;
     if (result.data.avatar) {
 
@@ -34,13 +34,13 @@ ngOnInit(){
     }
     else {
       this.photo = 'assets/images/users/1.jpg';
-    }
+    }*/
   });
   this.socket.on('get-refresh-data', (data) => {
     if (data.data === 'refres') {
       this.user.refreshInformation();
       this.user.getUserInfo().then((result) => {
-        console.log(result.data);
+       /* console.log(result.data);
         this.myUser = result.data;
         if (result.data.avatar) {
 
@@ -48,7 +48,7 @@ ngOnInit(){
         }
         else {
           this.photo = 'assets/images/users/1.jpg';
-        }
+        }*/
       });
 
     }
@@ -109,24 +109,24 @@ ngOnInit(){
       console.log(res);
       this.user.getUserInfoafter().then((results) => {
         console.log(results);
-        results.data.token = this.smi.token;
+        /*results.data.token = this.smi.token;
         if(!results.data.avatar) {
           results.data.avatar = 'assets/images/users/1.jpg';
         }
         console.log(results);
-      sessionStorage.setItem('smi', JSON.stringify(results.data));
+      sessionStorage.setItem('smi', JSON.stringify(results.data));*/
       });
 
     }, (err) => {
       //console.log(err);
       this.user.getUserInfoafter().then((results) => {
         console.log(results);
-        results.data.token = this.smi.token;
+        /*results.data.token = this.smi.token;
         if(!results.data.avatar) {
           results.data.avatar = 'assets/images/users/1.jpg';
         }
         console.log(results);
-        sessionStorage.setItem('smi', JSON.stringify(results.data));
+        sessionStorage.setItem('smi', JSON.stringify(results.data));*/
       });
     });
   }
