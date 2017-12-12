@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as io from 'socket.io-client';
+import { Socket } from 'ng-socket-io';
 import { environment } from '../../../../../environments/environment';
 import swal from 'sweetalert2';
 import { FacebookRepository as Facebook } from '../../../../repositories/facebook/facebook';
@@ -15,22 +15,24 @@ import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-
 })
 
 export class tabfacebookComponent {
-	private socket: any;
+	 
 	smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
 	facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
 	result: any;
 	type : any = [];
 	buys : any = [];
-	constructor(private order: Order, private orderservice: OrderService, private FB: Facebook, private toastr: ToastrService) {
+	constructor(private order: Order, private orderservice: OrderService, private FB: Facebook, private toastr: ToastrService, private socket : Socket) {
 		//this.socket = io(environment.urls);
 	}
 
 	ngOnInit() {
  
 		this.orderservice.getOrderInfoAll().then((result) => {
+			var resul= JSON.stringify(result);
+			var res = JSON.parse(resul); 
 			console.log(result);
-			this.type = result.data;
-			this.buys = result.data[0].orders;
+			this.type = res.data;
+			this.buys = res.data[0].orders;
 		 
  
 		});
@@ -40,8 +42,10 @@ export class tabfacebookComponent {
 			if (data.data === 'refres') {
 			
 				this.orderservice.getOrderInfoAll().then((result) => {
-					this.type = result.data;
-					this.buys = result.data[0].orders; 
+					var resul= JSON.stringify(result);
+					var res = JSON.parse(resul); 
+					this.type = res.data;
+					this.buys = res.data[0].orders; 
 				});
 			 
 			}
@@ -70,7 +74,7 @@ export class tabfacebookComponent {
 				}
 
 				this.order.responOrder(PostData).then((response) => {
-					this.socket.emit('set-refresh-data', 'refres',this.smi.name,this.facebook.friends_count,user,'job');
+					//this.socket.emit('set-refresh-data', 'refres',this.smi.name,this.facebook.friends_count,user,'job');
 					this.toastr.success('Successful', ' Orders');
 				},
 					err => {

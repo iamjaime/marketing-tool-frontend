@@ -37,9 +37,11 @@ export class FacebookComponent {
       //this.myUser = result.data.credits;
     });
       this.order.getinfOrden().then((result) => {
-        console.log(result);
-         this.type =result.data;
-         this.buys =result.data[0].orders;
+        var resul= JSON.stringify(result);
+        var res = JSON.parse(resul); 
+        console.log(res);
+         this.type =res.data;
+         this.buys =res.data[0].orders;
 
       });
     }
@@ -68,7 +70,9 @@ export class FacebookComponent {
   beginSharing(url,quantity) {
 
     if(url && quantity){
-      this.order.create(this.userName,url,quantity).then((res  )=> {
+      this.order.create(this.userName,url,quantity).then((result  )=> {
+        var resul= JSON.stringify(result);
+        var res = JSON.parse(resul); 
         var idOrden = res.data.id;
         this.notification.sendNotification(url,idOrden,this.smi.id);
          this.toastr.success('Successful', ' Orders');

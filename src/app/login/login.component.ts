@@ -17,7 +17,8 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.smi) {
+        console.log(sessionStorage.getItem('smi'));
+        if (sessionStorage.getItem('smi')) {
             this.navigateToStart();
         }
     }

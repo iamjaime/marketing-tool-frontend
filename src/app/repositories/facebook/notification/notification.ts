@@ -1,20 +1,20 @@
 import { notificationInterface } from '../../../contracts/facebook/notifiation/notification';
 import swal from 'sweetalert2';
 import { Injectable } from '@angular/core';
-import * as io from 'socket.io-client';
+import { Socket } from 'ng-socket-io';
 import { FacebookRepository as Facebook } from '../../../repositories/facebook/facebook';
 import {environment} from  '../../../../environments/environment';
 
 @Injectable()
 export class NotificationRepository implements notificationInterface {
-    private socket: any;
+  
 
     data: any;
     informationSocket: any;
     like: any;
     userOnlines = [];
     smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
-    public constructor(private FB: Facebook) {
+    public constructor(private FB: Facebook , private socket :Socket) {
        // this.socket = io(environment.urls);
     }
 
@@ -23,7 +23,7 @@ export class NotificationRepository implements notificationInterface {
      * @param url
      */
     public sendNotification(url,id,idemit) {
-        this.socket.emit('set-nickname',idemit,this.smi.name,this.smi.name,this.smi.avatar, 'si', url,id);
+       // this.socket.emit('set-nickname',idemit,this.smi.name,this.smi.name,this.smi.avatar, 'si', url,id);
         this.socket.on('users-changed', (data) => { this.data = data; console.log(this.data); });
     }
 
@@ -32,7 +32,7 @@ export class NotificationRepository implements notificationInterface {
      * @param url
      */
     public userOnline() {
-        this.socket.emit('set-nickname',this.smi.name,this.smi.email,this.smi.avatar);
+        //this.socket.emit('set-nickname',this.smi.name,this.smi.email,this.smi.avatar);
         this.socket.on('users-changed', (data) => {
             this.userOnlines.push(data);
 

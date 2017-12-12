@@ -7,7 +7,7 @@ import { OrderService } from '../../../../services/order/order.service';
 import { NotificationRepository } from '../../../../repositories/facebook/notification/notification';
 import { ToastrService } from 'ngx-toastr';
 import swal from 'sweetalert2';
-import * as io from 'socket.io-client';
+import { Socket } from 'ng-socket-io';
 import { environment } from '../../../../../environments/environment';
 import { User } from '../../../../repositories/user/user';
 import { Router } from '@angular/router';
@@ -24,12 +24,12 @@ export class tabfacebookComponent {
   userName = sessionStorage.getItem('name');
   userEmail = sessionStorage.getItem('email');
   photo = sessionStorage.getItem('photo');
-  private socket: any;
+ 
   public action: any;
   type: any =[];
   buys: any =[];
   myUser: any =[];
-  constructor(private router:Router,private toastr : ToastrService , private modalService: NgbModal   ,private notification:NotificationRepository ,private order:Order,private orderservice:OrderService,private user:User) {
+  constructor(private socket :Socket,private router:Router,private toastr : ToastrService , private modalService: NgbModal   ,private notification:NotificationRepository ,private order:Order,private orderservice:OrderService,private user:User) {
 	//	this.socket = io(environment.urls);
   }
  ngOnInit(){
@@ -42,9 +42,11 @@ export class tabfacebookComponent {
      // this.myUser = result.data.credits;
     });
       this.order.getinfOrden().then((result) => {  
+        var resul= JSON.stringify(result);
+        var res = JSON.parse(resul); 
         console.log(result);
-         this.type =result.data;
-		 this.buys =result.data[0].orders;
+         this.type =res.data;
+		 this.buys =res.data[0].orders;
 		 console.log(this.type);
    
 	  });
@@ -58,9 +60,11 @@ export class tabfacebookComponent {
 			//	this.myUser = result.data.credits;
 			  });
 				this.order.getinfOrden().then((result) => {  
+          var resul= JSON.stringify(result);
+          var res = JSON.parse(resul); 
 				  console.log(result);
-				   this.type =result.data;
-				   this.buys =result.data[0].orders;
+				   this.type =res.data;
+				   this.buys =res.data[0].orders;
 			 
 				});
 		}
@@ -91,7 +95,9 @@ export class tabfacebookComponent {
   beginSharing(url,quantity) {
     
     if(url && quantity){
-      this.order.create(this.userName,url,quantity).then((res  )=> {
+      this.order.create(this.userName,url,quantity).then((result )=> {
+        var resul= JSON.stringify(result);
+        var res = JSON.parse(resul); 
         var idOrden = res.data.id; 
         this.notification.sendNotification(url,idOrden,this.smi.id);
          this.toastr.success('Successful', ' Orders');  

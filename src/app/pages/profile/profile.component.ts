@@ -4,7 +4,7 @@ import { environment } from '../../../environments/environment';
 import { User } from '../../repositories/user/user';
 import { Login } from '../../repositories/login/login';
 import { Router } from '@angular/router';
-import * as io from 'socket.io-client';
+import { Socket } from 'ng-socket-io';
 import Chart from 'chart.js';
 
 @Component({
@@ -17,7 +17,7 @@ export class ProfileComponent {
   facebook = (  JSON.parse(sessionStorage.getItem('facebook')));
   myUser : any = [];
   photo: any =[];
-  private socket: any;
+ 
 
   userData: any = {
     name: this.smi.name,
@@ -29,7 +29,7 @@ export class ProfileComponent {
 
   };
 
-  constructor(private user: User, private login: Login, private router: Router) {
+  constructor(private user: User, private login: Login, private router: Router, private socket : Socket ) {
     //this.socket = io(environment.urls);
   }
 
@@ -37,28 +37,32 @@ export class ProfileComponent {
 this.chart();
     //this.user.refreshInformation() ;
     this.user.getUserInfo().then((result) => {
-     /* console.log(result.data);
-      this.myUser = result.data;
-      if (result.data.avatar) {
-        this.photo = result.data.avatar;
+      var resul= JSON.stringify(result);
+      var res = JSON.parse(resul); 
+      console.log(res.data);
+      this.myUser = res.data;
+      if (res.data.avatar) {
+        this.photo = res.data.avatar;
       }
       else {
         this.photo = 'assets/images/users/1.jpg';
-      }*/
+      } 
     });
     this.socket.on('get-refresh-data', (data) => {
       if (data.data === 'refres') {
         this.user.refreshInformation();
         this.chart();
         this.user.getUserInfo().then((result) => {
-         /* console.log(result.data);
-          this.myUser = result.data;
-          if (result.data.avatar) {
-            this.photo = result.data.avatar;
+          var resul= JSON.stringify(result);
+          var res = JSON.parse(resul); 
+          console.log(res.data);
+          this.myUser = res.data;
+          if (res.data.avatar) {
+            this.photo = res.data.avatar;
           }
           else {
             this.photo = 'assets/images/users/1.jpg';
-          }*/
+          } 
         });
 
       }

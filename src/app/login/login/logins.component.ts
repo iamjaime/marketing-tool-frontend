@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Login } from '../../repositories/login/login';
-import * as io from 'socket.io-client';
+ 
 import {environment } from '../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
 
@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginsComponent implements OnInit {
     userData : any = { };
-    smi = (  JSON.parse(sessionStorage.getItem('smi')));
+    smi =  sessionStorage.getItem('smi');
     private socket: any;
 
 
@@ -22,8 +22,8 @@ export class LoginsComponent implements OnInit {
     }
 
     ngOnInit() {
-  
-        if (this.smi.token) {
+   console.log(sessionStorage.getItem('smi'));
+        if (sessionStorage.getItem('smi')) {
             this.navigateToStart();
         }
     }

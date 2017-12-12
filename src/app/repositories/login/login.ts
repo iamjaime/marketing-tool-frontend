@@ -33,11 +33,12 @@ export class Login implements LoginInterface {
      sessionStorage.setItem('token',this.token.access_token);
 
       this.userService.getUserInfo().then((result) => {
-        console.log(result);
-        //console.log(result.data);
-        //this.assignSession(result.data);
-        //this.toastr.success(result.data.name + '!', 'Welcome Back');
-        //this.navigateToStart();
+        var resul= JSON.stringify(result);
+        var res = JSON.parse(resul); 
+        console.log(res.data);
+        this.assignSession(res.data);
+        this.toastr.success(res.data.name + '!', 'Welcome Back');
+        this.navigateToStart();
       },(err) => {
         console.log(err);
       }
@@ -54,7 +55,8 @@ export class Login implements LoginInterface {
  *  Handles assign session by Email autentication
  */
   assignSession(sessionData) {
-
+ console.log('session');
+ console.log(sessionData);
     sessionData.token = this.token;
     if (!sessionData.avatar) {
       sessionData.avatar = 'assets/images/users/1.jpg';

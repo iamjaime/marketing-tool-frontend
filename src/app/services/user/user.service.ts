@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+//import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { HttpClient, HttpHeaders ,HttpErrorResponse, HttpRequest,HttpEvent, HttpEventType} from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -33,15 +33,13 @@ export class UserService {
     };
 
     const headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Accept', 'application/json');
-    headers.append('Access-Control-Allow-Origin', '*');
+ 
 
     let options = {
       headers: headers
     };
 
-    return this.http.post<any>(this.url + '/users', { data: postData }, options).toPromise();
+    return this.http.post(this.url + '/users', { data: postData }).map((res) => res).toPromise();
   }
 
   /**
@@ -49,10 +47,9 @@ export class UserService {
    * @returns {any}
    */
   getUserInfo() {
-if(sessionStorage.getItem('token')){
+ 
   this.smi.token = sessionStorage.getItem('token');
-  console.log(this.smi.token );
-}
+  
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
@@ -70,10 +67,9 @@ if(sessionStorage.getItem('token')){
    * @returns {any}
    */
   getUserInfoafter() {
-    if(sessionStorage.getItem('token')){
+   
       this.smi.token = sessionStorage.getItem('token');
-      console.log(this.smi.token );
-    }
+    
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
@@ -101,6 +97,8 @@ if(sessionStorage.getItem('token')){
       provider_account_id: provider_account_id,
       traffic: provider_traffic
     };
+
+    this.smi.token = sessionStorage.getItem('token');
 
     const headers = new HttpHeaders();
     headers.append('Access-Control-Allow-Origin', '*');
@@ -137,6 +135,8 @@ if(sessionStorage.getItem('token')){
     } else {
       postData.password = data.password;
     }
+
+    this.smi.token = sessionStorage.getItem('token');
 
     const headers = new HttpHeaders();
     let id = sessionStorage.getItem('id');

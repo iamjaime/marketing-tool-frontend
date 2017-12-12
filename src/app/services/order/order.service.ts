@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { environment } from '../../../environments/environment'; 
+import { HttpClient, HttpHeaders ,HttpErrorResponse, HttpRequest,HttpEvent, HttpEventType} from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class OrderService {
@@ -9,7 +11,7 @@ export class OrderService {
   facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
   smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
 
-  constructor(private http: Http) { 
+  constructor(private http: HttpClient) { 
   }
 
   /**
@@ -26,12 +28,12 @@ export class OrderService {
       url:url 
     };
 
-    const headers = new Headers(); 
+    const headers = new HttpHeaders(); 
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.smi.token);
-    let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.url + '/orders', { data: postData }, options).map(res => res.json()).toPromise();
+    let options :any = ({ headers: headers });
+    return this.http.post(this.url + '/orders', { data: postData }, options).map(res => res).toPromise();
   }
 
   /**
@@ -39,25 +41,34 @@ export class OrderService {
    * @returns {Observable<Response>}
    */
   getOrderInfoAll( ) {
-    const headers = new Headers(); 
-    headers.append('Content-Type', 'application/json; charset=utf-8');
+    if(sessionStorage.getItem('token')){
+      this.smi.token = sessionStorage.getItem('token');
+      console.log(this.smi.token );
+    }
+    const headers = new HttpHeaders(); 
+    headers.append('Content-Type', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.smi.token);
     headers.append('Access-Control-Allow-Origin', '*');
-    let options = new RequestOptions({ headers: headers });
+    let options :any = ({ headers: headers });
     
-    return this.http.get(this.url + '/orders/service-provider/1', options).map(res => res.json()).toPromise();
+    return this.http.get(this.url + '/orders/service-provider/1', options).map(res => res).toPromise();
   } 
 
 
 
   getOrderInfo( ) {
-    const headers = new Headers(); 
-    headers.append('Content-Type', 'application/json; charset=utf-8');
+
+    if(sessionStorage.getItem('token')){
+      this.smi.token = sessionStorage.getItem('token');
+      console.log(this.smi.token );
+    }
+    const headers = new HttpHeaders(); 
+    headers.append('Content-Type', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.smi.token);
     headers.append('Access-Control-Allow-Origin', '*');
-    let options = new RequestOptions({ headers: headers });
+    let options :any = ({ headers: headers });
     
-    return this.http.get(this.url + '/orders/service-provider/1/owned', options).map(res => res.json()).toPromise();
+    return this.http.get(this.url + '/orders/service-provider/1/owned', options).map(res => res).toPromise();
   } 
 
 
@@ -72,11 +83,11 @@ export class OrderService {
       provider_account_id : data.provider_account_id
     };
 
-    const headers = new Headers(); 
+    const headers = new HttpHeaders(); 
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.smi.token);
-    let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.url + '/orders/fill', { data: postData }, options).map(res => res.json()).toPromise();
+    let options :any = ({ headers: headers });
+    return this.http.post(this.url + '/orders/fill', { data: postData }, options).map(res => res).toPromise();
   }
 }

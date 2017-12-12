@@ -25,7 +25,7 @@ export class User implements UserInterface {
       },
 
       (err) => {
-        let error = err.json();
+        let error = err;
         let errorString = this.helper.parseError(error);
         this.toastr.error(errorString, 'Error');
       });

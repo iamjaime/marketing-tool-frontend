@@ -2,7 +2,7 @@ import { Component, AfterViewInit } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { AuthService } from "angular4-social-login";
-import * as io from 'socket.io-client';
+import { Socket } from 'ng-socket-io';
 import { environment } from '../../../environments/environment';
 import { FacebookRepository as Facebook } from '../../repositories/facebook/facebook';
 import { User } from '../../repositories/user/user';
@@ -13,17 +13,16 @@ import { Helper } from '../../utils/helpers';
     selector: 'ap-navigation',
     templateUrl: './navigation.component.html'
 })
-export class NavigationComponent implements AfterViewInit {
+export class NavigationComponent   {
 
     showHide: boolean;
     smi =  JSON.parse(sessionStorage.getItem('smi'));
     facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
-    myUser: any =[];
-    private socket: any;
+    myUser: any =[]; 
     userOnline: any = [];
     photo:any =[];
 
-    constructor(private authService: AuthService, private router: Router, private FB: Facebook, private helper : Helper, private  user: User) {
+    constructor(private authService: AuthService, private router: Router, private FB: Facebook, private helper : Helper, private  user: User,private socket :Socket) {
         this.showHide = true;
         
        // this.socket = io(environment.urls);
@@ -32,35 +31,39 @@ export class NavigationComponent implements AfterViewInit {
     public ngOnInit() {
         //this.user.refreshInformation() ;
         this.user.getUserInfo().then((result) => {
-          /*  console.log(result.data);
-            this.myUser = result.data;
-            if (result.data.avatar) {
+          var resul= JSON.stringify(result);
+          var res = JSON.parse(resul); 
+            this.myUser = res.data;
+            if (res.data.avatar) {
 
-              this.photo = result.data.avatar;
+              this.photo = res.data.avatar;
             }
             else {
               this.photo = 'assets/images/users/1.jpg';
-            }*/
+            } 
           });
           this.socket.on('get-refresh-data', (data) => {
             if (data.data === 'refres') {
               this.user.refreshInformation();
               this.user.getUserInfo().then((result) => {
-               /* console.log(result.data);
-                this.myUser = result.data;
-                if (result.data.avatar) {
+                var resul= JSON.stringify(result);
+                var res = JSON.parse(resul); 
+                console.log(res.data);
+                this.myUser = res.data;
+                if (res.data.avatar) {
 
-                  this.photo = result.data.avatar;
+                  this.photo = res.data.avatar;
                 }
                 else {
                   this.photo = 'assets/images/users/1.jpg';
-                }*/
+                } 
               });
       
             }
           });
 
-        this.socket.emit('set-nickname', this.smi.name, this.smi.email, this.smi.photo);
+        //this.socket.emit('set-nickname', this.smi.name, this.smi.email, this.smi.photo);
+
         this.socket.on('users-changed', (data) => {
             if (data.evets === 'si') {
                 if (this.smi.name != data.id) {
@@ -101,7 +104,7 @@ export class NavigationComponent implements AfterViewInit {
 
       var provider = this.getProvider(this.smi.attached_networks, 'Facebook');
 
-      this.socket.emit('notification',user,this.smi.name, this.smi.email, this.smi.photo, provider.traffic);
+     // this.socket.emit('notification',user,this.smi.name, this.smi.email, this.smi.photo, provider.traffic);
     }
 
 
@@ -109,7 +112,7 @@ export class NavigationComponent implements AfterViewInit {
         this.showHide = !this.showHide;
     }
 
-    ngAfterViewInit() {
+   ngAfterViewInit() {
 
         $(function () {
             $(".preloader").fadeOut();
@@ -149,7 +152,7 @@ export class NavigationComponent implements AfterViewInit {
         (<any>$('.scroll-sidebar, .right-sidebar, .message-center')).perfectScrollbar();
 
         $("body").trigger("resize");
-    }
+    } 
 
 
     logout() {
@@ -157,6 +160,11 @@ export class NavigationComponent implements AfterViewInit {
         this.socket.on('get-discon', (data) => {
            
         });
+        sessionStorage.removeItem('facebook');
+        sessionStorage.removeItem('smi');
+        sessionStorage.removeItem('sm');
+        sessionStorage.removeItem('token');
+        this.router.navigate(['/login']);
 
         if(!this.helper.isEmpty(this.facebook)){
           this.FB.logout().then((response) => {
