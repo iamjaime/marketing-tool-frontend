@@ -13,7 +13,8 @@ export class Login implements LoginInterface {
   result: any;
   token: string;
   smi =  JSON.parse(sessionStorage.getItem('smi'));
-
+  data:any =[];
+  datatoken:any;
   public constructor(private loginService: LoginService, private router: Router, private userService: UserService, private toastr: ToastrService, private helper : Helper) {
 
   }
@@ -24,9 +25,12 @@ export class Login implements LoginInterface {
   public login(userData) {
 
     this.loginService.Auth(userData).then((res) => {
-      console.log(res);
+       this.data = res;
+       this.datatoken = JSON.stringify(this.data);
+       this.token = JSON.parse(this.datatoken); 
       //this.token = res.access_token;
-      sessionStorage.setItem('token', this.token);
+      console.log(this.token);
+     sessionStorage.setItem('token',this.token.access_token);
 
       this.userService.getUserInfo().then((result) => {
         console.log(result);
@@ -34,11 +38,14 @@ export class Login implements LoginInterface {
         //this.assignSession(result.data);
         //this.toastr.success(result.data.name + '!', 'Welcome Back');
         //this.navigateToStart();
+      },(err) => {
+        console.log(err);
       }
       );
 
     }, (err) => {
-      let error = err.json();
+      console.log(err);
+      let error = err;
       this.toastr.error(error.message, 'Error');
     });
   }

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-//import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient, HttpHeaders ,HttpErrorResponse, HttpRequest,HttpEvent, HttpEventType} from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class UserService {
@@ -47,18 +49,19 @@ export class UserService {
    * @returns {any}
    */
   getUserInfo() {
-
+if(sessionStorage.getItem('token')){
+  this.smi.token = sessionStorage.getItem('token');
+  console.log(this.smi.token );
+}
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
-    headers.append('Authorization', 'Bearer ' + this.smi.token);
+    headers.append('Authorization', 'Bearer ' + this.smi.token); 
     headers.append('Access-Control-Allow-Origin', '*');
-
-    let options = {
-      headers: headers
-    };
-
-    return this.http.get<any>(this.url + '/users', options).toPromise();
+ 
+    var options =  ({ headers: headers });
+ console.log(options);
+    return this.http.get(this.url + '/users', options).map((res) => res).toPromise();
   }
 
 
@@ -67,18 +70,19 @@ export class UserService {
    * @returns {any}
    */
   getUserInfoafter() {
-
+    if(sessionStorage.getItem('token')){
+      this.smi.token = sessionStorage.getItem('token');
+      console.log(this.smi.token );
+    }
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.smi.token);
     headers.append('Access-Control-Allow-Origin', '*');
 
-    let options = {
-      headers: headers
-    };
-
-    return this.http.get<any>(this.url + '/users', options).toPromise();
+    var options =  ({ headers: headers });
+    console.log(options);
+    return this.http.get(this.url + '/users', options).map((res) => res).toPromise();
   }
 
 

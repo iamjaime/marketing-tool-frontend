@@ -9,12 +9,22 @@ import { Observable } from 'rxjs/observable';
 @Injectable()
 
 export class AuthInterceptor implements HttpInterceptor {
-
+ 
   intercept (req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    const headers = {
-      'Authorization' : 'Bearer TOKENGOESHERE'
-    };
+    
+     
+     
+        
+    const headers: any= { 
+          
+            }; 
+            if (sessionStorage.getItem('token')) {
+              headers.Authorization = `Bearer ${sessionStorage.getItem('token')}`;
+            } else {
+     
+            }
+         
 
     //Clone the request so that we can append our Auth headers to it.....
     const clone = req.clone({setHeaders : headers });

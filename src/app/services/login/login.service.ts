@@ -1,16 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders ,HttpErrorResponse, HttpRequest,HttpEvent, HttpEventType} from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 import { Socket } from 'ng-socket-io';
+
+interface LoginResponse {
+  accessToken: string;
+  accessExpiration: number;
+}
 
 @Injectable()
 export class LoginService {
+ 
+ 
   url = environment.baseApiUrl;
   result: any;
   response: any;
 
-  constructor(private http: HttpClient, private router: Router,private socket: Socket) {
+  constructor(private HttpClient: HttpClient, private router: Router,private socket: Socket) {
 
   }
 
@@ -20,17 +29,16 @@ export class LoginService {
    * @param password
    */
   Auth(data){
-    console.log(data);
-    let postData = {
+   
+    let postData =  {
       client_id: environment.baseApiClientId,
       client_secret: environment.baseApiClientSecret,
       grant_type: environment.baseApiGrantType,
       username: data.email,
       password: data.password
-    };
-
-    return this.http.post<any>(this.url + '/oauth/token', postData).toPromise();
-
+    }; 
+ 
+    return  this.HttpClient.post(this.url + '/oauth/token',  postData   ).map((res) => res).toPromise();
   }
 
   /**
@@ -40,4 +48,5 @@ export class LoginService {
   connectToSocket(sessionData) {
     this.socket.emit('set-connection', sessionData.name, sessionData.avatar);
   }
+ 
 }
