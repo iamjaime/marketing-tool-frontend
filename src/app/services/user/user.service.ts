@@ -108,7 +108,7 @@ export class UserService {
       headers: headers
     };
 
-    return this.http.post<any>(this.url + '/users/attach_to_service_provider', { data: postData }, options).toPromise();
+    return this.http.post(this.url + '/users/attach_to_service_provider', { data: postData }, options).toPromise();
   }
 
   /**
@@ -147,7 +147,7 @@ export class UserService {
       headers: headers
     };
 
-    return this.http.put<any> (this.url + '/users/' + this.smi.id, { data: postData }, options).toPromise();
+    return this.http.put(this.url + '/users/' + this.smi.id, { data: postData }, options).toPromise();
   }
 
 }

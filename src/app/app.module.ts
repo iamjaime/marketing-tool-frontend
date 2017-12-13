@@ -31,11 +31,9 @@ import {  LoginService } from './services/login/login.service';
 
 import { ToastrModule } from 'ngx-toastr';
 import { Helper } from './utils/helpers';
-import { environment } from '../environments/environment'
+import { environment } from '../environments/environment' ;
 
-
-
-const config2: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
+const config2: SocketIoConfig = { url: 'http://localhost:3001', options: {} }; 
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,

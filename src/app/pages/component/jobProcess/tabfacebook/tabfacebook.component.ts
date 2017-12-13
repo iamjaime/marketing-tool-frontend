@@ -30,6 +30,7 @@ export class tabfacebookComponent {
 		this.orderservice.getOrderInfoAll().then((result) => {
 			var resul= JSON.stringify(result);
 			var res = JSON.parse(resul); 
+			console.log('orden ');
 			console.log(result);
 			this.type = res.data;
 			this.buys = res.data[0].orders;
@@ -72,12 +73,15 @@ export class tabfacebookComponent {
 					provider_id: 1,
 					provider_account_id: this.facebook.id
 				}
-
+				
 				this.order.responOrder(PostData).then((response) => {
+					console.log('action nface' );
+					console.log(response);
 					//this.socket.emit('set-refresh-data', 'refres',this.smi.name,this.facebook.friends_count,user,'job');
 					this.toastr.success('Successful', ' Orders');
 				},
-					err => {
+					(err) => {
+						console.log(err);
 						this.toastr.error('Error', '  Orders ');
 					});
 

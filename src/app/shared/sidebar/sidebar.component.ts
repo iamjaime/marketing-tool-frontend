@@ -89,7 +89,7 @@ ngOnInit(){
   logoutFacebook(){
 
          sessionStorage.removeItem('facebook');
-         window.location.reload();
+        this.router.navigate(['/login']);
 
     }
 
@@ -98,7 +98,7 @@ ngOnInit(){
      * session start navigation
      */
     navigateToStart() {
-      window.location.reload();
+      this.router.navigate(['/login']);
     }
 
 
@@ -148,7 +148,7 @@ ngOnInit(){
           console.log(response);
        var tokenFace = response.authResponse.accessToken;
 
-         sessionStorage.setItem(  'token', tokenFace);
+         //sessionStorage.setItem(  'token', tokenFace);
           if(response.status == "connected"){
             this.FB.getUser(response.authResponse.userID).then((res) => {
 

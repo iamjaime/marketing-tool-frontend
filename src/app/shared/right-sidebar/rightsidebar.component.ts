@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Socket } from 'ng-socket-io';
+ 
 import { environment } from '../../../environments/environment';
 import { Order } from '../../repositories/order/order'; 
 import { FacebookRepository as Facebook } from '../../repositories/facebook/facebook';
+import * as io from 'socket.io-client';
+import { Observable } from 'rxjs/Observable';
 import { ToastrService } from 'ngx-toastr'; 
 import swal from 'sweetalert2'; 
 
@@ -21,19 +23,23 @@ export class RightSidebarComponent {
 	userName = this.smi.name;
 	userEmail = this.smi.email;
 	photo = this.smi.photo;
-
+	private socket: SocketIOClient.Socket;
+	private urls = 'http://localhost:3001';
 	public informationSocket: any;
 	public like: any;
 	public userOnline: any;
   
-	constructor(private FB: Facebook,private order:Order,private toastr:ToastrService ,private socket:Socket) {
-	 
+	constructor(private FB: Facebook,private order:Order,private toastr:ToastrService ) {
+		this.socket = io(this.urls);
 	}
 
 	public ngOnInit() {
-
+		console.log('socket1');
+ 
 		this.socket.on('get-refresh-data', (data) => {
-		 
+			console.log('socket3');
+		 console.log(data);
+
 			 
 			 
 					if(data.user === this.smi.id){

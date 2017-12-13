@@ -20,7 +20,8 @@ export class AuthInterceptor implements HttpInterceptor {
           
             }; 
             if (sessionStorage.getItem('token')) {
-              headers.Authorization = `Bearer ${sessionStorage.getItem('token')}`;
+              headers.Authorization = `Bearer ${sessionStorage.getItem('token')}` 
+        
             } else {
      
             }

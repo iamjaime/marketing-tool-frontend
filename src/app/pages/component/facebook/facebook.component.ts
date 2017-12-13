@@ -31,7 +31,7 @@ export class FacebookComponent {
 	//	this.socket = io(environment.urls);
   }
  ngOnInit(){
-   if( this.facebook.id ){
+   //if( this.facebook.id ){
     this.user.getUserInfo().then((result)=>{
       //console.log(result.data.credits);
       //this.myUser = result.data.credits;
@@ -44,8 +44,8 @@ export class FacebookComponent {
          this.buys =res.data[0].orders;
 
       });
-    }
-   else{ this.router.navigate(['/starter']); }
+   // }
+   //else{ this.router.navigate(['/starter']); }
 
 
 

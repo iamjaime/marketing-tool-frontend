@@ -36,10 +36,12 @@ export class tabfacebookComponent {
 	 
  this. chart();
 	/////////////
-   if( this.facebook.id ){ 
+  // if( this.facebook.id ){ 
     this.user.getUserInfo().then((result)=>{ 
-      //console.log(result.data.credits);
-     // this.myUser = result.data.credits;
+      var resul= JSON.stringify(result);
+      var res = JSON.parse(resul); 
+      console.log(res.data.credits);
+     this.myUser = res.data.credits;
     });
       this.order.getinfOrden().then((result) => {  
         var resul= JSON.stringify(result);
@@ -69,8 +71,8 @@ export class tabfacebookComponent {
 				});
 		}
 	});
-    }
-   else{ this.router.navigate(['/starter']); }
+   // }
+  // else{ this.router.navigate(['/starter']); }
  
   
  
