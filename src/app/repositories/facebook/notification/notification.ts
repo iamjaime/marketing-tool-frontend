@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Socket } from 'ng-socket-io';
 import { FacebookRepository as Facebook } from '../../../repositories/facebook/facebook';
 import {environment} from  '../../../../environments/environment';
+import { OrderService } from '../../../services/order/order.service'
 
 @Injectable()
 export class NotificationRepository implements notificationInterface {
@@ -14,7 +15,7 @@ export class NotificationRepository implements notificationInterface {
     like: any;
     userOnlines = [];
     smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
-    public constructor(private FB: Facebook , private socket :Socket) {
+    public constructor(private FB: Facebook ,private order: OrderService, private socket :Socket) {
        // this.socket = io(environment.urls);
     }
 
@@ -23,7 +24,19 @@ export class NotificationRepository implements notificationInterface {
      * @param url
      */
     public sendNotification(url,id,idemit) {
-       // this.socket.emit('set-nickname',idemit,this.smi.name,this.smi.name,this.smi.avatar, 'si', url,id);
+        var dataSocket: any ={ 
+            idemit:idemit,
+            name:this.smi.name,
+            email:this.smi.name,
+            avatar:this.smi.avatar, 
+            type:'si',
+            url: url,
+            id: id
+        };
+        this.order.sendNotificationSocket(dataSocket);
+        
+
+        console.log(dataSocket);
         this.socket.on('users-changed', (data) => { this.data = data; console.log(this.data); });
     }
 

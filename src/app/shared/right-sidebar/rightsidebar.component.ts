@@ -3,13 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Order } from '../../repositories/order/order'; 
 import { FacebookRepository as Facebook } from '../../repositories/facebook/facebook';
-import * as io from 'socket.io-client';
+import { OrderService } from '../../services/order/order.service'
+import { Socket } from 'ng-socket-io';
 import { Observable } from 'rxjs/Observable';
 import { ToastrService } from 'ngx-toastr'; 
 import swal from 'sweetalert2'; 
-
-
-//declare const FB:any;
+ 
 @Component({
 	selector: 'ap-rightsidebar',
 	templateUrl: './rightsidebar.component.html'
@@ -17,23 +16,64 @@ import swal from 'sweetalert2';
 
 export class RightSidebarComponent {
  
-  smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
+  smi =   JSON.parse(sessionStorage.getItem('smi'));
   facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
 
 	userName = this.smi.name;
 	userEmail = this.smi.email;
 	photo = this.smi.photo;
-	private socket: SocketIOClient.Socket;
-	private urls = 'http://localhost:3001';
+ 
 	public informationSocket: any;
 	public like: any;
 	public userOnline: any;
   
-	constructor(private FB: Facebook,private order:Order,private toastr:ToastrService ) {
-		this.socket = io(this.urls);
+	constructor(private FB: Facebook,private order:Order,private toastr:ToastrService, private socket :Socket ,private orderService :OrderService) {
+ 
 	}
 
 	public ngOnInit() {
+
+			//this.socket.emit('set-nickname', this.smi.name, this.smi.email, this.smi.photo);
+			this.socket.on('users-changed', (data) => {
+				console.log('notificacion');
+				console.log(data);
+				
+							this.userOnline = data.s;
+							 
+				
+							this.informationSocket = data;
+							this.like = this.informationSocket.urls;
+							if (this.informationSocket.evets === 'si') {
+				
+								if (this.smi.name != this.informationSocket.id) { 
+									var d = this.like;
+									var id = this.informationSocket;
+									 swal({
+				
+				
+										title: ' apply for new job?',
+										text: "solicitor:" + id.user , 
+										imageUrl: id.photo ,
+										imageWidth: 150,
+										imageHeight: 100, 
+										confirmButtonText: 'accept',
+										showCancelButton: true,
+										confirmButtonColor: '#3085d6',
+										cancelButtonColor: '#d33'
+									 
+									}).then((result) => {
+										if (result) {
+											this.SharedFacebook(d,id.types,this.informationSocket.idemit,this.informationSocket.idd);
+											 
+										}else{
+											swal('Cancelled', 'Canceled job ', 'error')
+										}
+									})
+								}
+							}
+						});
+
+
 		console.log('socket1');
  
 		this.socket.on('get-refresh-data', (data) => {
@@ -63,49 +103,12 @@ export class RightSidebarComponent {
 				})
 		 
 		});
-		//this.socket.emit('set-nickname', this.smi.name, this.smi.email, this.smi.photo);
-		this.socket.on('users-changed', (data) => {
-
-console.log(data);
-
-			this.userOnline = data.s;
-			 
-
-			this.informationSocket = data;
-			this.like = this.informationSocket.urls;
-			if (this.informationSocket.evets === 'si') {
-
-				if (this.smi.name != this.informationSocket.id) { 
-					var d = this.like;
-					var id = this.informationSocket;
-				 	swal({
-
-
-						title: ' apply for new job?',
-						text: "solicitor:" + id.user , 
-						imageUrl: id.photo ,
-						imageWidth: 150,
-						imageHeight: 100, 
-						confirmButtonText: 'accept',
-						showCancelButton: true,
-						confirmButtonColor: '#3085d6',
-						cancelButtonColor: '#d33'
-					 
-					}).then((result) => {
-						if (result) {
-							this.SharedFacebook(d,id.types,this.informationSocket.idemit);
-							 
-						}else{
-							swal('Cancelled', 'Canceled job ', 'error')
-						}
-					})
-				}
-			}
-		});
+	
 	}
 
 
-	SharedFacebook(d,id,idemit) {
+	SharedFacebook(d,id,idemit,idd) {
+		console.log(d,id,idemit);
 		this.FB.ui(
 			{
 				method: 'share',
@@ -116,15 +119,31 @@ console.log(data);
 					swal('Cancelled', 'Canceled job ', 'error')
 				} else {
 
-					swal('Successful!', 'Successful work, thank you for your trust', 'success');
-					var PostData: any= {
-						order_id :id,
-						provider_id : 1,
-						provider_account_id:this.facebook.id 
-					  }
-					   
-					  this.order.responOrder(PostData); 
-					  //this.socket.emit('set-refresh-data','refres',this.smi.name,this.facebook.friends_count,idemit,'job'); 
+					swal('Successful!', 'Successful work, thank you for your trust', 'success'); 
+					  var PostData: any = {
+						order_id: idd,
+						provider_id: 1,
+						provider_account_id: this.facebook.id
+					}
+					  this.order.responOrder(PostData).then((response) => {
+						console.log('action nface' );
+						console.log(response);
+	
+						var datarefres: any ={  
+							refresh: 'refresh',
+							name:this.smi.name,
+							friends:this.facebook.friends_count,
+							user:idemit,
+							type:'job'
+							};
+							this.orderService.refreshDataSocket(datarefres);
+					 
+						this.toastr.success('Successful', ' Orders');
+					},
+						(err) => {
+							console.log(err);
+							this.toastr.error('Error', '  Orders ');
+						});
 					
 				}
 			});

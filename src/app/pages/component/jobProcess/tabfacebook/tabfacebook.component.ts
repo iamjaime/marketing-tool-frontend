@@ -4,9 +4,9 @@ import { environment } from '../../../../../environments/environment';
 import swal from 'sweetalert2';
 import { FacebookRepository as Facebook } from '../../../../repositories/facebook/facebook';
 import { OrderService } from '../../../../services/order/order.service';
-import { Order } from '../../../../repositories/order/order';
-import { ToastrService } from 'ngx-toastr'; 
-import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'; 
+import { Order } from '../../../../repositories/order/order'; 
+import { ToastrService } from 'ngx-toastr';
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -15,40 +15,38 @@ import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-
 })
 
 export class tabfacebookComponent {
-	 
+
 	smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
 	facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
 	result: any;
-	type : any = [];
-	buys : any = [];
-	constructor(private order: Order, private orderservice: OrderService, private FB: Facebook, private toastr: ToastrService, private socket : Socket) {
+	type: any = [];
+	buys: any = [];
+	constructor(private order: Order, private orderservice: OrderService, private FB: Facebook, private toastr: ToastrService, private socket: Socket) {
 		//this.socket = io(environment.urls);
 	}
 
 	ngOnInit() {
- 
+
 		this.orderservice.getOrderInfoAll().then((result) => {
-			var resul= JSON.stringify(result);
-			var res = JSON.parse(resul); 
-			console.log('orden ');
-			console.log(result);
+			var resul = JSON.stringify(result);
+			var res = JSON.parse(resul);
 			this.type = res.data;
 			this.buys = res.data[0].orders;
-		 
- 
+
+
 		});
 
-		this.socket.on('get-refresh-data', (data) => {
-			console.log(data);
-			if (data.data === 'refres') {
-			
+		this.socket.on('get-refresh-data', (data) => { 
+			console.log('actualizar');
+			console.log(data.data);
+			if (data.data === 'refresh') {
 				this.orderservice.getOrderInfoAll().then((result) => {
-					var resul= JSON.stringify(result);
-					var res = JSON.parse(resul); 
+					var resul = JSON.stringify(result);
+					var res = JSON.parse(resul);
 					this.type = res.data;
-					this.buys = res.data[0].orders; 
+					this.buys = res.data[0].orders;
 				});
-			 
+
 			}
 		});
 
@@ -60,7 +58,7 @@ export class tabfacebookComponent {
 	 * @param url 
 	 * @param id 
 	 */
-	actionFacebook(url, id,user) {
+	actionFacebook(url, id, user) {
 
 		this.FB.ui({ method: 'share', href: url }).then((response) => {
 
@@ -73,18 +71,22 @@ export class tabfacebookComponent {
 					provider_id: 1,
 					provider_account_id: this.facebook.id
 				}
-				
-				this.order.responOrder(PostData).then((response) => {
-					console.log('action nface' );
-					console.log(response);
-					//this.socket.emit('set-refresh-data', 'refres',this.smi.name,this.facebook.friends_count,user,'job');
+
+				this.order.responOrder(PostData).then((response) => { 
+					var dataSocket: any = {
+						refresh: 'refresh',
+						name: this.smi.name,
+						friends: this.facebook.friends_count,
+						user: user,
+						type: 'job'
+					};
+					this.orderservice.refreshDataSocket(dataSocket); 
 					this.toastr.success('Successful', ' Orders');
 				},
 					(err) => {
 						console.log(err);
 						this.toastr.error('Error', '  Orders ');
 					});
-
 			}
 		});
 
@@ -109,20 +111,20 @@ export class tabfacebookComponent {
 		return false;
 	}
 
-/**
-  * Handles the process to buy shares package
-  * @param url
-  * @param quantity
-  */
+	/**
+	  * Handles the process to buy shares package
+	  * @param url
+	  * @param quantity
+	  */
 	verifyUrl(url) {
-		if(url){
+		if (url) {
 			swal({
-				html:'<iframe src="https://www.facebook.com/plugins/post.php?href=' +
-				url+ '&width=500&show_text=false& = &height=497' +
-				'"  width="100%"height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>' ,
- 
+				html: '<iframe src="https://www.facebook.com/plugins/post.php?href=' +
+				url + '&width=500&show_text=false& = &height=497' +
+				'"  width="100%"height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>',
+
 				confirmButtonText: 'ok',
- 
+
 				showLoaderOnConfirm: true,
 			})
 		}

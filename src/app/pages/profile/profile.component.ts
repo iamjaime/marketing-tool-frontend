@@ -49,7 +49,7 @@ this.chart();
       } 
     });
     this.socket.on('get-refresh-data', (data) => {
-      if (data.data === 'refres') {
+      if (data.data === 'refresh') {
         this.user.refreshInformation();
         this.chart();
         this.user.getUserInfo().then((result) => {

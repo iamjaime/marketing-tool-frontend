@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { Helper } from '../../utils/helpers';
 import { Socket } from 'ng-socket-io';
-
 @Component({
   selector: 'ap-sidebar',
   templateUrl: './sidebar.component.html',
@@ -39,7 +38,7 @@ ngOnInit(){
     }  
   });
   this.socket.on('get-refresh-data', (data) => {
-    if (data.data === 'refres') {
+    if (data.data === 'refresh') {
       this.user.refreshInformation();
       this.user.getUserInfo().then((result) => {
         var resul= JSON.stringify(result);

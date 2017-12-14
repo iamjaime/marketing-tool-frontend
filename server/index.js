@@ -43,12 +43,12 @@ io.on('connection', (socket) => {
 
 
   });
+ 
 
+  socket.on('set-nickname', (dataSocket,idemit,idusu, nickname, photo, notification, url, types) => {
+    socket.nickname = dataSocket.name;
 
-  socket.on('set-nickname', (idemit,idusu, nickname, photo, notification, url, types) => {
-    socket.nickname = idusu;
-
-    io.emit('users-changed', { idemit:idemit,id: idusu, user: nickname, photo: photo, event: 'connect', evets: notification, urls: url, types: types, s: users });
+    io.emit('users-changed', { idemit:dataSocket.id,id: dataSocket.name, user: dataSocket.name, photo: dataSocket.avatar, event: 'connect', evets: dataSocket.type, urls: dataSocket.url, types: dataSocket.type, s: users,idd:dataSocket.id });
 
 
 
@@ -76,10 +76,10 @@ io.on('connection', (socket) => {
 
   });
 
-
-  socket.on('set-refresh-data', (refres,name,friends,user,message) => { 
-
-    io.emit('get-refresh-data', { data: refres ,name:name,friends:friends ,user:user,message:message});
+ 
+  socket.on('set-refresh-data', (datarefres) => { 
+ 
+    io.emit('get-refresh-data', { data: datarefres.refresh ,name: datarefres.name,friends: datarefres.friends ,user: datarefres.user,message: datarefres.type});
 
 
 

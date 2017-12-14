@@ -36,17 +36,16 @@ export class tabfacebookComponent {
 	 
  this. chart();
 	/////////////
-  // if( this.facebook.id ){ 
+  if( this.facebook.id ){ 
     this.user.getUserInfo().then((result)=>{ 
       var resul= JSON.stringify(result);
       var res = JSON.parse(resul); 
-      console.log(res.data.credits);
+     
      this.myUser = res.data.credits;
     });
       this.order.getinfOrden().then((result) => {  
         var resul= JSON.stringify(result);
-        var res = JSON.parse(resul); 
-        console.log(result);
+        var res = JSON.parse(resul);  
          this.type =res.data;
 		 this.buys =res.data[0].orders;
 		 console.log(this.type);
@@ -56,10 +55,14 @@ export class tabfacebookComponent {
 
 
 	  this.socket.on('get-refresh-data', (data) => {
-		if (data.data === 'refres') {
+      console.log('get-refresh-data');
+      console.log(data);
+		if (data.data === 'refresh') {
 			this.user.getUserInfo().then((result)=>{ 
-			//	console.log(result.data.credits);
-			//	this.myUser = result.data.credits;
+
+        var resul= JSON.stringify(result);
+        var res = JSON.parse(resul); 
+		 	this.myUser = res.data.credits;
 			  });
 				this.order.getinfOrden().then((result) => {  
           var resul= JSON.stringify(result);
@@ -71,8 +74,8 @@ export class tabfacebookComponent {
 				});
 		}
 	});
-   // }
-  // else{ this.router.navigate(['/starter']); }
+  }
+   else{ this.router.navigate(['/starter']); }
  
   
  
@@ -111,7 +114,11 @@ export class tabfacebookComponent {
     }); 
      // this.notification.sendNotification(url);
       swal('Success ',  'Your Order Has Been Placed', 'success');
-      this.socket.emit('set-refresh-data', 'refres');
+       var dataSocket :any ={
+         refresh:'refresh'
+       }
+      this.orderservice.refreshDataSocket(dataSocket);
+      
       this.ngOnInit();
     }else{
       swal('error ', 'Facebook Post URL is required',  'error');

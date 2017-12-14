@@ -3,15 +3,16 @@ import { environment } from '../../../environments/environment';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpRequest, HttpEvent, HttpEventType } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { Socket } from 'ng-socket-io';
 
 @Injectable()
 export class OrderService {
 
   url = environment.baseApiUrl + '/' + environment.baseApiPrefix + '/' + environment.baseApiVersion;
   facebook = (!sessionStorage.getItem('facebook')) ? {} : JSON.parse(sessionStorage.getItem('facebook'));
-  smi = (!sessionStorage.getItem('smi')) ? {} : JSON.parse(sessionStorage.getItem('smi'));
+  smi = JSON.parse(sessionStorage.getItem('smi'));
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private socket: Socket) {
   }
 
   /**
@@ -104,5 +105,14 @@ export class OrderService {
       headers: headers
     };
     return this.http.post(this.url + '/orders/fill', { data: postData }, options).map(res => res).toPromise();
+  }
+
+  sendNotificationSocket(dataSocket) {
+    this.socket.emit('set-nickname', dataSocket);
+  }
+
+
+  refreshDataSocket(dataSocket) {
+    this.socket.emit('set-refresh-data', dataSocket);
   }
 }

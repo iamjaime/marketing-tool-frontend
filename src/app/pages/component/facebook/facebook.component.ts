@@ -31,10 +31,12 @@ export class FacebookComponent {
 	//	this.socket = io(environment.urls);
   }
  ngOnInit(){
-   //if( this.facebook.id ){
+   if( this.facebook.id ){
     this.user.getUserInfo().then((result)=>{
-      //console.log(result.data.credits);
-      //this.myUser = result.data.credits;
+      var resul= JSON.stringify(result);
+      var res = JSON.parse(resul); 
+    
+       this.myUser = res.data.credits;
     });
       this.order.getinfOrden().then((result) => {
         var resul= JSON.stringify(result);
@@ -44,8 +46,8 @@ export class FacebookComponent {
          this.buys =res.data[0].orders;
 
       });
-   // }
-   //else{ this.router.navigate(['/starter']); }
+    }
+    else{ this.router.navigate(['/starter']); }
 
 
 
@@ -78,11 +80,10 @@ export class FacebookComponent {
          this.toastr.success('Successful', ' Orders');
          this.ngOnInit();
     },
-    err => {
-        //this.result =err.json();
+    err => { 
         this.toastr.error ('Error', '  Orders ');
     });
-     // this.notification.sendNotification(url);
+     
       swal('Success ',  'Your Order Has Been Placed', 'success');
       this.socket.emit('set-refresh-data', 'refres');
       this.ngOnInit();
