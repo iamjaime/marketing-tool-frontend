@@ -43,7 +43,7 @@ export class NavigationComponent   {
             } 
           });
           this.socket.on('get-refresh-data', (data) => {
-            if (data.data === 'refres') {
+            if (data.data === 'refresh') {
               this.user.refreshInformation();
               this.user.getUserInfo().then((result) => {
                 var resul= JSON.stringify(result);

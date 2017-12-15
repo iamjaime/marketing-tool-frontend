@@ -47,6 +47,14 @@ export class LoginService {
    */
   connectToSocket(sessionData) {
     this.socket.emit('set-connection', sessionData.name, sessionData.avatar);
+    this.socket.emit('set-nickname',   sessionData.name, sessionData.avatar);
+    this.socket.on('get-connection', (data) => {
+      console.log('user online'); 
+      console.log(data); 
+    
+    })
   }
+
+  
  
 }

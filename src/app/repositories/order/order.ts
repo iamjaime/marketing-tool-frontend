@@ -35,5 +35,8 @@ export class Order implements OrderInterface {
   getinfOrden(){
       return this.orderService.getOrderInfoAll();
   }
- 
+
+  
+  
+
 }

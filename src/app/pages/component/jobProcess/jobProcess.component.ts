@@ -13,10 +13,10 @@ export class JobProcess {
   }
   
   ngOnInit(){
-    if( this.facebook.id ){}
+     if( this.facebook.id ){}
     else{
       this.router.navigate(['/starter']);
-    }
+    } 
      
    }
  
