@@ -4,13 +4,13 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-    production: false, 
+    production: false,
     facebookID: '308199743010770',
-    urls :'http://socialmediaincome.com:3001',
-    baseApiUrl: 'http://api.socialmediaincome.com',
+    urls :'http://localhost:3001',
+    baseApiUrl: 'http://localhost:8000',
     baseApiPrefix : 'api',
-     baseApiVersion: 'v1',
-     baseApiClientId : 3,
-     baseApiClientSecret: 'pzLLWKihycWEa658YKydnBMajZzgupETm4Y6h7jf',
-     baseApiGrantType : 'password',
+    baseApiVersion: 'v1',
+    baseApiClientId : 1,
+    baseApiClientSecret: 'Jnc4tzh3pjaSz7sRTv2NbY1eetqCEoNDrZahr0CD',
+    baseApiGrantType : 'password'
 };
