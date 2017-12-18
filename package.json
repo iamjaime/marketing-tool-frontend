@@ -23,7 +23,7 @@
     "@angular/platform-browser": "^5.0.0",
     "@angular/platform-browser-dynamic": "^5.0.0",
     "@angular/router": "^5.0.0",
-    "@ng-bootstrap/ng-bootstrap": "^1.0.0-beta.5",
+    "@ng-bootstrap/ng-bootstrap": "^1.0.0-beta.8",
     "@types/socket.io": "^1.4.31",
     "angular-sweetalert-service": "^2.0.2",
     "angular2-material-chips": "^1.0.5",
@@ -54,6 +54,7 @@
     "sweetalert": "^2.0.8",
     "toastr": "^2.1.2",
     "typescript": "^2.4.2",
+    "typings": "^2.1.1",
     "zone.js": "^0.8.16"
   },
   "devDependencies": {
