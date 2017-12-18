@@ -26,7 +26,7 @@ export class PricingComponent implements OnInit {
        name: 'Social Media',
        description: 'buy credits',
       image:"../assets/images/logo-icon.png",
-      //bitcoin:"true", 
+     //bitcoin:"true", 
       label:"Pay with Card or Bitcoin", 
       amount: money,
       currency: "usd" 
