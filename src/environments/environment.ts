@@ -5,7 +5,7 @@
 
 export const environment = {
     production: false,
-    facebookID: '308199743010770',   
+    facebookID: '531968097138866',   
     urls :'http://localhost:3001',
     baseApiUrl: 'http://localhost:8000',
     baseApiPrefix : 'api',
